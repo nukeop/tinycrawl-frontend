@@ -1,0 +1,10 @@
+.tc.menu {
+  padding: 0 1em;
+  align-items: center;
+  font-family: Electrolize;
+  font-variant: small-caps;
+  
+  &.right_aligned {
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,19 @@
+div[class*='ArwesSounds(Header)'] {
+  display: flex;
+  flex-flow: row;
+
+  h1, h2, h3, h4, h5 {
+    display: flex;
+    align-items: center;
+  }
+}
+
+div[class*='ArwesSounds(Footer)-children'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div[class*='Arwes-main'] {
+  display: flex;
+}

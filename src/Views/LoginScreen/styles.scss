@@ -1,0 +1,32 @@
+.login_screen {
+  justify-content: center;
+
+  h2 {
+    margin: 0;
+  }
+  
+  div[class*='ArwesSounds(Frame)-root'],
+  div[class*='ArwesSounds(Frame)-box'],
+  div[class*='ArwesSounds(Frame)-children'] {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.login_panel {
+  max-width: 640px;
+  max-height: 360px;
+  height: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login_panel_column {
+  height: 100%;
+  padding: 1em;
+  justify-content: space-between;
+}
+
+.login_button_row {
+  justify-content: flex-end;
+}

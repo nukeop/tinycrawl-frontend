@@ -1,0 +1,14 @@
+
+@mixin borderRadius {
+  border-radius: 0;
+}
+
+@mixin transition {
+  transition: 0.25s;
+};
+
+@mixin centerVertically {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}

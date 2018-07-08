@@ -1,0 +1,25 @@
+@import '../../../colors.scss';
+@import '../../../mixin.scss';
+
+.menu_button {
+  @include transition;
+  margin-right: 1em;
+  padding: 0.5em;
+  cursor: pointer;
+  align-items: center;
+  height: 100%;
+
+  &:hover, &active, &:focus {
+    background-color: rgba($blue, 0.39);
+    color: $white;
+  }
+
+  i {
+    font-size: 30px;
+  }
+
+  a {
+    @include centerVertically;
+    height: 100%;
+  }
+}
