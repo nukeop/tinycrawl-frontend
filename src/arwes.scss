@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 .arwes_header_root {
   h1, h2, h3, h4, h5 {
     display: flex;
@@ -13,14 +15,32 @@
   flex-flow: row;
   flex: 1 1 auto;
   align-items: center;
+  z-index: 5;
 }
 
-div[class*='ArwesSounds(Footer)-children'] {
+.arwes_footer_root {
+  flex: 1 1 auto;
+  font-family: Electrolize;
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 0;
+  z-index: 5;
+
+  a {
+    color: lighten($blue, 35%);
+  }
+}
+
+.arwes_footer_children {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-div[class*='Arwes-main'] {
+
+.arwes_main {
   display: flex;
+  overflow: auto;
+  z-index: 4;
+  height: 100%;
 }

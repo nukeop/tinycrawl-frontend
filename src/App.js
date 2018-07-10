@@ -31,13 +31,20 @@ const App = () => {
   return (
     <div className='app_container'>
       <ThemeProvider theme={createTheme()}>
-        <Arwes background={bg}>
+        <Arwes
+          animate
+          background={bg}
+          classes={{
+            main: arwesStyles.arwes_main
+          }}
+        >
           <Column grow={1} className={styles.main_layout_column}>
             <Row>
               <Header animate classes={{
-                        root: arwesStyles.arwes_header_root,
-                        children: arwesStyles.arwes_header_children
-                      }}>
+                root: arwesStyles.arwes_header_root,
+                children: arwesStyles.arwes_header_children
+              }}
+              >
                 <Heading node='h3'>
                   Tinycrawl
                 </Heading>
@@ -54,7 +61,11 @@ const App = () => {
               { routes() }
             </Row>
             <Row>
-              <Footer className={styles.footer}>
+              <Footer classes={{
+                root: arwesStyles.arwes_footer_root,
+                children: arwesStyles.arwes_footer_children
+              }}
+              >
                 <constants.copyrightText/>
               </Footer>
             </Row>
