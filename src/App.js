@@ -14,8 +14,6 @@ import Row from './Components/Row';
 import Menu from './Components/Menu';
 import { MenuButton } from './Components/Menu';
 
-import LoginScreen from './Views/LoginScreen';
-
 import constants from './constants';
 import routes from './routes';
 import bg from '../resources/bg.jpg';

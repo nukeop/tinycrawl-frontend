@@ -1,5 +1,9 @@
 @import './colors.scss';
 
+body, div, input {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
 #app {
   position: absolute;
   top: 0;

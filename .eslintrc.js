@@ -38,6 +38,7 @@ module.exports = {
   "globals": {
     "module": false,
     "require": false,
-    "__dirname": false
+    "__dirname": false,
+    "Buffer": true
   }
 };
