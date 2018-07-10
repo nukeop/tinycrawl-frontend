@@ -13,6 +13,7 @@ import Column from './Components/Column';
 import Row from './Components/Row';
 import Menu from './Components/Menu';
 import { MenuButton } from './Components/Menu';
+import Toast from './Components/Toast';
 
 import constants from './constants';
 import routes from './routes';
@@ -38,6 +39,9 @@ const App = () => {
             main: arwesStyles.arwes_main
           }}
         >
+          <Toast level='primary' placement='bottom-right'>
+            Toast notification test
+          </Toast>
           <Column grow={1} className={styles.main_layout_column}>
             <Row>
               <Header animate classes={{

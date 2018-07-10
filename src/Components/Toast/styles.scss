@@ -1,0 +1,84 @@
+@import '../../colors.scss';
+@import '../../mixin.scss';
+
+.tc.toast {
+  @include transition;
+  position: absolute;
+  display: flex;
+  max-width: 480px;
+  width: calc(100% - 4em);
+  opacity: 0.89;
+  min-height: 100px;
+  margin: 2em;
+  z-index: 100;
+
+  &.top_left {
+    top: 0;
+    left: 0;
+  }
+
+  &.top_right {
+    top: 0;
+    right: 0;
+  }
+
+  &.bottom_left {
+    bottom: 0;
+    left: 0;
+  }
+
+  &.bottom_right {
+    bottom: 0;
+    right: 0;
+  }
+
+  &.orange {
+    color: $orange;
+  }
+
+  &.red {
+    color: $red;
+  }
+
+  &.green {
+    color: $green;
+  }
+}
+
+.tc.toast_box {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  background: rgba($bg2, 0.65);
+  padding: 1em;
+  font-family: Roboto Condensed;
+}
+
+.tc.toast_box_children {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+}
+
+.tc.toast_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
+  font-size: 48px;
+}
+
+.tc.toast_message {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1 1 auto;
+  padding: 0.5em 1em;
+}
+
+@keyframes toast-anim-up {
+  
+}
