@@ -13,7 +13,6 @@ module.exports = {
   entry: path.resolve(SRC_DIR, 'index.jsx'),
   output: {
     path: DIST_DIR,
-    publicPath: '/',
     filename: '[name].bundle.js'
   },
   mode: 'production',
@@ -29,12 +28,6 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
           chunks: 'all'
-        },
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true
         }
       }
     },
@@ -51,15 +44,17 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        loader: 'babel-loader'
       }, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5]'
+          'css-loader?importLoaders=1&modules=true&localIdentName=[local]___[hash:base64:5]'
         ],
-        exclude: RESOURCES_DIR
+        exclude: [
+          RESOURCES_DIR,
+          /node_modules/
+        ]
       }, {
         test: /\.css$/,
         use: [
@@ -71,7 +66,7 @@ module.exports = {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader?importLoaders=1&modules&localIdentName=[local]',
+          'css-loader?importLoaders=1&modules=true&localIdentName=[local]__[hash:base64:5]',
           'sass-loader'
         ]
       }, {
