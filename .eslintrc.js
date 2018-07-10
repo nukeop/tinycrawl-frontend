@@ -1,6 +1,7 @@
 module.exports = {
   "env": {
-    "browser": true,
+    "browser": "true",
+    "node": true,
     "es6": true
   },
   "extends": [
@@ -8,8 +9,8 @@ module.exports = {
     "plugin:react/recommended"
   ],
   "parserOptions": {
+    "ecmaVersion": 6,
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
       "jsx": true
     },
     "sourceType": "module"
@@ -34,11 +35,5 @@ module.exports = {
       "error",
       "always"
     ]
-  },
-  "globals": {
-    "module": false,
-    "require": false,
-    "__dirname": false,
-    "Buffer": true
   }
 };
