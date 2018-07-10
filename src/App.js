@@ -57,7 +57,7 @@ const App = () => {
                 </Menu>
               </Header>
             </Row>
-            <Row grow={2}>
+            <Row grow={2} className={styles.routes_row}>
               { routes() }
             </Row>
             <Row>

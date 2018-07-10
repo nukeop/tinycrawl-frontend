@@ -1,14 +1,4 @@
 @import './colors.scss';
-@import './mixin.scss';
-
-.header {
-  flex: 1 1 auto;
-
-  h1,h2,h3 {
-    padding: 0 1rem;
-    margin-bottom: 0;
-  }
-}
 
 .main_layout_column {
   height: 100%;
@@ -18,20 +8,6 @@
   color: $white;
 }
 
-a {
-  @include transition;
-  text-decoration: none;
-  outline: none;
-  color: $blue;
-}
-
-label {
-  font-family: Electrolize;
-}
-
-input {
-  border: 1px solid rgba($blue, 0.89);
-  padding: 0.25em;
-  background: rgba($bg, 0.25);
-  color: rgba($white, 0.89);
+.routes_row {
+  z-index: 5;
 }
