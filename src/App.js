@@ -24,7 +24,7 @@ import './colors.scss';
 import './mixin.scss';
 import './normalize.scss';
 import './global.scss';
-import './arwes.scss';
+import arwesStyles from './arwes.scss';
 import styles from './styles.scss';
 
 const App = () => {
@@ -34,7 +34,10 @@ const App = () => {
         <Arwes background={bg}>
           <Column grow={1} className={styles.main_layout_column}>
             <Row>
-              <Header animate className={styles.header}>
+              <Header animate classes={{
+                        root: arwesStyles.arwes_header_root,
+                        children: arwesStyles.arwes_header_children
+                      }}>
                 <Heading node='h3'>
                   Tinycrawl
                 </Heading>
