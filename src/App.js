@@ -39,9 +39,6 @@ const App = () => {
             main: arwesStyles.arwes_main
           }}
         >
-          <Toast level='primary' placement='bottom-right'>
-            Toast notification test
-          </Toast>
           <Column grow={1} className={styles.main_layout_column}>
             <Row>
               <Header animate classes={{
