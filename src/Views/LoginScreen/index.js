@@ -76,7 +76,9 @@ class LoginScreen extends React.Component {
 
               {
                 (user.credentials && user.credentials.loading)
-                  ? <Logo animate />
+                  ? <div className={styles.loader_container}>
+                    <Logo animate />
+                  </div>
                   : <LoginForm
                     onUsernameChange={ this.onUsernameChange.bind(this) }
                     onPasswordChange={ this.onPasswordChange.bind(this) }
