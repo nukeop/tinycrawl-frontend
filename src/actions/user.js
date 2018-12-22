@@ -31,12 +31,13 @@ function userAuthError(error) {
 export function userAuth(username, password) {
   return dispatch => {
     dispatch(userAuthStart());
-    loginAuthenticate(username, password)
+    
+    fetch(loginAuthenticate(username, password))
       .then(data => {
         if (data.ok) {
           return data.json();
         } else {
-          console.log(data);
+          throw new Error(`${data.status}: ${data.statusText}`);
         }
       })
       .then(data => {
@@ -44,7 +45,7 @@ export function userAuth(username, password) {
         userAuthOk(username);
       })
       .catch(error => {
-        dispatch(userAuthError(error));
+        dispatch(userAuthError(error.message));
       });
   };
 }

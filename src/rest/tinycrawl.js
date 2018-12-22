@@ -11,10 +11,8 @@ export function loginAuthenticate(login, password) {
 
   request = new Request(
     backendUrl + '/users/authenticate',
-    {
-      headers
-    }
-  );  
+    { headers }
+  );
   
-  return fetch(request);
+  return request;
 }

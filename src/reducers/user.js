@@ -18,6 +18,9 @@ export default function UserReducer(state=initialState, action) {
     });
   case USER_AUTH_OK:
   case USER_AUTH_ERROR:
+    return Object.assign({}, state, {
+      credentials: null
+    });
   default:
     return state;
   }
