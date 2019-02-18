@@ -25,9 +25,10 @@ const Toast = props => {
   let {
     level,
     placement,
+    onClick,
     children
   } = props;
-  
+
   return (
     <Frame
       animate
@@ -48,7 +49,8 @@ const Toast = props => {
       classes={{
         box: classnames(styles.tc, styles.toast_box),
         children: classnames(styles.tc, styles.toast_box_children)
-      }} 
+      }}
+      onClick={onClick}
     >
       <div className={classnames(styles.tc, styles.toast_icon)}>
         { layerToIcon(level) }
@@ -63,12 +65,14 @@ const Toast = props => {
 Toast.propTypes = {
   level: PropTypes.oneOf(['primary', 'secondary', 'header', 'control', 'alert', 'success']),
   placement: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right']),
+  onClick: PropTypes.func,
   children: PropTypes.node
 };
 
 Toast.defaultProps = {
   level: 'primary',
   placement: 'bottom-right',
+  onClick: () => {},
   children: null
 };
 

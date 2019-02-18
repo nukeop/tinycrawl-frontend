@@ -1,4 +1,5 @@
 import { loginAuthenticate } from '../rest/tinycrawl';
+import { notify } from './notifications';
 
 export const USER_AUTH_START = 'USER_AUTH_START';
 export const USER_AUTH_OK = 'USER_AUTH_OK';
@@ -31,7 +32,7 @@ function userAuthError(error) {
 export function userAuth(username, password) {
   return dispatch => {
     dispatch(userAuthStart());
-    
+
     fetch(loginAuthenticate(username, password))
       .then(data => {
         if (data.ok) {
@@ -45,6 +46,7 @@ export function userAuth(username, password) {
         userAuthOk(username);
       })
       .catch(error => {
+        dispatch(notify('Login or password invalid.', 'alert'));
         dispatch(userAuthError(error.message));
       });
   };

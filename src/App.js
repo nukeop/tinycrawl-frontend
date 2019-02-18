@@ -13,7 +13,7 @@ import Column from './Components/Column';
 import Row from './Components/Row';
 import Menu from './Components/Menu';
 import { MenuButton } from './Components/Menu';
-import Toast from './Components/Toast';
+import ToastNotifications from './Views/ToastNotifications';
 
 import constants from './constants';
 import routes from './routes';
@@ -70,6 +70,7 @@ const App = () => {
                 <constants.copyrightText/>
               </Footer>
             </Row>
+            <ToastNotifications />
           </Column>
         </Arwes>
       </ThemeProvider>
