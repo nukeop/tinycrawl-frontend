@@ -7,12 +7,10 @@ import {
   ThemeProvider,
   createTheme
 } from 'arwes';
-import { NavLink } from 'react-router-dom';
 
 import Column from './Components/Column';
 import Row from './Components/Row';
-import Menu from './Components/Menu';
-import { MenuButton } from './Components/Menu';
+import TopBar from './Views/TopBar';
 import ToastNotifications from './Views/ToastNotifications';
 
 import constants from './constants';
@@ -49,13 +47,7 @@ const App = () => {
                 <Heading node='h3'>
                   Tinycrawl
                 </Heading>
-                <Menu rightAligned>
-                  <MenuButton>
-                    <NavLink to='/login' activeClassName={styles.active_link}>
-                      <i className='bx bx-user-circle'></i>
-                    </NavLink>
-                  </MenuButton>
-                </Menu>
+                <TopBar />
               </Header>
             </Row>
             <Row grow={2} className={styles.routes_row}>
