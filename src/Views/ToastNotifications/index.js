@@ -9,10 +9,12 @@ import Toast from '../../Components/Toast';
 import styles from './styles.scss';
 
 const ToastNotifications = props => {
-  console.log(props);
   return (
-    _.map(props.notifications, notification =>
-      <Toast level={notification.level}>
+    _.map(props.notifications, (notification, i) =>
+      <Toast
+        key={i}
+        level={notification.level}
+      >
         { notification.content }
       </Toast>
     )

@@ -5,7 +5,7 @@ import {
 } from '../actions/user';
 
 const initialState = {
-
+  credentials: null
 };
 
 export default function UserReducer(state=initialState, action) {
@@ -17,6 +17,9 @@ export default function UserReducer(state=initialState, action) {
       }
     });
   case USER_AUTH_OK:
+    return Object.assign({}, state, {
+      credentials: action.payload
+    });
   case USER_AUTH_ERROR:
     return Object.assign({}, state, {
       credentials: null

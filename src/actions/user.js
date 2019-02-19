@@ -1,4 +1,7 @@
-import { loginAuthenticate } from '../rest/tinycrawl';
+import {
+  generateAuthToken,
+  loginAuthenticate
+} from '../rest/tinycrawl';
 import { notify } from './notifications';
 
 export const USER_AUTH_START = 'USER_AUTH_START';
@@ -11,11 +14,12 @@ function userAuthStart() {
   };
 }
 
-function userAuthOk(username) {
+function userAuthOk(username, token) {
   return {
     type: USER_AUTH_OK,
     payload: {
-      username
+      username,
+      token
     }
   };
 }
@@ -32,7 +36,6 @@ function userAuthError(error) {
 export function userAuth(username, password) {
   return dispatch => {
     dispatch(userAuthStart());
-
     fetch(loginAuthenticate(username, password))
       .then(data => {
         if (data.ok) {
@@ -41,9 +44,13 @@ export function userAuth(username, password) {
           throw new Error(`${data.status}: ${data.statusText}`);
         }
       })
-      .then(data => {
-        console.log(data);
-        userAuthOk(username);
+      .then(() => {
+        dispatch(
+          userAuthOk(
+            username,
+            generateAuthToken(username, password)
+          )
+        );
       })
       .catch(error => {
         dispatch(notify('Login or password invalid.', 'alert'));
