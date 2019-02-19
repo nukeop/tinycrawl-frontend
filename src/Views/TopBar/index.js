@@ -9,21 +9,28 @@ import Menu, { Menubutton } from '../../Components/Menu';
 import common from '../../common.scss';
 import styles from './styles.scss';
 
+function isLoggedIn(user) {
+  return !_.isEmpty(_.get(user, 'credentials.username'));
+}
+
 const TopBar = props => {
   const {
     user
-  } = props;
+  } = props; 
 
   return (
     <Menu rightAligned>
+      {
+        !isLoggedIn(user) &&
       <NavLink to='/login' activeClassName={common.active_link}>
         <i className='bx bx-user-circle'></i>
       </NavLink>
+      }
       {
-        !_.isEmpty(_.get(user, 'credentials.username')) &&
-        <NavLink to='/profile' className={styles.username_link} activeClassName={common.active_link}>
-          { _.get(user, 'credentials.username')}
-        </NavLink>
+        isLoggedIn(user) &&
+      <NavLink to='/profile' className={styles.username_link} activeClassName={common.active_link}>
+        { _.get(user, 'credentials.username')}
+      </NavLink>
       }
     </Menu>
   );
