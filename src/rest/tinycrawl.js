@@ -20,3 +20,11 @@ export function loginAuthenticate(login, password) {
 
   return request;
 }
+
+export function getUserRequest(username) {
+  request = new Request(
+    backendUrl + '/users/username/' + encodeURIComponent(username)
+  );
+
+  return request;
+}
