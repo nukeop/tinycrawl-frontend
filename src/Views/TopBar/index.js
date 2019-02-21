@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Menu, { Menubutton } from '../../Components/Menu';
+import Menu from '../../Components/Menu';
 
 import common from '../../common.scss';
 import styles from './styles.scss';
@@ -16,7 +16,7 @@ function isLoggedIn(user) {
 const TopBar = props => {
   const {
     user
-  } = props; 
+  } = props;
 
   return (
     <Menu rightAligned>
@@ -28,7 +28,7 @@ const TopBar = props => {
       }
       {
         isLoggedIn(user) &&
-      <NavLink to='/profile' className={styles.username_link} activeClassName={common.active_link}>
+      <NavLink to='/me' className={styles.username_link} activeClassName={common.active_link}>
         { _.get(user, 'credentials.username')}
       </NavLink>
       }

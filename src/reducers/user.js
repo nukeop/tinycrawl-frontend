@@ -1,7 +1,11 @@
 import {
   USER_AUTH_START,
   USER_AUTH_OK,
-  USER_AUTH_ERROR
+  USER_AUTH_ERROR,
+
+  GET_USER_START,
+  GET_USER_SUCCESS,
+  GET_USER_ERROR
 } from '../actions/user';
 
 const initialState = {
@@ -23,6 +27,26 @@ export default function UserReducer(state=initialState, action) {
   case USER_AUTH_ERROR:
     return Object.assign({}, state, {
       credentials: null
+    });
+  case GET_USER_START:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: {
+          loading: true
+        }
+      })
+    });
+  case GET_USER_SUCCESS:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: action.payload.data
+      })
+    });
+  case GET_USER_ERROR:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: null
+      })
     });
   default:
     return state;

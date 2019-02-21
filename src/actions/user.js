@@ -64,9 +64,10 @@ export function userAuth(username, password) {
   };
 }
 
-function getUserStart() {
+function getUserStart(username) {
   return {
-    type: GET_USER_START
+    type: GET_USER_START,
+    payload: { username }
   };
 }
 
@@ -90,10 +91,10 @@ function getUserError(username, error) {
   };
 }
 
-export function getUser(username) {
+export function getUser(username, token) {
   return dispatch => {
-    dispatch(getUserStart());
-    fetch(getUser(username))
+    dispatch(getUserStart(username));
+    fetch(getUserRequest(username, token))
       .then(data => {
         if (data.ok) {
           return data.json();
@@ -102,7 +103,7 @@ export function getUser(username) {
         }
       })
       .then(data => {
-        dispatch(getUserSuccess(username, data));
+        dispatch(getUserSuccess(username, data.users));
       })
       .catch(error => {
         dispatch(getUserError(username, error));
