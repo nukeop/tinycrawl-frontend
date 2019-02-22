@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
 import * as UserActions from '../../actions/user';
 import Column from '../../Components/Column';
@@ -14,9 +15,8 @@ class UserProfile extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const username = _.get(this.props.user, 'credentials.username');
-
     if (!_.isNil(username)) {
       this.props.actions.getUser(
         username,
@@ -34,9 +34,25 @@ class UserProfile extends React.Component {
       return <LoggedInOnly />;
     }
 
+    const username = _.get(this.props.user, 'credentials.username');
+    const data = _.get(user, `users[${username}]`);
+
     return (
       <Column grow={1} className={styles.user_profile}>
-        
+        {
+          data.loading &&
+            "Please hold"
+        }
+
+        {
+          data.username &&
+            <React.Fragment>
+              {data.username}
+              {data.displayName}
+              {data.email}
+              {data.role}
+            </React.Fragment>
+        }
       </Column>
     );
   }
