@@ -37,3 +37,9 @@ export function getUserRequest(username, authToken) {
 
   return request;
 }
+
+export function getNotesPartsRequest() {
+  return new Request(
+    backendUrl + '/notesParts'
+  );
+}
