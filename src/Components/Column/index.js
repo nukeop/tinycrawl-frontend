@@ -9,7 +9,8 @@ const Column = props => (
     className={
       classnames(
         styles.column,
-        props.className
+        props.className,
+        { narrow: props.narrow }
       )
     }
     style={Object.assign({}, props.style, {
@@ -26,7 +27,8 @@ Column.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   grow: PropTypes.number,
-  shrink: PropTypes.number
+  shrink: PropTypes.number,
+  narrow: PropTypes.bool
 };
 
 Column.defaultProps = {
@@ -34,7 +36,8 @@ Column.defaultProps = {
   style: {},
   className: '',
   grow: 0,
-  shrink: 0
+  shrink: 0,
+  narrow: false
 };
 
 export default Column;
