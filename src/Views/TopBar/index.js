@@ -20,6 +20,9 @@ const TopBar = props => {
 
   return (
     <Menu rightAligned>
+      <NavLink to='/notes' activeClassName={common.active_link}>
+        <i className='bx bx-envelope'></i>
+      </NavLink>
       {
         !isLoggedIn(user) &&
       <NavLink to='/login' activeClassName={common.active_link}>

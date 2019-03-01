@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Frame, Heading, Logo } from 'arwes';
+import { Button, Frame, Heading, Loading } from 'arwes';
 
 import * as UserActions from '../../actions/user';
 
@@ -77,7 +77,7 @@ class LoginScreen extends React.Component {
               {
                 (user.credentials && user.credentials.loading)
                   ? <div className={styles.loader_container}>
-                    <Logo animate />
+                    <Loading animate />
                   </div>
                   : <LoginForm
                     onUsernameChange={ this.onUsernameChange.bind(this) }

@@ -1,0 +1,47 @@
+@import '../../colors.scss';
+
+.notes_form {
+  margin-bottom: 1em;
+
+  div[class*='ArwesSounds(Frame)-box'] {
+    width: 100%;
+    height: 100%;
+  }
+
+  div[class*='ArwesSounds(Frame)-children'] {
+    display: flex;
+    flex-flow: column;
+    padding: 1em;
+  }
+
+  a {
+
+    &:hover {
+      background: rgba($bluedarker, 0.5);
+    }
+  }
+  
+  .note_frame {
+    margin-bottom: 1em;
+  }
+
+  .structures,
+  .categories,
+  .phrases {
+    flex: 1 1 33.3%;
+  }
+
+  .structure {
+  }
+
+  .category {
+  }
+
+  .phrase {
+
+  }
+
+  .selected {
+      background: $bluedarker;
+    }
+}

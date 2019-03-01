@@ -41,7 +41,7 @@ class UserProfile extends React.Component {
       <Column grow={1} className={styles.user_profile}>
         {
           data.loading &&
-            "Please hold"
+            'Please hold'
         }
 
         {
