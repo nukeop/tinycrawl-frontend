@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, Frame, Heading, Loading } from 'arwes';
+import _ from 'lodash';
 
 import * as UserActions from '../../actions/user';
 
@@ -67,25 +68,35 @@ class LoginScreen extends React.Component {
     let {
       user
     } = this.props;
+
+    const username = _.get(user, 'credentials.username');
     
     return (
       <Column grow={1} className={styles.login_screen}>
-        <Panel fluid className={styles.login_panel}>
+        <Panel className={styles.login_panel}>
           <Frame animate corners={2}>
             <Column className={styles.login_panel_column}>
 
               {
-                (user.credentials && user.credentials.loading)
-                  ? <div className={styles.loader_container}>
-                    <Loading animate />
-                  </div>
-                  : <LoginForm
-                    onUsernameChange={ this.onUsernameChange.bind(this) }
-                    onPasswordChange={ this.onPasswordChange.bind(this) }
-                    username={ this.state.username }
-                    password={ this.state.password }
-                    logIn={ this.logIn.bind(this) }
-                  />
+                !username &&(
+                  (user.credentials &&
+                 user.credentials.loading)
+                    ? <div className={styles.loader_container}>
+                      <Loading animate />
+                    </div>
+                    : <LoginForm
+                      onUsernameChange={ this.onUsernameChange.bind(this) }
+                      onPasswordChange={ this.onPasswordChange.bind(this) }
+                      username={ this.state.username }
+                      password={ this.state.password }
+                      logIn={ this.logIn.bind(this) }
+                    />
+                )
+              }
+
+              {
+                username &&
+                  <Heading>Logged in as {username}</Heading>
               }
               
               
