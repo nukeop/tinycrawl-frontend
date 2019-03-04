@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Loading, Project } from 'arwes';
+
 import _ from 'lodash';
 
 import * as UserActions from '../../actions/user';
 import Column from '../../Components/Column';
+import Panel from '../../Components/Panel';
 import LoggedInOnly from '../../Components/LoggedInOnly';
 
 import styles from './styles.scss';
@@ -39,20 +42,22 @@ class UserProfile extends React.Component {
 
     return (
       <Column grow={1} className={styles.user_profile}>
-        {
-          data.loading &&
-            'Please hold'
-        }
+        <Panel>
+          {
+            _.get(data, 'loading') &&
+            <Loading animate />
+          }
 
-        {
-          data.username &&
-            <React.Fragment>
-              {data.username}
-              {data.displayName}
-              {data.email}
-              {data.role}
-            </React.Fragment>
-        }
+          {
+            data.username &&
+              <Project animate header='Profile'>
+                {data.username}
+                {data.displayName}
+                {data.email}
+                {data.role}
+              </Project>
+          }
+        </Panel>
       </Column>
     );
   }
