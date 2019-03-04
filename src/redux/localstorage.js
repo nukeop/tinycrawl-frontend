@@ -28,7 +28,7 @@ export default function persist(paths, config) {
       console.warn('Failed to retrieve initialize state from localStorage:', e);
     }
     
-    const store = next(reducer, initialState, enhancer);
+    const store = next(reducer, finalInitialState, enhancer);
     store.subscribe(() => {
       const state = store.getState();
       const subset = _.pick(state, paths);
