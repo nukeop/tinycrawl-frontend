@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 import * as UserActions from '../../actions/user';
 import Column from '../../Components/Column';
+import Row from '../../Components/Row';
 import Panel from '../../Components/Panel';
 import LoggedInOnly from '../../Components/LoggedInOnly';
 
@@ -42,20 +43,28 @@ class UserProfile extends React.Component {
 
     return (
       <Column grow={1} className={styles.user_profile}>
-        <Panel>
+        <Panel className={styles.user_profile_panel}>
           {
             _.get(data, 'loading') &&
-            <Loading animate />
+              <Loading animate />
           }
 
           {
-            data.username &&
-              <Project animate header='Profile'>
-                {data.username}
-                {data.displayName}
-                {data.email}
-                {data.role}
-              </Project>
+            _.get(data, 'username') &&
+                  <Project animate header='Profile'>
+                    <Row>
+                      <label>Username:</label>
+                      {data.username}
+                    </Row>
+                    <Row>
+                      <label>Display name:</label>
+                      {data.displayName}
+                    </Row>
+                    <Row>
+                      <label>Email:</label>
+                      {data.email}
+                    </Row>
+                  </Project>
           }
         </Panel>
       </Column>
