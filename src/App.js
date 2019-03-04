@@ -16,6 +16,7 @@ import ToastNotifications from './Views/ToastNotifications';
 import constants from './constants';
 import routes from './routes';
 import bg from '../resources/bg.jpg';
+import bgPattern from '../resources/glow.png';
 
 import '../resources/boxicons/css/boxicons.min.css';
 
@@ -33,6 +34,7 @@ const App = () => {
         <Arwes
           animate
           background={bg}
+          pattern={bgPattern}
           classes={{
             main: arwesStyles.arwes_main
           }}
@@ -44,7 +46,7 @@ const App = () => {
                 children: arwesStyles.arwes_header_children
               }}
               >
-                <Heading node='h3'>
+                <Heading node='h2'>
                   Tinycrawl
                 </Heading>
                 <TopBar />

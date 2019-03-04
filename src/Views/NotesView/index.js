@@ -27,6 +27,7 @@ const NotesForm = props => {
       <Frame corners={2} className={styles.note_frame}>
         <Words>{ props.note }</Words>
       </Frame>
+
       <Row grow={1}>
         <Frame className={styles.structures}>
           <select>
@@ -96,9 +97,10 @@ class NotesView extends React.Component {
     super(props);
 
     this.state = {
-      selectedStructure: null,
+      selectedStructures: [null],
       selectedCategory: null,
-      selectedPhrase: null
+      selectedPhrase: null,
+      selectedConjunction: null
     };
   }
 
@@ -112,6 +114,10 @@ class NotesView extends React.Component {
 
   setSelectedPhrase(phrase) {
     this.setState({ selectedPhrase: phrase });
+  }
+
+  setSelectedConjunction(conjunction) {
+    this.setState({ selectedConjunction: conjunction });
   }
 
   componentWillMount() {
@@ -137,6 +143,7 @@ class NotesView extends React.Component {
         selectStructure={this.setSelectedStructure.bind(this)}
         selectCategory={this.setSelectedCategory.bind(this)}
         selectPhrase={this.setSelectedPhrase.bind(this)}
+        selectConjunction={this.setSelectedConjunction.bind(this)}
       />
     );
   }
