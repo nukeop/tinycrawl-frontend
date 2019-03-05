@@ -1,7 +1,8 @@
 import {
   generateAuthToken,
   loginAuthenticate,
-  getUserRequest
+  getUserRequest,
+  getUserHeroesRequest
 } from '../rest/tinycrawl';
 import { notify } from './notifications';
 
@@ -12,6 +13,10 @@ export const USER_AUTH_ERROR = 'USER_AUTH_ERROR';
 export const GET_USER_START = 'GET_USER_START';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_ERROR = 'GET_USER_ERROR';
+
+export const GET_USER_HEROES_START = 'GET_USER_HEROES_START';
+export const GET_USER_HEROES_SUCCESS = 'GET_USER_HEROES_SUCCESS';
+export const GET_USER_HEROES_ERROR = 'GET_USER_HEROES_ERROR';
 
 function userAuthStart() {
   return {
@@ -107,6 +112,53 @@ export function getUser(username, token) {
       })
       .catch(error => {
         dispatch(getUserError(username, error));
+      });
+  };
+}
+
+function getUserHeroesStart(username) {
+  return {
+    type: GET_USER_HEROES_START,
+    payload: { username }
+  };
+}
+
+function getUserHeroesSuccess(username, data) {
+  return {
+    type: GET_USER_HEROES_SUCCESS,
+    payload: {
+      username,
+      data
+    }
+  };
+}
+
+function getUserHeroesError(username, error) {
+  return {
+    type: GET_USER_HEROES_ERROR,
+    payload: {
+      username,
+      error
+    }
+  };
+}
+
+export function getUserHeroes(username, uuid) {
+  return dispatch => {
+    dispatch(getUserHeroesStart(username));
+    fetch(getUserHeroesRequest(uuid))
+      .then(data => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          throw new Error(`${data.status}: ${data.statusText}`);
+        }
+      })
+      .then(data => {
+        dispatch(getUserHeroesSuccess(username, data));
+      })
+      .catch(error => {
+        dispatch(getUserHeroesError(username, error));
       });
   };
 }

@@ -38,6 +38,15 @@ export function getUserRequest(username, authToken) {
   return request;
 }
 
+export function getUserHeroesRequest(uuid) {
+  var request;
+  request = new Request(
+    backendUrl + '/users/' + uuid + '/heroes'
+  );
+
+  return request;
+}
+
 export function getNotesPartsRequest() {
   return new Request(
     backendUrl + '/notesParts'

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   USER_AUTH_START,
   USER_AUTH_OK,
@@ -5,7 +7,11 @@ import {
 
   GET_USER_START,
   GET_USER_SUCCESS,
-  GET_USER_ERROR
+  GET_USER_ERROR,
+
+  GET_USER_HEROES_START,
+  GET_USER_HEROES_SUCCESS,
+  GET_USER_HEROES_ERROR
 } from '../actions/user';
 
 const initialState = {
@@ -45,7 +51,31 @@ export default function UserReducer(state=initialState, action) {
   case GET_USER_ERROR:
     return Object.assign({}, state, {
       users: Object.assign({}, state.users, {
-        [`${action.payload.username}`]: null
+        [`${action.payload.username}`]: { error: true }
+      })
+    });
+  case GET_USER_HEROES_START:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
+          heroes: { loading: true }
+        })
+      })
+    });
+  case GET_USER_HEROES_SUCCESS:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
+          heroes: action.payload.data
+        })
+      })
+    });
+  case GET_USER_HEROES_ERROR:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
+          heroes: { error: true }
+        })
       })
     });
   default:

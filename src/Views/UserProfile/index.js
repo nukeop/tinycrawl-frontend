@@ -29,6 +29,15 @@ class UserProfile extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const username = _.get(nextProps.user, 'credentials.username');
+    const user = _.get(nextProps.user, `users[${username}]`);
+    const heroes = _.get(user, 'heroes');
+    if (username && user && user.id && !heroes) {
+      nextProps.actions.getUserHeroes(username, user.id);
+    }
+  }
+
   render() {
     const {
       user
@@ -52,15 +61,15 @@ class UserProfile extends React.Component {
           {
             _.get(data, 'username') &&
                   <Project animate header='Profile'>
-                    <Row>
+                      <Row className={styles.user_profile_row}>
                       <label>Username:</label>
                       {data.username}
                     </Row>
-                    <Row>
+                    <Row className={styles.user_profile_row}>
                       <label>Display name:</label>
                       {data.displayName}
                     </Row>
-                    <Row>
+                    <Row className={styles.user_profile_row}>
                       <label>Email:</label>
                       {data.email}
                     </Row>
