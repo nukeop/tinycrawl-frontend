@@ -1,5 +1,9 @@
 @import '../../colors.scss';
 
+@mixin highlighted {
+  background: rgba($blue, 0.35);
+}
+
 .notes_form {
   margin-bottom: 1em;
 
@@ -17,7 +21,7 @@
   a {
 
     &:hover {
-      background: rgba($bluedarker, 0.5);
+      @include highlighted;
     }
   }
   
@@ -42,6 +46,6 @@
   }
 
   .selected {
-      background: $bluedarker;
+    @include highlighted;
     }
 }

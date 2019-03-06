@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
 import Menu from '../../Components/Menu';
 
@@ -21,12 +22,12 @@ const TopBar = props => {
   return (
     <Menu rightAligned>
       <NavLink to='/notes' activeClassName={common.active_link}>
-        <i className='bx bx-envelope'></i>
+        <i className='bx bx-envelope' /> <span>Notes</span>
       </NavLink>
       {
         !isLoggedIn(user) &&
       <NavLink to='/login' activeClassName={common.active_link}>
-        <i className='bx bx-user-circle'></i>
+        <i className='bx bx-user-circle' /> <span>Log in</span>
       </NavLink>
       }
       {
