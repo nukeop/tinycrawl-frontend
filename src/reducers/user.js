@@ -66,7 +66,7 @@ export default function UserReducer(state=initialState, action) {
     return Object.assign({}, state, {
       users: Object.assign({}, state.users, {
         [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
-          heroes: action.payload.data
+          heroes: action.payload.data.heroes
         })
       })
     });

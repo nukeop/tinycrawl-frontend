@@ -3,14 +3,14 @@
 
 .menu_button {
   @include transition;
-  margin-right: 1em;
-  padding: 0.5em;
+  margin-left: 1em;
+  padding: 0 0.5em;
   cursor: pointer;
   align-items: center;
   height: 100%;
 
   &:hover, &active, &:focus {
-    background-color: rgba($blue, 0.39);
+    background-color: rgba($blue, 0.2);
     color: $white;
   }
 

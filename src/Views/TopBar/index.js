@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 
-import Menu from '../../Components/Menu';
+import Menu, { MenuButton } from '../../Components/Menu';
 
 import common from '../../common.scss';
 import styles from './styles.scss';
@@ -21,14 +21,26 @@ const TopBar = props => {
 
   return (
     <Menu rightAligned>
-      <NavLink to='/notes' activeClassName={common.active_link}>
-        <i className='bx bx-envelope' /> <span>Notes</span>
-      </NavLink>
+      <MenuButton>
+        <NavLink to='/notes' activeClassName={common.active_link}>
+          <i className='bx bx-envelope' /> <span>Notes</span>
+        </NavLink>
+      </MenuButton>
       {
         !isLoggedIn(user) &&
-      <NavLink to='/login' activeClassName={common.active_link}>
-        <i className='bx bx-user-circle' /> <span>Log in</span>
-      </NavLink>
+          <MenuButton>
+            <NavLink to='/login' activeClassName={common.active_link}>
+              <i className='bx bx-user-circle' /> <span>Log in</span>
+            </NavLink>
+          </MenuButton>
+      }
+      {
+        isLoggedIn(user) &&
+            <MenuButton>
+              <NavLink to='/heroes' activeClassName={common.active_link}>
+                <i className='bx bx-user-circle' /> <span>Heroes</span>
+              </NavLink>
+            </MenuButton>
       }
       {
         isLoggedIn(user) &&
