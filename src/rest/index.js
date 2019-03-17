@@ -1,3 +1,3 @@
-const backendUrl = 'http://169.197.100.66';
+const backendUrl = 'http://tc.dokku.gumblert.tech';
 
 export { backendUrl };
