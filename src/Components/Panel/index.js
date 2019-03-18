@@ -12,7 +12,8 @@ const Panel = props => {
           props.className,
           styles.panel,
           { fluid: props.fluid },
-          { border: props.border }
+          { border: props.border },
+          { container: props.container }
         )
       }
       style={props.style}
@@ -27,7 +28,8 @@ Panel.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   fluid: PropTypes.bool,
-  border: PropTypes.bool
+  border: PropTypes.bool,
+  container: PropTypes.bool
 };
 
 Panel.defaultProps = {
@@ -35,7 +37,8 @@ Panel.defaultProps = {
   style: {},
   className: '',
   fluid: false,
-  border: false
+  border: false,
+  container: false
 };
 
 export default Panel;

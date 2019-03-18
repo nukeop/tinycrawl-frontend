@@ -19,4 +19,10 @@
   &.border {
     border: 1px rgba($blue, 0.89) solid;
   }
+
+  &.container {
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+  }
 }

@@ -8,6 +8,7 @@ import Column from '../../Components/Column';
 import _ from 'lodash';
 
 import LoggedInOnly from '../../Components/LoggedInOnly';
+import HeroList from '../../Components/HeroList';
 
 import styles from './styles.scss';
 
@@ -49,26 +50,18 @@ class HeroesOverview extends React.Component {
     
     return (
       <Column className={styles.heroes_overview}>
-        {
-          _.map(_.get(currentUser, 'heroes'), hero => {
-            return (
-              <div>
-                { hero.name }
-              </div>
-            );
-          })
-        }
+        <HeroList heroes={_.get(currentUser, 'heroes')}/>
       </Column>
     );
   }
 }
 
 HeroesOverview.propTypes = {
-
+  user: PropTypes.object
 };
 
 HeroesOverview.defaultProps = {
-
+  user: {}
 };
 
 function mapStateToProps(state) {
