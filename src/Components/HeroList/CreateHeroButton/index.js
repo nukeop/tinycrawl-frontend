@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Heading } from 'arwes';
+import { Button, Heading } from 'arwes';
 
 import styles from './styles.scss';
 
 const CreateHeroButton = props => {
   return (
-    <Heading
-      className={styles.create_hero_button}
+    <Button animate>
+      <Heading
+        className={styles.create_hero_button}
       >
-      Create a hero
-    </Heading>
+        Create a hero
+      </Heading>
+    </Button>
   );
 };
 

@@ -11,7 +11,11 @@
   .create_hero_column {
     align-items: center;
     justify-content: center;
-    padding: 20px;
     cursor: pointer;
+
+    div[class*='ArwesSounds(Button)-root'],
+    button[class*='ArwesSounds(Button)-button']{
+      width: 100%;
+    }
   }
 }

@@ -14,11 +14,9 @@ const HeroList = props => {
   return (
     <Column grow={1} className={styles.hero_list}>
       <Panel container className={styles.create_hero_panel}>
-        <Frame animate corners={2}>
           <Column grow={1} className={styles.create_hero_column}>
             <CreateHeroButton />
         </Column>
-        </Frame>
         </Panel>
       <Panel container className={styles.hero_list_panel}>
         <Frame animate corners={2}>
