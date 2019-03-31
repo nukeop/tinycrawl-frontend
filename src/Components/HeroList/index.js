@@ -27,7 +27,7 @@ const HeroList = props => {
             }
             {
               _.map(props.heroes, hero => {
-                return <HeroCard hero={hero}/>;
+                return <HeroCard key={hero.id} hero={hero}/>;
               })
             }
           </Column>

@@ -1,5 +1,4 @@
 import {
-  generateAuthToken,
   loginAuthenticate,
   getUserRequest,
   getUserHeroesRequest
@@ -54,11 +53,11 @@ export function userAuth(username, password) {
           throw new Error(`${data.status}: ${data.statusText}`);
         }
       })
-      .then(() => {
+      .then(data => {
         dispatch(
           userAuthOk(
             username,
-            generateAuthToken(username, password)
+            data.token
           )
         );
       })
