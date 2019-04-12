@@ -1,14 +1,24 @@
-.user_profile {
-  justify-content: flex-start;
+@import '../../mixin.scss';
 
-  .user_profile_panel {
-    max-width: 640px;
-    max-height: 360px;
+.user_profile {
+  @include container;
+  margin-top: 60px;
+
+  .row {
+    justify-content: center;
+  }
+  
+  .segment {
     width: 100%;
-    margin: 0 auto;
+    max-width: 450px;
   }
 
   .user_profile_row {
     justify-content: space-between;
+    margin-bottom: 0.5em;
+
+    &:last-child {
+      margin: 0;
+    }
   }
 }

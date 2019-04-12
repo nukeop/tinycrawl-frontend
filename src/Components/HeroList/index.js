@@ -1,39 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Frame, Words } from 'arwes';
+import {
+  Button,
+  Divider,
+  Grid,
+  Header,
+  Segment
+} from 'semantic-ui-react';
 import _ from 'lodash';
 
-import Column from '../Column';
-import Panel from '../Panel';
-import CreateHeroButton from './CreateHeroButton';
 import HeroCard from './HeroCard';
 
 import styles from './styles.scss';
 
 const HeroList = props => {
+
   return (
-    <Column grow={1} className={styles.hero_list}>
-      <Panel container className={styles.create_hero_panel}>
-          <Column grow={1} className={styles.create_hero_column}>
-            <CreateHeroButton />
-        </Column>
-        </Panel>
-      <Panel container className={styles.hero_list_panel}>
-        <Frame animate corners={2}>
-          <Column grow={1} className={styles.hero_list_inner}>
+    <Grid
+      centered
+      padded
+      className={styles.hero_list}
+    >
+      <Grid.Column>
+        <Grid.Row centered>
+          <Segment inverted>
+            <Button primary inverted fluid  size='huge'>Create a hero</Button>
+          </Segment>
+        </Grid.Row>
+        <Divider />
+        <Grid.Row centered>
+          <Segment inverted>
             {
               _.isEmpty(props.heroes) &&
-              <Words> You have no heroes. </Words>
+                <Header>You have no heroes.</Header>
             }
             {
               _.map(props.heroes, hero => {
-                return <HeroCard key={hero.id} hero={hero}/>;
+                return <HeroCard key={ hero.id } hero={ hero }/>;
               })
             }
-          </Column>
-        </Frame>
-      </Panel>
-    </Column>
+          </Segment>
+        </Grid.Row>
+      </Grid.Column>
+    </Grid>
   );
 };
 

@@ -17,14 +17,14 @@ export function removeNotification(id) {
   };
 }
 
-export function notify(content, level, timeout=3) {
+export function notify(title, content, level, timeout=3) {
   return dispatch => {
     let id = uuidv4();
     dispatch(addNotification(Object.assign({}, {
       onClick: () => {
         dispatch(removeNotification(id));
       },
-      id, content, level
+      id, title, content, level
     })));
 
     setTimeout(() => dispatch(removeNotification(id)), timeout * 1000);

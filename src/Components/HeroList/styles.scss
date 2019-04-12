@@ -1,21 +1,12 @@
 .hero_list {
+  width: 100%;
+  justify-content: center;
 
-  .hero_list_panel {
-
+  &>.column {
+    max-width: 600px;
   }
 
-  .hero_list_inner {
-    padding: 20px;
-  }
-
-  .create_hero_column {
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    div[class*='ArwesSounds(Button)-root'],
-    button[class*='ArwesSounds(Button)-button']{
-      width: 100%;
-    }
+  .segment {
+    width: 100%;
   }
 }

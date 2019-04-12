@@ -2,44 +2,63 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Frame, Heading, Loading } from 'arwes';
+import {
+  Button,
+  Divider,
+  Form,
+  Grid,
+  Header,
+  Icon,
+  Input,
+  Segment
+} from 'semantic-ui-react';
 import _ from 'lodash';
 
 import * as UserActions from '../../actions/user';
-
-import Row from '../../Components/Row';
-import Column from '../../Components/Column';
-import Panel from '../../Components/Panel';
 
 import styles from './styles.scss';
 
 const LoginForm = props => {
   return (
     <React.Fragment>
-      <Heading node='h2'>Log in</Heading>
-      <Column>
-        <label>Username:</label>
-        <input
-          name='username'
-          type='text'
-          onChange={ props.onUsernameChange }
-          value={ props.username }
-        />
-      </Column>
-      <Column>
-        <label>Password:</label>
-        <input
-          name='password'
-          type='password'
-          onChange={ props.onPasswordChange }
-          value={ props.password }
-        />
-      </Column>             
-      <Row className={styles.login_button_row}>
-        <Button animate onClick={ props.logIn }>Log in</Button>
-      </Row>
+      <Form size='large' loading={ props.loading } onSubmit={ props.logIn }>
+        <Form.Field>
+          <Input
+            inverted
+            icon='user'
+            iconPosition='left'
+            placeholder='Username'
+            onChange={ props.onUsernameChange }
+          />
+        </Form.Field>
+        <Form.Field>
+          <Input
+            inverted
+            icon='lock'
+            iconPosition='left'
+            placeholder='Password'
+            type='password'
+            onChange={ props.onPasswordChange }
+          />
+        </Form.Field>
+        <Button size='large' primary fluid inverted submit>
+            Log in
+        </Button>
+          
+      </Form>
+      <Divider horizontal inverted>Or</Divider>
+      <Button size='large' fluid inverted>
+        <Icon name='github' />
+            Log in with Github
+      </Button>        
     </React.Fragment>
   );
+};
+
+LoginForm.propTypes = {
+  loading: PropTypes.bool,
+  onUsernameChange: PropTypes.func,
+  onPasswordChange: PropTypes.func
 };
 
 class LoginScreen extends React.Component {
@@ -72,39 +91,35 @@ class LoginScreen extends React.Component {
     const username = _.get(user, 'credentials.username');
     
     return (
-      <Column grow={1} className={styles.login_screen}>
-        <Panel className={styles.login_panel}>
-          <Frame animate corners={2}>
-            <Column className={styles.login_panel_column}>
-
-              {
-                !username &&(
-                  (user.credentials &&
-                 user.credentials.loading)
-                    ? <div className={styles.loader_container}>
-                      <Loading animate />
-                    </div>
-                    : <LoginForm
+      <Grid
+        centered
+        verticalAlign='middle'
+        padded
+        className={styles.log_in_grid}
+      >
+        <Grid.Column>
+          <Grid.Row centered>
+            {
+              !username &&
+                  <Segment inverted>
+                    <LoginForm
+                      loading={ _.get(user, 'credentials.loading') }
                       onUsernameChange={ this.onUsernameChange.bind(this) }
                       onPasswordChange={ this.onPasswordChange.bind(this) }
-                      username={ this.state.username }
-                      password={ this.state.password }
                       logIn={ this.logIn.bind(this) }
                     />
-                )
-              }
+                  </Segment>
+            }
 
-              {
-                username &&
-                  <Heading>Logged in as {username}</Heading>
-              }
-              
-              
-            </Column>
-            
-          </Frame>
-        </Panel>
-      </Column>  
+            {
+              username &&
+                      <Segment inverted>
+                        <Header inverted textAlign='center'>Logged in as {username}</Header>
+                      </Segment>
+            }
+          </Grid.Row>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

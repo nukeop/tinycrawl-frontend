@@ -4,20 +4,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as UserActions from '../../actions/user';
-import Column from '../../Components/Column';
 import _ from 'lodash';
 
 import LoggedInOnly from '../../Components/LoggedInOnly';
 import HeroList from '../../Components/HeroList';
-
-import styles from './styles.scss';
 
 class HeroesOverview extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const username = _.get(this.props.user, 'credentials.username');
     if (!_.isNil(username)) {
       this.props.actions.getUser(
@@ -49,15 +46,17 @@ class HeroesOverview extends React.Component {
     const currentUser = _.get(user, `users[${username}]`);
     
     return (
-      <Column className={styles.heroes_overview}>
-        <HeroList heroes={_.get(currentUser, 'heroes')}/>
-      </Column>
+      <HeroList heroes={_.get(currentUser, 'heroes')}/>
     );
   }
 }
 
 HeroesOverview.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  actions: PropTypes.shape({
+    getUser: PropTypes.func,
+    getUserHeroes: PropTypes.func
+  })
 };
 
 HeroesOverview.defaultProps = {

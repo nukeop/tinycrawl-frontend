@@ -5,47 +5,68 @@
 }
 
 .notes_form {
+  width: 100%;
   margin-bottom: 1em;
 
-  div[class*='ArwesSounds(Frame)-box'] {
-    width: 100%;
-    height: 100%;
-  }
-
-  div[class*='ArwesSounds(Frame)-children'] {
-    display: flex;
-    flex-flow: column;
-    padding: 1em;
-  }
-
-  a {
-
-    &:hover {
-      @include highlighted;
-    }
+  h4 {
+    margin-bottom: 1em !important;
   }
   
-  .note_frame {
-    margin-bottom: 1em;
+  .notes_grid {
+    width: 100%;
   }
 
-  .structures,
-  .categories,
-  .phrases {
-    flex: 1 1 33.3%;
+  .center.aligned.row {
+    justify-content: center;
   }
 
-  .structure {
+  .bottom.attached.segment {
+    border-top: none;
   }
 
-  .category {
+  .divided.grid {
+    &>.column:not(:last-child) {
+      border-right: 1px solid $darkgray;
+    }
   }
 
+  .notes_parts_grid {
+    width: 100%;
+  }
+  
+  .notes_parts_column {
+
+  }
+
+  .category,
   .phrase {
-
+    width: 100%;
+    padding: 1em;
+    margin: 0 1em;
+    text-align: center;
   }
 
   .selected {
-    @include highlighted;
+    background: rgba($white, 0.15);
+  }
+
+  .ui.divider {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .format_controls_row {
+    margin-top: 1em;
+    
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1 1 auto;
     }
+    
+    .button {
+      flex: 0 0 auto;
+    }
+  }
 }

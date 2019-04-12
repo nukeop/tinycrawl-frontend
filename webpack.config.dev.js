@@ -34,21 +34,23 @@ module.exports = {
       }, {
         test: /\.css/,
         loader: 'style-loader!css-loader?modules=true&localIdentName=[local]',
-        exclude: RESOURCES_DIR
+        exclude: /node_modules/
       }, {
         test: /\.css/,
         loader: 'style-loader!css-loader',
-        include: RESOURCES_DIR
+        include: /node_modules/
       }, {
         test: /\.scss$/,
         loader: 'style-loader!css-loader?importLoaders=2&modules=true&localIdentName=[local]!sass-loader'
       }, {
         test: /\.(ttf|eot|woff|woff2|svg)$/,
-        loader: 'url-loader'
+        loader: 'file-loader',
+        options: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        }
       }, {
         test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader',
-        include: RESOURCES_DIR
+        loader: 'url-loader'
       }
     ]
   },

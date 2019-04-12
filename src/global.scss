@@ -5,20 +5,17 @@ body, div, input {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+body {
+  background: $bg2;
+}
+
 #app {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: $bg;
   perspective: 1000px;
-  transform-style: preserve-3d;
-  background-image: url('../resources/bg.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
 }
 
 .app_container {
@@ -36,13 +33,18 @@ a {
   color: $blue;
 }
 
-label {
-  font-family: Electrolize;
-}
-
 input {
   border: 1px solid rgba($blue, 0.89);
   padding: 0.25em;
   background: rgba($bg, 0.25);
   color: rgba($white, 0.89);
+}
+
+.column {
+  flex-flow: column;
+}
+
+.row {
+  position: relative;
+  display: flex;
 }

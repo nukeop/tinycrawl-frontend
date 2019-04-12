@@ -5,13 +5,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 
-import Menu, { MenuButton } from '../../Components/Menu';
+import { Header, Icon, Menu } from 'semantic-ui-react';
 
-import common from '../../common.scss';
 import styles from './styles.scss';
 
 function isLoggedIn(user) {
-  return !_.isEmpty(_.get(user, 'credentials.username'));
+  return !_.isNil(_.get(user, 'credentials.token'));
 }
 
 const TopBar = props => {
@@ -19,35 +18,42 @@ const TopBar = props => {
     user
   } = props;
 
-  return (
-    <Menu rightAligned>
-      <MenuButton>
-        <NavLink to='/notes' activeClassName={common.active_link}>
-          <i className='bx bx-envelope' /> <span>Notes</span>
-        </NavLink>
-      </MenuButton>
-      {
-        !isLoggedIn(user) &&
-          <MenuButton>
-            <NavLink to='/login' activeClassName={common.active_link}>
-              <i className='bx bx-user-circle' /> <span>Log in</span>
-            </NavLink>
-          </MenuButton>
-      }
-      {
-        isLoggedIn(user) &&
-            <MenuButton>
-              <NavLink to='/heroes' activeClassName={common.active_link}>
-                <i className='bx bx-user-circle' /> <span>Heroes</span>
-              </NavLink>
-            </MenuButton>
-      }
-      {
-        isLoggedIn(user) &&
-      <NavLink to='/me' className={styles.username_link} activeClassName={common.active_link}>
-        { _.get(user, 'credentials.username')}
-      </NavLink>
-      }
+  return(
+    <Menu
+      borderless
+      compact
+      inverted
+      fluid
+      size='large'
+      className={ styles.top_bar }
+    >
+      <Menu.Item className={styles.brand_name}>
+        <Header inverted as='h2'>
+          <Icon name='rocket'/>
+          Tinycrawl
+        </Header>
+      </Menu.Item>
+
+      <Menu.Menu position='right'>
+        <Menu.Item as={NavLink} to='/notes' activeClassName='active'>
+          <Icon name='envelope' /> Notes
+        </Menu.Item>
+        <Menu.Item as={NavLink} to='/heroes' activeClassName='active'>
+          <Icon name='space shuttle' /> Heroes
+        </Menu.Item>
+        {
+          !isLoggedIn(user) &&
+            <Menu.Item as={NavLink} to='/login' activeClassName='active'>
+              <Icon name='user' /> Log in
+            </Menu.Item>
+        }
+        {
+          isLoggedIn(user) &&
+            <Menu.Item as={NavLink} to='/me' activeClassName='active'>
+              { _.get(user, 'credentials.username')}
+            </Menu.Item>
+        }
+      </Menu.Menu>
     </Menu>
   );
 };

@@ -1,39 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Frame } from 'arwes';
+import {
+  Icon,
+  Message
+} from 'semantic-ui-react';
 
 import styles from './styles.scss';
 
-const layerToIcon = layer => {
-  switch(layer) {
-  case 'secondary':
-    return <i className='bx bx-message-detail'></i>;
-  case 'alert':
-    return <i className='bx bx-error-circle'></i>;
+const levelToIcon = level => {
+  switch(level) {
+  case 'info':
+    return 'info';
+  case 'warning':
+    return 'warning sign';
+  case 'error':
+    return 'times';
   case 'success':
-    return <i className='bx bx-check-circle'></i>;
-  case 'control':
-  case 'header':
-  case 'primary':
+    return 'checkmark';
+  case 'neutral':
   default:
-    return <i className='bx bx-info-circle'></i>;
+    return 'comment';
   }
 };
 
 const Toast = props => {
   let {
+    title,
     level,
     placement,
     onClick,
+    style,
     children
   } = props;
 
   return (
-    <Frame
-      animate
-      corners={2}
-      layer={level}
+    <Message
       className={
         classnames(
           styles.tc,
@@ -41,38 +43,46 @@ const Toast = props => {
           {[`${styles.top_left}`]: placement === 'top-left'},
           {[`${styles.top_right}`]: placement === 'top-right'},
           {[`${styles.bottom_left}`]: placement === 'bottom-left'},
-          {[`${styles.bottom_right}`]: placement === 'bottom-right'},
-          {[`${styles.orange}`]: level === 'secondary'},
-          {[`${styles.red}`]: level === 'alert'},
-          {[`${styles.green}`]: level === 'success'}
+          {[`${styles.bottom_right}`]: placement === 'bottom-right'}
         )}
-      classes={{
-        box: classnames(styles.tc, styles.toast_box),
-        children: classnames(styles.tc, styles.toast_box_children)
-      }}
-      onClick={onClick}
+      info={level === 'info'}
+      warning={level === 'warning'}
+      error={level === 'error'}
+      success={level === 'success'}
+      style={ style }
+      onClick={ onClick }
     >
-      <div className={classnames(styles.tc, styles.toast_icon)}>
-        { layerToIcon(level) }
+      <div className={styles.toast_icon}>
+        <Icon name={ levelToIcon(level) } />
       </div>
-      <div className={classnames(styles.tc, styles.toast_message)}>
+      <div className={styles.toast_text}>
+        <Message.Header>
+          { title }
+        </Message.Header>
         { children }
       </div>
-    </Frame>
+      <div className={styles.toast_close}>
+        <Icon name='times'/>
+      </div>
+    </Message>
   );
 };
 
 Toast.propTypes = {
-  level: PropTypes.oneOf(['primary', 'secondary', 'header', 'control', 'alert', 'success']),
+  title: PropTypes.string,
+  level: PropTypes.oneOf(['neutral', 'info', 'warning', 'error', 'success']),
   placement: PropTypes.oneOf(['top-left', 'top-right', 'bottom-left', 'bottom-right']),
   onClick: PropTypes.func,
+  style: PropTypes.object,
   children: PropTypes.node
 };
 
 Toast.defaultProps = {
+  title: '',
   level: 'primary',
   placement: 'bottom-right',
   onClick: () => {},
+  style: {},
   children: null
 };
 

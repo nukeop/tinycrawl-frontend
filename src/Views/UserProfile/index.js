@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Loading, Project } from 'arwes';
+import {
+  Divider,
+  Grid,
+  Header,
+  Segment
+} from 'semantic-ui-react';
 
 import _ from 'lodash';
 
 import * as UserActions from '../../actions/user';
-import Column from '../../Components/Column';
-import Row from '../../Components/Row';
-import Panel from '../../Components/Panel';
 import LoggedInOnly from '../../Components/LoggedInOnly';
 
 import styles from './styles.scss';
@@ -19,7 +21,7 @@ class UserProfile extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const username = _.get(this.props.user, 'credentials.username');
     if (!_.isNil(username)) {
       this.props.actions.getUser(
@@ -42,32 +44,41 @@ class UserProfile extends React.Component {
     const data = _.get(user, `users[${username}]`);
 
     return (
-      <Column grow={1} className={styles.user_profile}>
-        <Panel className={styles.user_profile_panel}>
-          {
-            _.get(data, 'loading') &&
-              <Loading animate />
-          }
-
-          {
-            _.get(data, 'username') &&
-                  <Project animate header='Profile'>
-                      <Row className={styles.user_profile_row}>
-                      <label>Username:</label>
-                      {data.username}
-                    </Row>
-                    <Row className={styles.user_profile_row}>
-                      <label>Display name:</label>
-                      {data.displayName}
-                    </Row>
-                    <Row className={styles.user_profile_row}>
-                      <label>Email:</label>
-                      {data.email}
-                    </Row>
-                  </Project>
-          }
-        </Panel>
-      </Column>
+      <Grid
+        centered
+        padded
+        className={styles.user_profile}
+      >
+        <Grid.Column>
+          <Grid.Row centered>
+            <Segment inverted loading={ _.get(data, 'loading') }>
+              <Header>
+                Your profile
+              </Header>
+              <Divider />
+              <Grid>
+                {
+                  _.get(data, 'username') &&
+                <Grid.Column>
+                  <Grid.Row className={styles.user_profile_row}>
+                    <label>Username:</label>
+                    { data.username }
+                  </Grid.Row>
+                  <Grid.Row className={styles.user_profile_row}>
+                    <label>Display name:</label>
+                    { data.displayName }
+                  </Grid.Row>
+                  <Grid.Row className={styles.user_profile_row}>
+                    <label>Email:</label>
+                    { data.email }
+                  </Grid.Row>
+                </Grid.Column>
+                }
+              </Grid>
+            </Segment>
+          </Grid.Row>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

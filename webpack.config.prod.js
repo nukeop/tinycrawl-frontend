@@ -75,8 +75,7 @@ module.exports = {
         loader: 'url-loader'
       }, {
         test: /\.(png|jpg|gif)$/,
-        loader: 'url-loader',
-        include: RESOURCES_DIR
+        loader: 'url-loader'
       }
     ]
   },

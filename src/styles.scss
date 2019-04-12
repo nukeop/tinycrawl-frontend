@@ -7,3 +7,32 @@
 .routes_row {
   z-index: 5;
 }
+
+.app_grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+
+  .app_column {
+    position: relative;
+    display: flex !important;
+    padding: 0 !important;
+  }
+
+  .routes_row {
+    flex: 1 1 auto;
+  }
+
+  .footer_row {
+    display: flex;
+    flex-flow: row;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    .segment {
+      width: 100%;
+    }
+  }
+}

@@ -5,13 +5,17 @@
   @include transition;
   position: absolute;
   display: flex;
+  flex-flow: row;
   max-width: 480px;
   width: calc(100% - 4em);
-  min-height: 100px;
   margin: 2em;
   z-index: 100;
   cursor: pointer;
 
+  &:last-child {
+    margin-bottom: 2em;
+  }
+  
   &.top_left {
     top: 0;
     left: 0;
@@ -36,57 +40,36 @@
     animation: toast-anim-up 0.5s ease-in-out;
   }
 
-  &.orange {
-    color: $orange;
+  .toast_icon {
+    @include flexCentered;
+    flex: 0 0 auto;
+    font-size: 3rem;
+    margin-right: 1.5rem;
+    
+    i {
+      @include flexCentered;
+    }
   }
 
-  &.red {
-    color: $red;
+  .toast_text {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
+    justify-content: center;
   }
 
-  &.green {
-    color: $green;
+  .toast_close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 12px;
   }
 }
 
-.tc.toast_box {
-  display: flex;
-  flex-flow: row;
-  width: 100%;
-  background: rgba($bg2, 0.65);
-  padding: 1em;
-  font-family: Roboto Condensed;
-}
-
-.tc.toast_box_children {
-  display: flex;
-  flex-flow: row;
-  width: 100%;
-}
-
-.tc.toast_icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: auto;
-  flex: 0 0 auto;
-  font-size: 48px;
-}
-
-.tc.toast_message {
-  display: flex;
-  flex-flow: row;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 1 1 auto;
-  padding: 0.5em 1em;
-}
 
 @keyframes toast-anim-up {
   from {
     opacity: 0;
-    transform: translate(0, 50%);
   }
 
   to {
@@ -97,7 +80,6 @@
 @keyframes toast-anim-down {
   from {
     opacity: 0;
-    transform: translate(0, -50%);
   }
 
   to {

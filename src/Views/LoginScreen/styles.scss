@@ -1,15 +1,28 @@
-.login_screen {
+@import '../../mixin.scss';
+
+.log_in_grid {
+  @include container;
   justify-content: center;
 
   h2 {
     margin: 0;
   }
-  
-  div[class*='ArwesSounds(Frame)-root'],
-  div[class*='ArwesSounds(Frame)-box'],
-  div[class*='ArwesSounds(Frame)-children'] {
+
+  .segment {
     width: 100%;
-    height: 100%;
+    max-width: 450px;
+  }
+
+  .row {
+    justify-content: center;
+  }
+
+  .fields {
+    width: 100%;
+    
+    :last-child {
+      margin-right: 0;
+    }
   }
 }
 

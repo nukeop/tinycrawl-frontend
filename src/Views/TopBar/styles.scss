@@ -1,7 +1,8 @@
 @import '../../colors.scss';
 
-.username_link {
-  padding-left: 1em;
-  margin-left: 1em;
-  border-left: 1px solid $blue;
+.top_bar {
+  .menu>a,
+  .item>h2 {
+    text-transform: uppercase !important;
+  }
 }
