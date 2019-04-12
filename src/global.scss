@@ -1,15 +1,11 @@
 @import './colors.scss';
 @import './mixin.scss';
 
-body, div, input {
-  font-family: 'Roboto Condensed', sans-serif;
-}
-
 body {
   background: $bg2;
 }
 
-#app {
+body>div {
   position: absolute;
   top: 0;
   bottom: 0;

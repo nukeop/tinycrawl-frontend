@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
@@ -33,15 +34,43 @@ module.exports = {
         loader: 'babel-loader'
       }, {
         test: /\.css/,
-        loader: 'style-loader!css-loader?modules=true&localIdentName=[local]',
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
+            },
+          },
+          'css-loader?modules=true&localIdentName=[local]&sourceMap=true'
+        ],
         exclude: /node_modules/
       }, {
         test: /\.css/,
-        loader: 'style-loader!css-loader',
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
+            },
+          },
+          'css-loader'
+        ],
         include: /node_modules/
       }, {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader?importLoaders=2&modules=true&localIdentName=[local]!sass-loader'
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
+            },
+          },
+          'css-loader?importLoaders=2&modules=true&localIdentName=[local]&sourceMap=true',
+          'sass-loader'
+        ],
       }, {
         test: /\.(ttf|eot|woff|woff2|svg)$/,
         loader: 'file-loader',
@@ -60,6 +89,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'resources', 'index.html'),
       inject: true
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     })
   ]
 };

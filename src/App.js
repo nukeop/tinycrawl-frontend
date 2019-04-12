@@ -3,7 +3,7 @@ import 'semantic-ui-css/semantic.min.css';
 import './colors.scss';
 import './mixin.scss';
 import './normalize.scss';
-import './global.scss';
+import globalStyles from './global.scss';
 
 import React from 'react';
 import {
@@ -21,7 +21,7 @@ import styles from './styles.scss';
 
 const App = () => {
   return (
-    <div className='app_container'>
+    <div className={globalStyles.app_container}>
       <Grid columns={1} className={styles.app_grid}>
         <Grid.Column className={styles.app_column}>
           <Grid.Row>
