@@ -52,17 +52,14 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader?importLoaders=1&modules=true&localIdentName=[local]___[hash:base64:5]'
         ],
-        exclude: [
-          RESOURCES_DIR,
-          /node_modules/
-        ]
+        exclude: /node_modules/
       }, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader'
         ],
-        include: RESOURCES_DIR
+        include: /node_modules/
       }, {
         test: /\.scss$/,
         use: [
