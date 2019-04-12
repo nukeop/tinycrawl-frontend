@@ -58,7 +58,8 @@ const LoginForm = props => {
 LoginForm.propTypes = {
   loading: PropTypes.bool,
   onUsernameChange: PropTypes.func,
-  onPasswordChange: PropTypes.func
+  onPasswordChange: PropTypes.func,
+  logIn: PropTypes.func
 };
 
 class LoginScreen extends React.Component {

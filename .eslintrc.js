@@ -34,6 +34,7 @@ module.exports = {
     "semi": [
       "error",
       "always"
-    ]
+    ],
+    "react/no-deprecated": 0
   }
 };

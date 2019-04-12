@@ -13,7 +13,7 @@ test('check that backend url is not null', t => {
 });
 
 test('check authenticating users', async t => {
-  await loginAuthenticate('test', 'test')
+  await fetch(loginAuthenticate('test', 'test'))
     .then(response => {
       t.true(response.status === 401);
       return response.json();
@@ -21,6 +21,5 @@ test('check authenticating users', async t => {
     .then(data => {
       t.true(data !== undefined);
       t.true(Object.keys(data)[0] === 'message');
-      
     });
 });

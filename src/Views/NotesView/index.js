@@ -1,3 +1,5 @@
+/* eslint-disable */
+// This is a prototype - disable linting
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

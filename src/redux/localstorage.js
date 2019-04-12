@@ -25,7 +25,7 @@ export default function persist(paths, config) {
       persistedState = deserialize(localStorage.getItem(key));
       finalInitialState = Object.assign({}, initialState, persistedState);
     } catch (e) {
-      console.warn('Failed to retrieve initialize state from localStorage:', e);
+      console.warn('Failed to retrieve initialize state from localStorage:', e); //eslint-disable-line
     }
     
     const store = next(reducer, finalInitialState, enhancer);
@@ -36,7 +36,7 @@ export default function persist(paths, config) {
       try {
         localStorage.setItem(key, serialize(subset));
       } catch (e) {
-        console.warn('Unable to persist state to localStorage:', e);
+        console.warn('Unable to persist state to localStorage:', e); //eslint-disable-line
       }
     });
 
