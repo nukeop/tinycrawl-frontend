@@ -5,7 +5,7 @@ import {
   loginAuthenticate
 } from '../src/rest/tinycrawl';
 
-require('babel-polyfill');
+require('@babel/polyfill');
 require('isomorphic-fetch');
 
 test('check that backend url is not null', t => {

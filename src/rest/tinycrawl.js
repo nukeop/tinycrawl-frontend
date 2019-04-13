@@ -39,16 +39,19 @@ export function getUserRequest(username, authToken) {
 }
 
 export function getUserHeroesRequest(uuid) {
-  var request;
-  request = new Request(
+  return new Request(
     backendUrl + '/users/' + uuid + '/heroes'
   );
-
-  return request;
 }
 
 export function getNotesPartsRequest() {
   return new Request(
     backendUrl + '/notesParts'
+  );
+}
+
+export function getDefinitionsRequest() {
+  return new Request(
+    backendUrl + '/definitions'
   );
 }
