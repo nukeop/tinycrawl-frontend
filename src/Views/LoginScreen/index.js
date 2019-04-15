@@ -21,7 +21,7 @@ import * as UserActions from '../../actions/user';
 
 import styles from './styles.scss';
 
-const getGithubOauthUrl = location => {
+const getGithubOauthUrl = () => {
   return constants.GITHUB_OAUTH_AUTHORIZE_URL +
     '?client_id=' +
     constants.GITHUB_CLIENT_ID +
@@ -32,7 +32,7 @@ const getGithubOauthUrl = location => {
 const LoginForm = props => {
   return (
     <React.Fragment>
-      <Form size='large' loading={ props.loading } onSubmit={ props.logIn }>
+      <Form size='large' onSubmit={ props.logIn }>
         <Form.Field>
           <Input
             inverted
@@ -72,7 +72,6 @@ const LoginForm = props => {
 };
 
 LoginForm.propTypes = {
-  loading: PropTypes.bool,
   onUsernameChange: PropTypes.func,
   onPasswordChange: PropTypes.func,
   logIn: PropTypes.func
@@ -100,12 +99,17 @@ class LoginScreen extends React.Component {
     this.props.actions.userAuth(this.state.username, this.state.password);
   }
 
+  isLoading(user) {
+    return _.get(user, 'credentials.loading') || _.get(user, 'credentials.oauth.github.loading');
+  }
+
   render() {
     let {
       user
     } = this.props;
 
-    const username = _.get(user, 'credentials.username');
+    const username = _.get(user, 'credentials.username') ||
+          _.get(user, 'credentials.oauth.github.login');
     
     return (
       <Grid
@@ -118,15 +122,14 @@ class LoginScreen extends React.Component {
           <Grid.Row centered>
             {
               !username &&
-                  <Segment inverted>
-                    <LoginForm
-                      loading={ _.get(user, 'credentials.loading') }
-                      onUsernameChange={ this.onUsernameChange.bind(this) }
-                      onPasswordChange={ this.onPasswordChange.bind(this) }
-                        logIn={ this.logIn.bind(this) }
-                        githubOauth={ this.props.actions.githubOauth }
-                    />
-                  </Segment>
+                <Segment inverted loading={ this.isLoading(user) }>
+                  <LoginForm
+                    onUsernameChange={ this.onUsernameChange.bind(this) }
+                    onPasswordChange={ this.onPasswordChange.bind(this) }
+                    logIn={ this.logIn.bind(this) }
+                    githubOauth={ this.props.actions.githubOauth }
+                  />
+                </Segment>
             }
 
             {

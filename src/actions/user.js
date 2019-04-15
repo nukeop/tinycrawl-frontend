@@ -70,7 +70,7 @@ export function userAuth(username, password) {
         );
       })
       .catch(error => {
-        dispatch(notify('Login or password invalid.', 'alert'));
+        dispatch(notify('Login or password invalid.', '', 'error'));
         dispatch(userAuthError(error.message));
       });
   };
