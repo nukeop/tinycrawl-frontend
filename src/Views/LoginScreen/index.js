@@ -14,9 +14,20 @@ import {
 } from 'semantic-ui-react';
 import _ from 'lodash';
 
+import OauthPopup from '../../Components/OauthPopup';
+
+import constants from '../../constants';
 import * as UserActions from '../../actions/user';
 
 import styles from './styles.scss';
+
+const getGithubOauthUrl = location => {
+  return constants.GITHUB_OAUTH_AUTHORIZE_URL +
+    '?client_id=' +
+    constants.GITHUB_CLIENT_ID +
+    '&redirect_uri=' +
+    window.location.href;
+};
 
 const LoginForm = props => {
   return (
@@ -47,10 +58,15 @@ const LoginForm = props => {
           
       </Form>
       <Divider horizontal inverted>Or</Divider>
-      <Button size='large' fluid inverted>
-        <Icon name='github' />
+      <OauthPopup
+        url={ getGithubOauthUrl() }
+        onCode={ code => props.githubOauth(code, window.location.href) } 
+        render={ props =>
+          <Button size='large' fluid inverted onClick={ props.onClick }>
+            <Icon name='github' />
             Log in with Github
-      </Button>        
+          </Button>
+        } />
     </React.Fragment>
   );
 };
@@ -107,7 +123,8 @@ class LoginScreen extends React.Component {
                       loading={ _.get(user, 'credentials.loading') }
                       onUsernameChange={ this.onUsernameChange.bind(this) }
                       onPasswordChange={ this.onPasswordChange.bind(this) }
-                      logIn={ this.logIn.bind(this) }
+                        logIn={ this.logIn.bind(this) }
+                        githubOauth={ this.props.actions.githubOauth }
                     />
                   </Segment>
             }

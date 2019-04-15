@@ -1,3 +1,4 @@
+import constants from '../constants';
 import {
   loginAuthenticate,
   getUserRequest,
@@ -8,6 +9,8 @@ import { notify } from './notifications';
 export const USER_AUTH_START = 'USER_AUTH_START';
 export const USER_AUTH_OK = 'USER_AUTH_OK';
 export const USER_AUTH_ERROR = 'USER_AUTH_ERROR';
+
+export const GITHUB_OAUTH_SUCCESS = 'GITHUB_OAUTH_SUCCESS';
 
 export const GET_USER_START = 'GET_USER_START';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
@@ -64,6 +67,33 @@ export function userAuth(username, password) {
       .catch(error => {
         dispatch(notify('Login or password invalid.', 'alert'));
         dispatch(userAuthError(error.message));
+      });
+  };
+}
+
+function githubOauthSuccess(code) {
+  return {
+    type: GITHUB_OAUTH_SUCCESS,
+    payload: { code }
+  };
+}
+
+export function githubOauth(code, location) {
+  return dispatch => {
+    dispatch(githubOauthSuccess(code));
+
+    fetch(constants.GITHUB_OAUTH_ACCESS_TOKEN_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        client_id: constants.GITHUB_CLIENT_ID,
+        client_secret: constants.GITHUB_CLIENT_SECRET,
+        redirect_uri: location,
+        code
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
       });
   };
 }

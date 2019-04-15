@@ -5,6 +5,8 @@ import {
   USER_AUTH_OK,
   USER_AUTH_ERROR,
 
+  GITHUB_OAUTH_SUCCESS,
+
   GET_USER_START,
   GET_USER_SUCCESS,
   GET_USER_ERROR,
@@ -33,6 +35,13 @@ export default function UserReducer(state=initialState, action) {
   case USER_AUTH_ERROR:
     return Object.assign({}, state, {
       credentials: null
+    });
+  case GITHUB_OAUTH_SUCCESS:
+    return Object.assign({}, state, {
+      credentials: {
+        ...state.credentials,
+        githubAccessCode: action.payload.code
+      }
     });
   case GET_USER_START:
     return Object.assign({}, state, {
