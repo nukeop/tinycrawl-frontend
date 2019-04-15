@@ -4,13 +4,18 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-
 import { Header, Icon, Menu } from 'semantic-ui-react';
+
+import GithubUserProfileButton from '../../Components/GithubUserProfileButton';
 
 import styles from './styles.scss';
 
 function isLoggedIn(user) {
   return !_.isNil(_.get(user, 'credentials.token'));
+}
+
+function isLoggedInViaGithub(user) {
+  return !_.isNil(_.get(user, 'credentials.oauth.github.login'));
 }
 
 const TopBar = props => {
@@ -52,6 +57,20 @@ const TopBar = props => {
             <Menu.Item as={NavLink} to='/me' activeClassName='active'>
               { _.get(user, 'credentials.username')}
             </Menu.Item>
+        }
+        {
+          isLoggedInViaGithub(user) &&
+                <Menu.Item
+                  as={NavLink}
+                  to='me'
+                  activeClassName='active'>
+                  <GithubUserProfileButton
+                    login={ _.get(user, 'credentials.oauth.github.login') }
+                    avatar={ _.get(user, 'credentials.oauth.github.avatar_url') }
+                  />
+                  <Icon inverted name='chevron down'/>
+                  
+                </Menu.Item>
         }
       </Menu.Menu>
     </Menu>
