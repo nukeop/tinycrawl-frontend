@@ -60,7 +60,7 @@ const LoginForm = props => {
       <Divider horizontal inverted>Or</Divider>
       <OauthPopup
         url={ getGithubOauthUrl() }
-        onCode={ code => props.githubOauth(code, window.location.href) } 
+        onCode={ code => props.githubOauth(code) } 
         render={ props =>
           <Button size='large' fluid inverted onClick={ props.onClick }>
             <Icon name='github' />

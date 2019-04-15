@@ -10,7 +10,8 @@ export const USER_AUTH_START = 'USER_AUTH_START';
 export const USER_AUTH_OK = 'USER_AUTH_OK';
 export const USER_AUTH_ERROR = 'USER_AUTH_ERROR';
 
-export const GITHUB_OAUTH_SUCCESS = 'GITHUB_OAUTH_SUCCESS';
+export const GITHUB_OAUTH_CODE_SUCCESS = 'GITHUB_OAUTH_CODE_SUCCESS';
+export const GITHUB_OAUTH_ACCESS_TOKEN_SUCCESS = 'GITHUB_OAUTH_ACCESS_TOKEN_SUCCESS';
 
 export const GET_USER_START = 'GET_USER_START';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
@@ -71,29 +72,40 @@ export function userAuth(username, password) {
   };
 }
 
-function githubOauthSuccess(code) {
+function githubOauthCodeSuccess(code) {
   return {
-    type: GITHUB_OAUTH_SUCCESS,
+    type: GITHUB_OAUTH_CODE_SUCCESS,
     payload: { code }
   };
 }
 
-export function githubOauth(code, location) {
-  return dispatch => {
-    dispatch(githubOauthSuccess(code));
+function githubOauthAccessTokenSuccess(accessToken) {
+  return {
+    type: GITHUB_OAUTH_ACCESS_TOKEN_SUCCESS,
+    payload: { accessToken }
+  };
+}
 
-    fetch(constants.GITHUB_OAUTH_ACCESS_TOKEN_URL, {
-      method: 'POST',
-      body: JSON.stringify({
-        client_id: constants.GITHUB_CLIENT_ID,
-        client_secret: constants.GITHUB_CLIENT_SECRET,
-        redirect_uri: location,
-        code
-      })
-    })
+export function githubOauth(code) {
+  return dispatch => {
+    dispatch(githubOauthCodeSuccess(code));
+    fetch(
+      'https://cors-anywhere.herokuapp.com/' +
+      constants.GITHUB_OAUTH_ACCESS_TOKEN_URL +
+        '?client_id=' +
+        constants.GITHUB_CLIENT_ID +
+        '&client_secret=' +
+        constants.GITHUB_CLIENT_SECRET +
+        '&code=' +
+        code,
+      {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' }
+      }
+    )
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        dispatch(githubOauthAccessTokenSuccess(data.access_token));
       });
   };
 }
