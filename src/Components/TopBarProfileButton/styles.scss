@@ -1,7 +1,15 @@
-.topbar_profile_button {
+@import '../../colors.scss';
+
+.topbar_profile_item {
+  &:hover {
+    background: rgba($white, 0.08) !important;
+  }
+}
+
+  .topbar_profile_button {
   display: inline-flex !important;
   align-items: center;
-
+  
   .dropdown.icon {
     display: none;
   }

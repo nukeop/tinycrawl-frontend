@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import {
   Dropdown,
   Icon,
+  Image,
   Menu
 } from 'semantic-ui-react';
 
@@ -22,14 +23,14 @@ function isLoggedInViaGithub(user) {
 
 const options = [
   { key: 'me', text: 'Profile', icon: 'user', as: NavLink, to: '/me' },
-  { key: 'logout', text: 'Sign out', icon: 'sign out' }
+  { key: 'signout', text: 'Sign out', icon: 'sign out', as: NavLink, to: 'sign-out'}
 ];
 
 const TopBarProfileButton = props => {
   const { user } = props;
 
   return (
-    <Menu.Item>
+    <Menu.Item className={ styles.topbar_profile_item }>
       <Dropdown
         className={ styles.topbar_profile_button }
         direction='right'
@@ -40,15 +41,18 @@ const TopBarProfileButton = props => {
           <React.Fragment>
             {
               isLoggedIn(user) &&
-          _.get(user, 'credentials.username') 
+                <span>
+                  { _.get(user, 'credentials.username') } 
+                </span>
             }
 
             {
               isLoggedInViaGithub(user) &&
-            <GithubUserProfileButton
-              login={ _.get(user, 'credentials.oauth.github.login') }
-              avatar={ _.get(user, 'credentials.oauth.github.avatar_url') }
-            />
+                <React.Fragment>
+                  <Image spaced='right' avatar src={ _.get(user, 'credentials.oauth.github.avatar_url') }/>
+                  <span>{ _.get(user, 'credentials.oauth.github.login') }</span> 
+                </React.Fragment>
+              
             }
       
             <Icon name='chevron down'/>
