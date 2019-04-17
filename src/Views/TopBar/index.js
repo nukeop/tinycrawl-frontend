@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { Header, Icon, Menu } from 'semantic-ui-react';
 
-import GithubUserProfileButton from '../../Components/GithubUserProfileButton';
+import TopBarProfileButton from '../../Components/TopBarProfileButton';
 
 import styles from './styles.scss';
 
@@ -48,30 +48,14 @@ const TopBar = props => {
         </Menu.Item>
         {
           !isLoggedIn(user) &&
+          !isLoggedInViaGithub(user) &&
             <Menu.Item as={NavLink} to='/login' activeClassName='active'>
               <Icon name='user' /> Log in
             </Menu.Item>
         }
-        {
-          isLoggedIn(user) &&
-            <Menu.Item as={NavLink} to='/me' activeClassName='active'>
-              { _.get(user, 'credentials.username')}
-            </Menu.Item>
-        }
-        {
-          isLoggedInViaGithub(user) &&
-                <Menu.Item
-                  as={NavLink}
-                  to='me'
-                  activeClassName='active'>
-                  <GithubUserProfileButton
-                    login={ _.get(user, 'credentials.oauth.github.login') }
-                    avatar={ _.get(user, 'credentials.oauth.github.avatar_url') }
-                  />
-                  <Icon inverted name='chevron down'/>
-                  
-                </Menu.Item>
-        }
+        <TopBarProfileButton
+          user={ user }
+        />
       </Menu.Menu>
     </Menu>
   );

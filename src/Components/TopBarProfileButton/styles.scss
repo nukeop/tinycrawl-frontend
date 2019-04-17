@@ -1,0 +1,16 @@
+.topbar_profile_button {
+  display: inline-flex !important;
+  align-items: center;
+
+  .dropdown.icon {
+    display: none;
+  }
+
+  .chevron.icon {
+    margin-left: 1em;
+  }
+
+  .menu:not(.visible) {
+    display: none !important;
+  }
+}
