@@ -32,8 +32,10 @@ class NotificationsPopup extends React.Component {
     
     return (
       <Popup
+        className={ styles.notifications_popup }
         inverted
-        position='bottom center'
+        wide
+        position='bottom right'
         on='click'
         open={ this.state.open }
         onClose={ this.handleClose.bind(this) }
