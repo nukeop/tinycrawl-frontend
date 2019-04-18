@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { Header, Icon, Menu } from 'semantic-ui-react';
 
-import TopBarAlertsButton from '../../Components/TopBarAlertsButton';
+import mockNotifications from '../../mocks/notifications';
+import NotificationsPopup from '../../Components/NotificationsPopup';
 import TopBarProfileButton from '../../Components/TopBarProfileButton';
 
 import styles from './styles.scss';
@@ -54,8 +55,8 @@ const TopBar = props => {
               <Icon name='user' /> Log in
             </Menu.Item>
         }
-        <TopBarAlertsButton
-          alertsNum={4}
+        <NotificationsPopup
+          notificationEvents={ mockNotifications }
         />
         <TopBarProfileButton
           user={ user }
