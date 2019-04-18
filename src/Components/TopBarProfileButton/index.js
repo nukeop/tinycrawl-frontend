@@ -9,8 +9,6 @@ import {
   Menu
 } from 'semantic-ui-react';
 
-import GithubUserProfileButton from '../GithubUserProfileButton';
-
 import styles from './styles.scss';
 
 function isLoggedIn(user) {

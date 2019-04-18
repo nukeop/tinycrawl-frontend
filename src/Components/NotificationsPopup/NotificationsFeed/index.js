@@ -2,16 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {
-  Feed,
   Divider,
-  Header,
   Popup
 } from 'semantic-ui-react';
 
 import FeedItem from '../FeedItem';
 import FeedFooter from '../FeedFooter';
-
-import styles from './styles.scss';
 
 const NotificationsFeed = props => {
   const {
@@ -26,7 +22,7 @@ const NotificationsFeed = props => {
       <Divider />
       <Popup.Content>
         {
-          _.map(notificationEvents, (event, i) => {
+          _.map(notificationEvents, event => {
             return (
               <FeedItem
                 icon={ event.icon }

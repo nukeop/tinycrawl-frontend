@@ -75,7 +75,7 @@ export default function UserReducer(state=initialState, action) {
         }
       }
     });
-    case GITHUB_GET_USER_ERROR:
+  case GITHUB_GET_USER_ERROR:
     return Object.assign({}, state, {
       credentials: {
         ...state.credentials,

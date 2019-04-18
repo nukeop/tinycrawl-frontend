@@ -6,13 +6,10 @@ import {
   Icon
 } from 'semantic-ui-react';
 
-import styles from './styles.scss';
-
 const FeedItem = props => {
   const {
     icon,
-    children,
-    last
+    children
   } = props;
   
   return (
@@ -32,14 +29,12 @@ const FeedItem = props => {
 
 FeedItem.propTypes = {
   icon: PropTypes.node,
-  children: PropTypes.node,
-  last: PropTypes.bool
+  children: PropTypes.node
 };
 
 FeedItem.defaultProps = {
   icon: null,
-  children: null,
-  last: false
+  children: null
 };
 
 export default FeedItem;

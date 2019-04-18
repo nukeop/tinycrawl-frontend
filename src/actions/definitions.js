@@ -1,5 +1,5 @@
 import {
-getDefinitionsRequest
+  getDefinitionsRequest
 } from '../rest/tinycrawl';
 
 export const GET_DEFINITIONS_START = 'GET_DEFINITIONS_START';
@@ -35,7 +35,7 @@ export function getDefinitions() {
         dispatch(getDefinitionsSuccess(data.definitions));
       })
       .catch(error => {
-        console.error(error);
+        console.error(error); //eslint-disable-line
         dispatch(getDefinitionsError(error));
       });
   };

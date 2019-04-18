@@ -23,6 +23,7 @@ class CreateHeroFormView extends React.Component {
   
     return (
       <CreateHeroForm
+        definitions={ definitions }
       />
     );
   }
@@ -31,13 +32,15 @@ class CreateHeroFormView extends React.Component {
 CreateHeroFormView.propTypes = {
   userActions: PropTypes.object,
   definitionsActions: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  definitions: PropTypes.object
 };
 
 CreateHeroFormView.defaultProps = {
   userActions: {},
   definitionsActions: {},
-  user: {}
+  user: {},
+  definitions: {}
 };
 
 function mapStateToProps(state) {
