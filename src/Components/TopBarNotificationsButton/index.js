@@ -35,7 +35,7 @@ const TopBarNotificationsButton = props => {
 };
 
 TopBarNotificationsButton.propTypes = {
-  notificationsNum: PropTypes.length,
+  notificationsNum: PropTypes.number,
   onClick: PropTypes.func
 };
 

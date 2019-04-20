@@ -27,16 +27,18 @@ function getDefinitionsError(error) {
 }
 
 export function getDefinitions() {
-  return dispatch => {
+  return dispatch => new Promise((resolve, reject) => {
     dispatch(getDefinitionsStart());
     fetch(getDefinitionsRequest())
       .then(response => response.json())
       .then(data => {
         dispatch(getDefinitionsSuccess(data.definitions));
+        resolve();
       })
       .catch(error => {
         console.error(error); //eslint-disable-line
         dispatch(getDefinitionsError(error));
+        reject();
       });
-  };
+  });
 }

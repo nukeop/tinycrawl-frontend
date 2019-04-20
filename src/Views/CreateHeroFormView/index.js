@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -10,10 +11,23 @@ import CreateHeroForm from '../../Components/CreateHeroForm';
 class CreateHeroFormView extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      selectedClass: null
+    };
   }
 
   componentDidMount() {
-    this.props.definitionsActions.getDefinitions();
+    this.props.definitionsActions.getDefinitions()
+      .then(() => {
+        this.setState({
+          selectedClass: _.head(this.props.definitions.heroclasses)
+        });
+      });
+  }
+
+  setSelectedClass(heroClass){
+    this.setState({ selectedClass: heroClass});
   }
 
   render() {
@@ -24,6 +38,8 @@ class CreateHeroFormView extends React.Component {
     return (
       <CreateHeroForm
         definitions={ definitions }
+        selectedClass={ this.state.selectedClass }
+        setSelectedClass={ this.setSelectedClass.bind(this) }
       />
     );
   }
