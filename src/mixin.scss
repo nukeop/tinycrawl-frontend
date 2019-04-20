@@ -25,3 +25,7 @@
   left: 0;
   right: 0;
 }
+
+@mixin vdivider {
+  box-shadow: -1px 0 0 0 rgba(255,255,255,.45);
+}

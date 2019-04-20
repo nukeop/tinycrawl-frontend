@@ -55,12 +55,18 @@ const TopBar = props => {
               <Icon name='user' /> Log in
             </Menu.Item>
         }
-        <NotificationsPopup
-          notificationEvents={ mockNotifications }
-        />
-        <TopBarProfileButton
-          user={ user }
-        />
+        {
+          (isLoggedIn(user) ||
+            isLoggedInViaGithub(user)) &&
+              <React.Fragment>
+                <NotificationsPopup
+                  notificationEvents={ mockNotifications }
+                />
+                <TopBarProfileButton
+                  user={ user }
+                />
+              </React.Fragment>
+        }
       </Menu.Menu>
     </Menu>
   );

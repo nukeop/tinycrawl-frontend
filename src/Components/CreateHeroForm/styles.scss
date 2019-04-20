@@ -1,0 +1,35 @@
+@import '../../mixin.scss';
+
+.create_hero_form {
+  width: 100%;
+
+  .column {
+    flex-flow: column;
+  }
+  
+  .row {
+    flex-flow: row;
+  }
+
+  .two.column.row {
+    &>.column {
+      width: 50%;
+    }
+  }
+
+  .divided.row {
+    &>.column {
+      @include vdivider;
+      padding: 0 1rem;
+    }
+
+    &>.column:first-child {
+      padding-left: 0;
+    }
+
+    &>.column:last-child {
+      padding-right: 0;
+    }
+    
+  }
+}

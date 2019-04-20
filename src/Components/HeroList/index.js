@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Divider,
@@ -24,7 +25,7 @@ const HeroList = props => {
       <Grid.Column>
         <Grid.Row centered>
           <Segment inverted>
-            <Button primary inverted fluid  size='huge' as='a' href='/create-hero'>
+            <Button primary inverted fluid size='huge' as={ Link } to='/create-hero'>
               Create a hero
             </Button>
           </Segment>
