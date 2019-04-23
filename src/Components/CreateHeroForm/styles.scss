@@ -20,13 +20,11 @@
 
   .divided.row {
     &>.column {
-      @include vdivider;
       padding: 0 1rem;
     }
 
     &>.column:first-child {
       padding-left: 0;
-      box-shadow: none;
     }
 
     &>.column:last-child {
