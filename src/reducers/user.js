@@ -5,6 +5,8 @@ import {
   USER_AUTH_OK,
   USER_AUTH_ERROR,
 
+  USER_SIGN_OUT,
+
   GITHUB_OAUTH_CODE_SUCCESS,
   GITHUB_OAUTH_ACCESS_TOKEN_SUCCESS,
 
@@ -129,6 +131,8 @@ export default function UserReducer(state=initialState, action) {
         })
       })
     });
+  case USER_SIGN_OUT:
+    return {};
   default:
     return state;
   }

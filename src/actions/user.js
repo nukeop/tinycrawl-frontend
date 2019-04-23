@@ -10,6 +10,8 @@ export const USER_AUTH_START = 'USER_AUTH_START';
 export const USER_AUTH_OK = 'USER_AUTH_OK';
 export const USER_AUTH_ERROR = 'USER_AUTH_ERROR';
 
+export const USER_SIGN_OUT = 'USER_SIGN_OUT';
+
 export const GITHUB_OAUTH_CODE_SUCCESS = 'GITHUB_OAUTH_CODE_SUCCESS';
 export const GITHUB_OAUTH_ACCESS_TOKEN_SUCCESS = 'GITHUB_OAUTH_ACCESS_TOKEN_SUCCESS';
 
@@ -73,6 +75,12 @@ export function userAuth(username, password) {
         dispatch(notify('Login or password invalid.', '', 'error'));
         dispatch(userAuthError(error.message));
       });
+  };
+}
+
+export function userSignOut() {
+  return {
+    type: USER_SIGN_OUT
   };
 }
 
