@@ -1,3 +1,4 @@
+@import '../../colors.scss';
 @import '../../mixin.scss';
 
 .create_hero_form {
@@ -38,5 +39,12 @@
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+  }
+
+  .hero_class_move {
+    @include borderRadius;
+    padding: 1em;
+    border: 1px solid $bg3;
+    background: rgba($bg3, 0.4);
   }
 }

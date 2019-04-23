@@ -58,7 +58,7 @@ const CreateHeroForm = props => {
       <Grid.Row centered>
      
         <Grid.Column>
-          <Container text>
+          <Container>
             <Segment inverted loading={ _.get(definitions, 'loading') }>
               <Header inverted>
               Create a hero
@@ -107,6 +107,73 @@ const CreateHeroForm = props => {
                     name='Defense'
                     value={ _.get(selectedClass, 'baseDefense') }
                   />
+                  <Divider />
+                  <Header inverted as='h3'>
+                    Slots
+                  </Header>
+                  <Label.Group color='blue'>
+                    {
+                      _.map(
+                        _.get(selectedClass, 'slots'), slot => {
+                          return (
+                            <Label>
+                              {
+                                _.get(
+                                  _.find(
+                                    _.get(definitions, 'equipmentslots'),
+                                    { id: slot }
+                                  ), 'name')
+                              }
+                            </Label>
+                          );
+                        })
+                    }
+                  </Label.Group>
+                  <Divider />
+                  <Header inverted as='h3'>
+                    Abilities
+                  </Header>
+                  {
+                    _.map(
+                      _.get(selectedClass, 'abilities'), ability => {
+                        const abilityDef = _.find(
+                          _.get(definitions, 'abilities'),
+                          { id: ability }
+                        );
+                        return (
+                          <Header inverted as='h4'>
+                            { _.get(abilityDef, 'prettyName') }
+                            <Header.Subheader>
+                              { _.get(abilityDef, 'description') }
+                            </Header.Subheader>
+                          </Header>
+                        );
+                      }
+                    )
+                  }
+                  <Divider />
+    
+                  <Header inverted as='h3'>
+                    Moves
+                  </Header>
+                  {
+                    _.map(
+                      _.get(selectedClass, 'moves'), move => {
+                        const moveDef = _.find(
+                          _.get(definitions, 'moves'),
+                          { id: move }
+                        );
+                        return (
+                          <Header inverted as='h4' className={ styles.hero_class_move }>
+                            { _.get(moveDef, 'prettyName') }
+                            <Header.Subheader>
+                              { _.get(moveDef, 'description') }
+                            </Header.Subheader>
+                          </Header>
+                              
+                        );
+                      })
+                  }
                 </Grid.Column>
               </Grid.Row>
             </Segment>
