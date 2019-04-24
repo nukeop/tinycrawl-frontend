@@ -1,0 +1,32 @@
+@import '../../colors.scss';
+
+.tc.game_icon {
+  display: inline-block;
+  height: 1em;
+  text-align: center;
+
+  &.big {
+    height: 3em;
+  }
+
+  &.huge {
+    height: 5em;
+  }
+
+  &.blue {
+    path:last-child {
+      fill: $blue;
+    }
+  }
+  
+  &.green {
+    path:last-child {
+      fill: $green;
+    }
+  }
+
+  svg {
+    position: relative;
+    height: 100%;
+  }
+}

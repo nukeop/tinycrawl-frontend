@@ -46,7 +46,7 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({
         cssProcessorPluginOptions: {
           preset: ['default', { discardComments: { removeAll: true } }],
-      },
+        },
       })
     ]
   },
@@ -79,7 +79,15 @@ module.exports = {
         ]
       }, {
         test: /\.(ttf|eot|woff|woff2|svg)$/,
-        loader: 'url-loader'
+        loader: 'file-loader',
+        options: {
+          name: 'static/media/[name].[hash:8].[ext]'
+        },
+        exclude: /resources/
+      }, {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
+        include: /resources/
       }, {
         test: /\.(png|jpg|gif)$/,
         loader: 'url-loader'
