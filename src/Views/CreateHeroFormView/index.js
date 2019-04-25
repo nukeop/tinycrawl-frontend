@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as DefinitionsActions from '../../actions/definitions';
+import * as HeroActions from '../../actions/heroes';
 import * as UserActions from '../../actions/user';
 import CreateHeroForm from '../../Components/CreateHeroForm';
 
@@ -13,6 +14,7 @@ class CreateHeroFormView extends React.Component {
     super(props);
 
     this.state = {
+      name: '',
       selectedClass: null
     };
   }
@@ -26,8 +28,20 @@ class CreateHeroFormView extends React.Component {
       });
   }
 
+  setName(name) {
+    this.setState({ name });
+  }
+
   setSelectedClass(heroClass){
     this.setState({ selectedClass: heroClass});
+  }
+
+  createHero() {
+    const token = _.get(this.props.user, 'credentials.token');
+    this.props.heroActions.createHero({
+      heroClass: this.state.selectedClass.id,
+      name: this.state.name
+    }, token);
   }
 
   render() {
@@ -40,6 +54,8 @@ class CreateHeroFormView extends React.Component {
         definitions={ definitions }
         selectedClass={ this.state.selectedClass }
         setSelectedClass={ this.setSelectedClass.bind(this) }
+        setName={ this.setName.bind(this) }
+        createHero={ this.createHero.bind(this) }
       />
     );
   }
@@ -47,7 +63,12 @@ class CreateHeroFormView extends React.Component {
 
 CreateHeroFormView.propTypes = {
   userActions: PropTypes.object,
-  definitionsActions: PropTypes.object,
+  definitionsActions: PropTypes.shape({
+    getDefinitions: PropTypes.func
+  }),
+  heroActions: PropTypes.shape({
+    createHero: PropTypes.func
+  }),
   user: PropTypes.object,
   definitions: PropTypes.object
 };
@@ -69,7 +90,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     userActions: bindActionCreators(UserActions, dispatch),
-    definitionsActions: bindActionCreators(DefinitionsActions, dispatch)
+    definitionsActions: bindActionCreators(DefinitionsActions, dispatch),
+    heroActions: bindActionCreators(HeroActions, dispatch)
   };
 }
 

@@ -49,7 +49,9 @@ const CreateHeroForm = props => {
   const {
     definitions,
     selectedClass,
-    setSelectedClass
+    setSelectedClass,
+    setName,
+    createHero
   } = props;
   
   return (
@@ -85,12 +87,13 @@ const CreateHeroForm = props => {
                   </Form.Field>
                 </Grid.Column>
                 <Grid.Column>
-                  <Form.Field>
+                  <Form.Field required>
                     <label>Name</label>
                     <Input
                       inverted
                       fluid
                       placeholder='Name...'
+                      onChange={ (event, data) => setName(data.value) }
                     />
                   </Form.Field>
                 </Grid.Column>
@@ -183,7 +186,9 @@ const CreateHeroForm = props => {
                 }
               </Grid.Column>
               <Divider />
-              <Button  primary>
+              <Button primary
+                onClick={ createHero }
+              >
                 Create
               </Button>
             </Segment>
@@ -201,13 +206,19 @@ CreateHeroForm.propTypes = {
     name: PropTypes.string,
     prettyName: PropTypes.string
   }),
-  setSelectedClass: PropTypes.func
+  setSelectedClass: PropTypes.func,
+  name: PropTypes.string,
+  setName: PropTypes.func,
+  createHero: PropTypes.func
 };
 
 CreateHeroForm.defaultProps = {
   definitions: {},
   selectedClass: {},
-  setSelectedClass: () => {}
+  setSelectedClass: () => {},
+  name: '',
+  setName: () => {},
+  createHero: () => {}
 };
 
 export default CreateHeroForm;

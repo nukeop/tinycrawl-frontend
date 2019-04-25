@@ -55,3 +55,21 @@ export function getDefinitionsRequest() {
     backendUrl + '/definitions'
   );
 }
+
+export function createHeroRequest(heroData, authToken) {
+  var headers, request;
+  headers = new Headers();
+  headers.append('Authorization', authToken);
+  headers.append('Content-Type', 'application/json');
+  
+  request = new Request(
+    `${backendUrl}/heroes`,
+    {
+      method: 'POST',
+      body: JSON.stringify(heroData),
+      headers
+    }
+  );
+
+  return request;
+}
