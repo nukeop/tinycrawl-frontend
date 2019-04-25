@@ -14,6 +14,8 @@ import {
   Segment
 } from 'semantic-ui-react';
 
+import EquipmentSlot from './EquipmentSlot';
+
 import styles from './styles.scss';
 
 const classToOption = heroClass => {
@@ -120,16 +122,16 @@ const CreateHeroForm = props => {
                   {
                     _.map(
                       _.get(selectedClass, 'slots'), slot => {
+                        const slotObj = _.get(
+                          _.find(
+                            _.get(definitions, 'equipmentslots'),
+                            { id: slot }
+                          ), 'name');
+                        
                         return (
-                          <Label>
-                            {
-                              _.get(
-                                _.find(
-                                  _.get(definitions, 'equipmentslots'),
-                                  { id: slot }
-                                ), 'name')
-                            }
-                          </Label>
+                          <EquipmentSlot
+                            slot={ slotObj }
+                          />
                         );
                       })
                   }
