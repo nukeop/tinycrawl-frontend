@@ -15,7 +15,10 @@ import HeroCard from './HeroCard';
 import styles from './styles.scss';
 
 const HeroList = props => {
-  const { heroes } = props;
+  const {
+    definitions,
+    heroes
+  } = props;
 
   return (
     <Grid
@@ -33,14 +36,24 @@ const HeroList = props => {
         </Grid.Row>
         <Divider />
         <Grid.Row centered>
-          <Segment inverted loading={_.get(heroes, 'loading')}>
+          <Segment
+            inverted
+            loading={
+              _.get(heroes, 'loading') ||
+              _.get(definitions, 'loading')
+            }
+          >
             {
               _.isEmpty(_.get(heroes, 'heroes')) &&
                 <Header>You have no heroes.</Header>
             }
             {
               _.map(_.get(heroes, 'heroes'), hero => {
-                return <HeroCard key={ hero.id } hero={ hero }/>;
+                return <HeroCard
+                  key={ hero.id }
+                  hero={ hero }
+                  definitions={ definitions }
+                />;
               })
             }
           </Segment>
@@ -51,11 +64,13 @@ const HeroList = props => {
 };
 
 HeroList.propTypes = {
-  heroes: PropTypes.object
+  heroes: PropTypes.object,
+  definitions: PropTypes.object
 };
 
 HeroList.defaultProps = {
-  heroes: {}
+  heroes: {},
+  definitions: {}
 };
 
 export default HeroList;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import * as DefinitionsActions from '../../actions/definitions';
 import * as HeroActions from '../../actions/heroes';
 import * as UserActions from '../../actions/user';
 import _ from 'lodash';
@@ -17,11 +18,18 @@ class HeroesOverview extends React.Component {
 
   componentDidMount() {
     const {
+      definitions,
+      definitionsActions,
       userActions,
       heroActions,
     } = this.props;
     
     const username = _.get(this.props.user, 'credentials.username');
+
+    if(_.isEmpty(definitions)) {
+      definitionsActions.getDefinitions();
+    }
+    
     if (!_.isNil(username)) {
       userActions.getUser(
         username,
@@ -36,7 +44,8 @@ class HeroesOverview extends React.Component {
   render() {
     const {
       user,
-      heroes
+      heroes,
+      definitions
     } = this.props;
 
     if (_.isNil(user.credentials)) {
@@ -49,6 +58,7 @@ class HeroesOverview extends React.Component {
     return (
       <HeroList
         heroes={_.get(heroes, _.get(currentUser, 'id'))}
+        definitions={ definitions }
       />
     );
   }
@@ -57,30 +67,38 @@ class HeroesOverview extends React.Component {
 HeroesOverview.propTypes = {
   user: PropTypes.object,
   heroes: PropTypes.object,
+  definitions: PropTypes.object,
   userActions: PropTypes.shape({
     getUser: PropTypes.func
   }),
   heroActions: PropTypes.shape({
     getHeroesByUserId: PropTypes.func
+  }),
+  definitionsActions: PropTypes.shape({
+    getDefinitions: PropTypes.func
   })
 };
 
 HeroesOverview.defaultProps = {
   user: {},
   heroes: {},
+  definitions: {},
   userActions: {},
-  heroActions: {}
+  heroActions: {},
+  definitionsActions: {}
 };
 
 function mapStateToProps(state) {
   return {
     user: state.user,
-    heroes: state.heroes
+    heroes: state.heroes,
+    definitions: state.definitions
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    definitionsActions: bindActionCreators(DefinitionsActions, dispatch),
     heroActions: bindActionCreators(HeroActions, dispatch),
     userActions: bindActionCreators(UserActions, dispatch)
   };
