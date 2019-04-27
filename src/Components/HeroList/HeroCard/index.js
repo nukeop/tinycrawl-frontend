@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'; 
 import {
   Grid,
-  Header
+  Header,
+  Icon
 } from 'semantic-ui-react';
 
 import styles from './styles.scss';
@@ -12,14 +14,17 @@ const HeroCard = props => {
     definitions,
     hero
   } = props;
-
+  
   return (
-    <div className={styles.hero_card}>
+    <Link to={`hero/${_.get(hero, '_id')}`} className={styles.hero_card}>
       <Grid>
         <Grid.Row>
           <Header inverted as='h3'>
             { hero.name }
             <Header.Subheader>
+              {
+                `Level ${_.get(hero, 'level')} `
+              }
               {
                 _.get(
                   _.find(definitions.heroclasses, { id: hero.heroClass }),
@@ -28,12 +33,10 @@ const HeroCard = props => {
               }
             </Header.Subheader>
           </Header>
-        </Grid.Row>
-        <Grid.Row>
-          <span>HP: { _.get(hero.currentHp) }</span>
+          <Icon name='angle right' size='big'/>
         </Grid.Row>
       </Grid>
-    </div>
+    </Link>
   );
 };
 

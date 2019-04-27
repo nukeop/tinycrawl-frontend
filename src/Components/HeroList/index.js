@@ -20,6 +20,8 @@ const HeroList = props => {
     heroes
   } = props;
 
+  const heroList = _.get(heroes, 'heroes');
+
   return (
     <Grid
       centered
@@ -44,16 +46,21 @@ const HeroList = props => {
             }
           >
             {
-              _.isEmpty(_.get(heroes, 'heroes')) &&
+              _.isEmpty(heroList) &&
                 <Header>You have no heroes.</Header>
             }
             {
-              _.map(_.get(heroes, 'heroes'), hero => {
-                return <HeroCard
-                  key={ hero.id }
-                  hero={ hero }
-                  definitions={ definitions }
-                />;
+              _.map(heroList, (hero, i) => {
+                return (
+                  <React.Fragment>
+                    <HeroCard
+                      key={ hero.id }
+                      hero={ hero }
+                      definitions={ definitions }
+                    />
+                    { i < heroList.length - 1 && <Divider />}
+                  </React.Fragment>
+                );
               })
             }
           </Segment>
