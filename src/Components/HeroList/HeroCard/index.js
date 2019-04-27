@@ -29,6 +29,9 @@ const HeroCard = props => {
             </Header.Subheader>
           </Header>
         </Grid.Row>
+        <Grid.Row>
+          <span>HP: { _.get(hero.currentHp) }</span>
+        </Grid.Row>
       </Grid>
     </div>
   );
