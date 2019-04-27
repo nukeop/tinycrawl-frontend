@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import * as HeroActions from '../../actions/heroes';
 import * as UserActions from '../../actions/user';
 import _ from 'lodash';
 
@@ -15,27 +16,27 @@ class HeroesOverview extends React.Component {
   }
 
   componentDidMount() {
+    const {
+      userActions,
+      heroActions,
+    } = this.props;
+    
     const username = _.get(this.props.user, 'credentials.username');
     if (!_.isNil(username)) {
-      this.props.actions.getUser(
+      userActions.getUser(
         username,
         _.get(this.props.user, 'credentials.token')
-      );
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const username = _.get(nextProps.user, 'credentials.username');
-    const user = _.get(nextProps.user, `users[${username}]`);
-    const heroes = _.get(user, 'heroes');
-    if (username && user && user.id && !heroes) {
-      nextProps.actions.getUserHeroes(username, user.id);
+      )
+        .then(userData => {
+          heroActions.getHeroesByUserId(userData.id);
+        });
     }
   }
 
   render() {
     const {
-      user
+      user,
+      heroes
     } = this.props;
 
     if (_.isNil(user.credentials)) {
@@ -46,32 +47,42 @@ class HeroesOverview extends React.Component {
     const currentUser = _.get(user, `users[${username}]`);
     
     return (
-      <HeroList heroes={_.get(currentUser, 'heroes')}/>
+      <HeroList
+        heroes={_.get(heroes, _.get(currentUser, 'id'))}
+      />
     );
   }
 }
 
 HeroesOverview.propTypes = {
   user: PropTypes.object,
-  actions: PropTypes.shape({
-    getUser: PropTypes.func,
-    getUserHeroes: PropTypes.func
+  heroes: PropTypes.object,
+  userActions: PropTypes.shape({
+    getUser: PropTypes.func
+  }),
+  heroActions: PropTypes.shape({
+    getHeroesByUserId: PropTypes.func
   })
 };
 
 HeroesOverview.defaultProps = {
-  user: {}
+  user: {},
+  heroes: {},
+  userActions: {},
+  heroActions: {}
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    heroes: state.heroes
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign({}, UserActions), dispatch)
+    heroActions: bindActionCreators(HeroActions, dispatch),
+    userActions: bindActionCreators(UserActions, dispatch)
   };
 }
 

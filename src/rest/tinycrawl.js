@@ -26,21 +26,15 @@ export function loginAuthenticate(login, password) {
   return request;
 }
 
-export function getUserRequest(username, authToken) {
-  var headers, request;
-  headers = new Headers();
-  headers.append('Authorization', authToken);
-  request = new Request(
-    backendUrl + '/users/username/' + encodeURIComponent(username),
-    { headers }
+export function getUserRequest(username) {
+  return new Request(
+    backendUrl + '/users/username/' + encodeURIComponent(username)
   );
-
-  return request;
 }
 
 export function getUserHeroesRequest(uuid) {
   return new Request(
-    backendUrl + '/users/' + uuid + '/heroes'
+    `${backendUrl}/users/${uuid}/heroes`
   );
 }
 
@@ -59,7 +53,7 @@ export function getDefinitionsRequest() {
 export function createHeroRequest(heroData, authToken) {
   var headers, request;
   headers = new Headers();
-  headers.append('Authorization', authToken);
+  headers.append('Authorization', 'Bearer ' + authToken);
   headers.append('Content-Type', 'application/json');
   
   request = new Request(

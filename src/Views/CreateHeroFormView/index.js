@@ -39,7 +39,7 @@ class CreateHeroFormView extends React.Component {
   createHero() {
     const token = _.get(this.props.user, 'credentials.token');
     this.props.heroActions.createHero({
-      heroClass: this.state.selectedClass.id,
+      heroClass: this.state.selectedClass.name,
       name: this.state.name
     }, token);
   }

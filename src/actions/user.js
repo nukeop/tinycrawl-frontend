@@ -187,7 +187,7 @@ function getUserError(username, error) {
 }
 
 export function getUser(username, token) {
-  return dispatch => {
+  return dispatch => new Promise((resolve, reject) => {
     dispatch(getUserStart(username));
     fetch(getUserRequest(username, token))
       .then(data => {
@@ -199,11 +199,13 @@ export function getUser(username, token) {
       })
       .then(data => {
         dispatch(getUserSuccess(username, data.users));
+        resolve(data.users);
       })
       .catch(error => {
         dispatch(getUserError(username, error));
+        reject();
       });
-  };
+  });
 }
 
 function getUserHeroesStart(username) {
