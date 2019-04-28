@@ -60,7 +60,15 @@ module.exports = {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader?importLoaders=1&modules=true&localIdentName=[local]___[hash:base64:5]'
+          'css-loader?importLoaders=1&modules=true&localIdentName=[local]'
+        ],
+        exclude: /node_modules/
+      }, {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader?importLoaders=1&modules=true&localIdentName=[local]',
+          'sass-loader'
         ],
         exclude: /node_modules/
       }, {
@@ -70,13 +78,6 @@ module.exports = {
           'css-loader'
         ],
         include: /node_modules/
-      }, {
-        test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader?importLoaders=1&modules=true&localIdentName=[local]__[hash:base64:5]',
-          'sass-loader'
-        ]
       }, {
         test: /\.(ttf|eot|woff|woff2|svg)$/,
         loader: 'file-loader',

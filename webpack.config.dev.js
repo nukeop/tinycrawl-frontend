@@ -42,22 +42,9 @@ module.exports = {
               reloadAll: true
             },
           },
-          'css-loader?modules=true&localIdentName=[local]&sourceMap=true'
+          'css-loader?importLoaders=1&modules=true&localIdentName=[local]&sourceMap=true'
         ],
         exclude: /node_modules/
-      }, {
-        test: /\.css/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: true,
-              reloadAll: true
-            },
-          },
-          'css-loader'
-        ],
-        include: /node_modules/
       }, {
         test: /\.scss$/,
         use: [
@@ -71,6 +58,19 @@ module.exports = {
           'css-loader?importLoaders=2&modules=true&localIdentName=[local]&sourceMap=true',
           'sass-loader'
         ],
+      }, {
+        test: /\.css/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+              reloadAll: true
+            },
+          },
+          'css-loader?importLoaders=1'
+        ],
+        include: /node_modules/
       }, {
         test: /\.(ttf|eot|woff|woff2|svg)$/,
         loader: 'file-loader',
