@@ -54,11 +54,17 @@ class HeroesOverview extends React.Component {
 
     const username = _.get(user, 'credentials.username');
     const currentUser = _.get(user, `users[${username}]`);
+    const heroesList = _.filter(
+      heroes,
+      { user: _.get(currentUser, 'id') }
+    );
+    const loading = _.get(definitions, 'loading') || _.get(heroes, 'loading');
     
     return (
       <HeroList
-        heroes={_.get(heroes, _.get(currentUser, 'id'))}
+        heroes={ heroesList }
         definitions={ definitions }
+        loading= { loading }
       />
     );
   }

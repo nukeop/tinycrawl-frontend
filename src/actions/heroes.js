@@ -2,41 +2,91 @@ import _ from 'lodash';
 
 import {
   createHeroRequest,
-  getUserHeroesRequest
+  getUserHeroesRequest,
+  getHeroRequest
 } from '../rest/tinycrawl';
 
 export const CREATE_HERO_START = 'CREATE_HERO_START';
 export const CREATE_HERO_SUCCESS = 'CREATE_HERO_SUCCESS';
 export const CREATE_HERO_ERROR = 'CREATE_HERO_ERROR';
 
+export const GET_HERO_START = 'GET_HERO_START';
+export const GET_HERO_SUCCESS = 'GET_HERO_SUCCESS';
+export const GET_HERO_ERROR = 'GET_HERO_ERROR';
+
 export const GET_HEROES_BY_USER_ID_START = 'GET_HEROES_BY_USER_ID_START';
 export const GET_HEROES_BY_USER_ID_SUCCESS = 'GET_HEROES_BY_USER_ID_SUCCESS';
 export const GET_HEROES_BY_USER_ID_ERROR = 'GET_HEROES_BY_USER_ID_ERROR';
 
-function getHeroesByUserIdStart(userId) {
+function getHeroStart() {
   return {
-    type: GET_HEROES_BY_USER_ID_START,
-    payload: { userId }
+    type: GET_HERO_START
   };
 }
 
-function getHeroesByUserIdSuccess(heroes, userId) {
+function getHeroSuccess(hero) {
+  return {
+    type: GET_HERO_SUCCESS,
+    payload: { hero }
+  };
+}
+
+function getHeroError(error) {
+  return {
+    type: GET_HERO_ERROR,
+    payload: { error }
+  };
+}
+
+export function getHero(heroId) {
+  return dispatch => {
+    dispatch(getHeroStart());
+    fetch(getHeroRequest(heroId))
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(
+            `Could not fetch hero: ${_.get(response, 'message')}`
+          );
+        }
+      })
+      .then(hero => {
+        const heroObj = _.get(hero, 'heroes[0]');
+        
+        dispatch(
+          getHeroSuccess({ [`${_.get(heroObj, 'id')}`]: heroObj})
+        );
+      })
+      .catch(error => {
+        dispatch(getHeroError(error));
+      });
+  };
+}
+
+function getHeroesByUserIdStart() {
+  return {
+    type: GET_HEROES_BY_USER_ID_START
+  };
+}
+
+function getHeroesByUserIdSuccess(heroes) {
   return {
     type: GET_HEROES_BY_USER_ID_SUCCESS,
-    payload: { heroes, userId }
+    payload: { heroes }
   };
 }
 
-function getHeroesByUserIdError(error, userId) {
+function getHeroesByUserIdError(error) {
   return {
     type: GET_HEROES_BY_USER_ID_ERROR,
-    payload: { error, userId }
+    payload: { error }
   };
 }
 
 export function getHeroesByUserId(userId) {
   return dispatch => {
-    dispatch(getHeroesByUserIdStart(userId));
+    dispatch(getHeroesByUserIdStart());
     fetch(getUserHeroesRequest(userId))
       .then(response => {
         if (response.ok) {
@@ -48,10 +98,17 @@ export function getHeroesByUserId(userId) {
         }
       })
       .then(data => {
-        dispatch(getHeroesByUserIdSuccess(data, userId));
+        const heroes = _.get(data, 'heroes');
+        const transformedData = _.fromPairs(_.map(heroes, hero => {
+          return [
+            _.get(hero, '_id'),
+            hero
+          ];
+        }));
+        dispatch(getHeroesByUserIdSuccess(transformedData));
       })
       .catch(error => {
-        dispatch(getHeroesByUserIdError(error, userId));
+        dispatch(getHeroesByUserIdError(error));
       });
   };
 }

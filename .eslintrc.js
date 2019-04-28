@@ -37,7 +37,7 @@ module.exports = {
     ],
     "react/no-deprecated": 0
   },
-  globals: [
-    '_'
-  ]
+  globals: {
+    '_': true
+  }
 };

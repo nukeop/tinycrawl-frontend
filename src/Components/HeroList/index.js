@@ -11,19 +11,17 @@ import {
 import _ from 'lodash';
 
 import HeroCard from './HeroCard';
+import HeroCardPlaceholder from './HeroCard/HeroCardPlaceholder';
 
 import styles from './styles.scss';
 
 const HeroList = props => {
   const {
     definitions,
-    heroes
+    heroes,
+    loading
   } = props;
 
-  const heroList = _.get(heroes, 'heroes');
-  const isLoading = _.get(heroes, 'loading') ||
-        _.get(definitions, 'loading');
-  
   return (
     <Grid
       centered
@@ -42,14 +40,23 @@ const HeroList = props => {
         <Grid.Row centered>
           <Segment
             inverted
-            loading={ isLoading }
           >
             {
-              _.isEmpty(heroList) && !isLoading && 
+              loading &&
+                <React.Fragment>
+                  <HeroCardPlaceholder />
+                  <Divider/>
+                  <HeroCardPlaceholder />
+                  <Divider/>
+                  <HeroCardPlaceholder />
+                </React.Fragment>
+            }
+            {
+              _.isEmpty(heroes) && !loading && 
                 <Header>You have no heroes.</Header>
             }
             {
-              _.map(heroList, (hero, i) => {
+              _.map(heroes, (hero, i) => {
                 return (
                   <React.Fragment>
                     <HeroCard
@@ -57,7 +64,7 @@ const HeroList = props => {
                       hero={ hero }
                       definitions={ definitions }
                     />
-                    { i < heroList.length - 1 && <Divider />}
+                    { i < heroes.length - 1 && <Divider />}
                   </React.Fragment>
                 );
               })
@@ -71,12 +78,14 @@ const HeroList = props => {
 
 HeroList.propTypes = {
   heroes: PropTypes.object,
-  definitions: PropTypes.object
+  definitions: PropTypes.object,
+  loading: PropTypes.bool
 };
 
 HeroList.defaultProps = {
   heroes: {},
-  definitions: {}
+  definitions: {},
+  loading: false
 };
 
 export default HeroList;

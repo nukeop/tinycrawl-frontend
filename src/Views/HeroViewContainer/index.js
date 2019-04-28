@@ -7,42 +7,59 @@ import * as HeroActions from '../../actions/heroes';
 
 import HeroView from '../../Components/HeroView';
 
-const HeroViewContainer = props => {
-  const {
-    user,
-    heroes,
-    heroId
-  } = props;
+class HeroViewContainer extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-  const username = _.get(user, 'credentials.username');
-  const currentUser = _.get(user, `users[${username}]`);
-  const heroesList = _.get(heroes, _.get(currentUser, 'id'));
+  componentDidMount() {
+    const {
+      user,
+      heroes,
+      match,
+      heroActions
+    } = this.props;
+
+    if(_.isNil(_.get(heroes), match.params.heroId)) {
+      heroActions.getHero(match.params.heroId);
+    }
+  }
   
-  return (
-    <HeroView
-      loading={ _.get(heroes, 'loading') }
-      hero={ _.find(_.get(heroesList, 'heroes'), { _id: heroId }) }
+  render(){
+    const {
+      heroes,
+      match
+    } = this.props;
+    
+    return (
+      <HeroView
+        loading={ _.get(heroes, 'loading') }
+        hero={ _.get(heroes, match.params.heroId) }
       />
-  );
-};
+    );
+  }
+}
 
 HeroViewContainer.propTypes = {
   heroes: PropTypes.shape({
     loading: PropTypes.boolean,
     heroes: PropTypes.array
   }),
-  heroId: PropTypes.string
+  heroActions: PropTypes.shape({
+    getHero: PropTypes.func
+  }),
+  match: PropTypes.object
 };
 
 HeroViewContainer.defaultProps = {
   heroes: {},
-  heroId: ''
+  heroActions: {},
+  match: {}
 };
 
 function mapStateToProps(state) {
   return {
-    heroes: state.heroes,
-    user: state.user
+    heroes: state.heroes
   };
 }
 

@@ -19,7 +19,7 @@ export function loginAuthenticate(login, password) {
   var headers, request;
   headers = createAuthHeader(login, password);
   request = new Request(
-    backendUrl + '/users/authenticate',
+    `${backendUrl}/users/authenticate`,
     { headers }
   );
 
@@ -28,7 +28,7 @@ export function loginAuthenticate(login, password) {
 
 export function getUserRequest(username) {
   return new Request(
-    backendUrl + '/users/username/' + encodeURIComponent(username)
+    `${backendUrl}/users/username/${encodeURIComponent(username)}`
   );
 }
 
@@ -40,13 +40,19 @@ export function getUserHeroesRequest(uuid) {
 
 export function getNotesPartsRequest() {
   return new Request(
-    backendUrl + '/notesParts'
+    `${backendUrl}/notesParts`
   );
 }
 
 export function getDefinitionsRequest() {
   return new Request(
-    backendUrl + '/definitions'
+    `${backendUrl}/definitions`
+  );
+}
+
+export function getHeroRequest(uuid) {
+  return new Request(
+`${backendUrl}/heroes/${uuid}`
   );
 }
 
