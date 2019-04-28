@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import * as DefinitionsActions from '../../actions/definitions';
 import * as HeroActions from '../../actions/heroes';
 
 import HeroView from '../../Components/HeroView';
@@ -16,12 +17,18 @@ class HeroViewContainer extends React.Component {
     const {
       user,
       heroes,
+      definitions,
       match,
-      heroActions
+      heroActions,
+      definitionsActions
     } = this.props;
 
     if(_.isNil(_.get(heroes), match.params.heroId)) {
       heroActions.getHero(match.params.heroId);
+    }
+
+    if(_.isEmpty(definitions)) {
+      definitionsActions.getDefinitions();
     }
   }
   
@@ -45,26 +52,34 @@ HeroViewContainer.propTypes = {
     loading: PropTypes.boolean,
     heroes: PropTypes.array
   }),
+  definitions: PropTypes.object,
   heroActions: PropTypes.shape({
     getHero: PropTypes.func
+  }),
+  definitionsActions: PropTypes.shape({
+    getDefinitions: PropTypes.func
   }),
   match: PropTypes.object
 };
 
 HeroViewContainer.defaultProps = {
   heroes: {},
+  definitions: {},
   heroActions: {},
+  definitionsActions: {},
   match: {}
 };
 
 function mapStateToProps(state) {
   return {
-    heroes: state.heroes
+    heroes: state.heroes,
+    definitions: state.definitions
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    definitionsActions: bindActionCreators(DefinitionsActions, dispatch),
     heroActions: bindActionCreators(HeroActions, dispatch)
   };
 }

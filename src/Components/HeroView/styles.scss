@@ -1,0 +1,31 @@
+.hero_view {
+  width: 100%;
+  justify-content: center;
+
+  .segment {
+    min-height: 6rem;
+  }
+
+  .divider {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .row {
+    flex-flow: row;
+  }
+
+  .column {
+    flex: 1 1 50%;
+
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+
+  .hero_stats_column {
+    .row {
+      justify-content: space-between;
+    }
+  }
+}

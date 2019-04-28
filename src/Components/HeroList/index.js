@@ -42,7 +42,7 @@ const HeroList = props => {
             inverted
           >
             {
-              loading &&
+              _.isEmpty(heroes) && loading &&
                 <React.Fragment>
                   <HeroCardPlaceholder />
                   <Divider/>

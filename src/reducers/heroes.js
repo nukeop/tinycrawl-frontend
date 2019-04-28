@@ -30,7 +30,9 @@ export default function HeroesReducer(state=initialState, action) {
       message: action.payload.error
     });
   case GET_HERO_SUCCESS:
-    return Object.assign({}, state, action.payload.hero);
+    return Object.assign({}, state, {
+      loading: false
+    }, action.payload.hero);
   default:
     return state;
   }
