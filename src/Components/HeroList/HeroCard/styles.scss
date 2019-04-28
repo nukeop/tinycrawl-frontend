@@ -1,9 +1,15 @@
+@import '../../../colors.scss';
 @import '../../../mixin.scss';
 
 .hero_card {
   .ui.grid {
-    margin-left: auto;
-    margin-right: auto;
+    @include borderRadius;
+    margin: 0.5em;
+    padding: 0.5em;
+    
+    &:hover {
+      background: rgba($white, 0.09);
+    }
   }
 
   .ui.header {
@@ -17,5 +23,6 @@
     top: 0;
     bottom: 0;
     height: 100%;
+    color: $white;
   }
 }

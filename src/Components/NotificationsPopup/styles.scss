@@ -1,4 +1,14 @@
+@import '../../colors.scss';
+
 .notifications_popup {
+  border: 1px solid rgba($white, 0.2) !important;
+
+  &::before {
+    border: 1px solid rgba($white, 0.2) !important;  
+    border-bottom: none !important;
+    border-right: none !important;
+  }
+  
   .content>.grid {
     margin-top: 1rem !important;
   }

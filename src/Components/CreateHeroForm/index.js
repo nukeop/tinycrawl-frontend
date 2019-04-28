@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import {
   Button,
   Container,
@@ -14,6 +13,7 @@ import {
   Segment
 } from 'semantic-ui-react';
 
+import StartingAttributes from './StartingAttributes';
 import EquipmentSlot from './EquipmentSlot';
 
 import styles from './styles.scss';
@@ -24,25 +24,6 @@ const classToOption = heroClass => {
     text: heroClass.prettyName,
     value: heroClass.name
   };
-};
-
-const HeroStatsLine = props => {
-  const { name, value } = props;
-  return (
-    <div className={ styles.hero_stats_line }>
-      <div className={ styles.hero_stats_name }>
-        { name }:
-      </div>
-      <div className={ styles.hero_stats_value }>
-        { value }
-      </div>
-    </div>
-  );
-};
-
-HeroStatsLine.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.number
 };
 
 const CreateHeroForm = props => {
@@ -102,22 +83,9 @@ const CreateHeroForm = props => {
               <Divider />
               
               <Grid.Column>
-                <Header inverted as='h3'>
-                    Starting attributes
-                </Header>
-                <HeroStatsLine
-                  name='HP'
-                  value={ _.get(selectedClass, 'baseHp') }
-                />
-                <HeroStatsLine
-                  name='Attack'
-                  value={ _.get(selectedClass, 'baseAttack') }
-                />
-                <HeroStatsLine
-                  name='Defense'
-                  value={ _.get(selectedClass, 'baseDefense') }
-                />
-                <Divider />
+                <StartingAttributes
+                  selectedClass={ selectedClass }
+                  />
                 <Header inverted as='h3'>
                     Slots
                 </Header>

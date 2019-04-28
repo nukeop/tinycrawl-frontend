@@ -1,7 +1,7 @@
 @import '../../colors.scss';
 
 .top_bar {
-  .menu>a,
+  a.item,
   .item>h2 {
     text-transform: uppercase !important;
   }

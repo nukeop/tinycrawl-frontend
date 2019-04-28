@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Dropdown,
   Icon,
@@ -20,8 +20,8 @@ function isLoggedInViaGithub(user) {
 }
 
 const options = [
-  { key: 'me', text: 'Profile', icon: 'user', as: NavLink, to: '/me' },
-  { key: 'signout', text: 'Sign out', icon: 'sign out', as: NavLink, to: 'sign-out'}
+  { key: 'me', text: 'Profile', icon: 'user', as: Link, to: '/me' },
+  { key: 'signout', text: 'Sign out', icon: 'sign out', as: Link, to: 'sign-out'}
 ];
 
 const TopBarProfileButton = props => {

@@ -21,7 +21,9 @@ const HeroList = props => {
   } = props;
 
   const heroList = _.get(heroes, 'heroes');
-
+  const isLoading = _.get(heroes, 'loading') ||
+        _.get(definitions, 'loading');
+  
   return (
     <Grid
       centered
@@ -40,13 +42,10 @@ const HeroList = props => {
         <Grid.Row centered>
           <Segment
             inverted
-            loading={
-              _.get(heroes, 'loading') ||
-              _.get(definitions, 'loading')
-            }
+            loading={ isLoading }
           >
             {
-              _.isEmpty(heroList) &&
+              _.isEmpty(heroList) && !isLoading && 
                 <Header>You have no heroes.</Header>
             }
             {

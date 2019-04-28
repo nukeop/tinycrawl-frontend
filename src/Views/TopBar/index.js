@@ -40,14 +40,14 @@ const TopBar = props => {
           Tinycrawl
         </Header>
       </Menu.Item>
-
-      <Menu.Menu position='right'>
         <Menu.Item as={NavLink} to='/notes' activeClassName='active'>
           <Icon name='envelope' /> Notes
         </Menu.Item>
         <Menu.Item as={NavLink} to='/heroes' activeClassName='active'>
           <Icon name='space shuttle' /> Heroes
         </Menu.Item>
+        
+      <Menu.Menu position='right'>
         {
           !isLoggedIn(user) &&
           !isLoggedInViaGithub(user) &&

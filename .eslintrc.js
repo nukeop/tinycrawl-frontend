@@ -36,5 +36,8 @@ module.exports = {
       "always"
     ],
     "react/no-deprecated": 0
-  }
+  },
+  globals: [
+    '_'
+  ]
 };
