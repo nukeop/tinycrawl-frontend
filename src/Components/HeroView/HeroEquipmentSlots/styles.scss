@@ -1,0 +1,50 @@
+@import '../../../colors.scss';
+@import '../../../mixin.scss';
+
+.hero_equipment_slots {
+  .item {
+    @include borderRadius;
+    position: relative;
+    height: 3em;
+    
+    background: rgba($bg3, 0.3);
+    margin-bottom: 1em;
+
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($bg3, 0.5);
+    }
+
+    &:active,
+    &:focus, {
+      background: rgba($bg3, 0.7);
+    }
+    
+    .tc.game_icon {
+      position: absolute;
+      top: 0;
+    }
+
+    .equipped_gear {
+      position: absolute;
+      left: calc(42px + 0.5em);
+      top: 0;
+      bottom:0;
+      display: flex;
+      align-items:center;
+      font-size: 1.25em;
+      text-transform: uppercase !important;
+
+      &.empty {
+        color: $darkgray;
+      }
+    }
+
+    label {
+      position: absolute;
+      bottom: 0.5em;
+      right: 0.5em;
+    }
+  }
+}

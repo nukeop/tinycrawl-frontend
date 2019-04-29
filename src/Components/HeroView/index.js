@@ -9,6 +9,10 @@ import {
   Segment
 } from 'semantic-ui-react';
 
+import HeroAbilities from './HeroAbilities';
+import HeroEquipmentSlots from './HeroEquipmentSlots';
+import HeroStats from './HeroStats';
+
 import styles from './styles.scss';
 
 const HeroView = props => {
@@ -35,34 +39,14 @@ const HeroView = props => {
               </Grid.Row>
               <Divider inverted />
               <Grid.Row columns={ 2 }>
-                <Grid.Column className={styles.hero_stats_column}>
-                  <Grid.Row>
-                    <Header inverted as='h3'>
-                      Stats
-                    </Header>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <label>Class:</label>
-                    <span>{ _.get(hero, 'heroClass.prettyName') }</span>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <label>Level:</label>
-                    <span>{ hero.level }</span>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <label>HP:</label>
-                    <span>{ `${hero.currentHp}/${hero.baseHp}` }</span>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <label>Attack:</label>
-                    <span>{ hero.baseAttack }</span>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <label>Defense:</label>
-                    <span>{ hero.baseDefense }</span>
-                  </Grid.Row>
+                <Grid.Column>
+                  <HeroStats hero={ hero } />
+                  <Divider />
+                  <HeroEquipmentSlots slots={ _.get(hero, 'slots') }/>
                 </Grid.Column>
-                <Grid.Column>test2</Grid.Column>
+                <Grid.Column>
+                  <HeroAbilities abilities={ _.get(hero, 'abilities') }/>
+                </Grid.Column>
               </Grid.Row>
             </Segment>
           </Container>

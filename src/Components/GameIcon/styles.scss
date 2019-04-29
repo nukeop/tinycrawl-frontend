@@ -25,6 +25,12 @@
     }
   }
 
+  &.dark {
+    path:last-child {
+      fill: rgba($darkgray, 0.3);
+    }
+  }
+  
   svg {
     position: relative;
     height: 100%;

@@ -6,6 +6,7 @@ import ChestArmor from '../../../resources/icons/delapouite/chest-armor.svg';
 import RobotHelmet from '../../../resources/icons/delapouite/robot-helmet.svg';
 
 import BolterGun from '../../../resources/icons/lorc/bolter-gun.svg';
+import Canister from '../../../resources/icons/lorc/cannister.svg';
 import SpaceSuit from '../../../resources/icons/lorc/space-suit.svg';
 import Uncertainty from '../../../resources/icons/lorc/uncertainty.svg';
 
@@ -13,6 +14,8 @@ import styles from './styles.scss';
 
 const mapNameToIcon = name => {
   switch(name) {
+  case 'canister':
+    return Canister;
   case 'chest-armor':
     return ChestArmor;
   case 'robot-helmet':

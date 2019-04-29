@@ -35,17 +35,17 @@ const TopBar = props => {
       className={ styles.top_bar }
     >
       <Menu.Item className={styles.brand_name}>
-        <Header inverted as='h2'>
-          <Icon name='rocket'/>
+        <Header inverted as='h3'>
+          <Icon name='rocket' size='small'/>
           Tinycrawl
         </Header>
       </Menu.Item>
-        <Menu.Item as={NavLink} to='/notes' activeClassName='active'>
-          <Icon name='envelope' /> Notes
-        </Menu.Item>
-        <Menu.Item as={NavLink} to='/heroes' activeClassName='active'>
-          <Icon name='space shuttle' /> Heroes
-        </Menu.Item>
+      <Menu.Item as={NavLink} to='/notes' activeClassName='active'>
+        <Icon name='envelope' /> Notes
+      </Menu.Item>
+      <Menu.Item as={NavLink} to='/heroes' activeClassName='active'>
+        <Icon name='space shuttle' /> Heroes
+      </Menu.Item>
         
       <Menu.Menu position='right'>
         {
