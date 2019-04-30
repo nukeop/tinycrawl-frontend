@@ -15,20 +15,22 @@ const HeroAbilities = props => {
         <Header inverted as='h3'>Abilities</Header>
       </Grid.Row>
 
-      {
-        _.map( abilities, ability => {
-          return (
-            <Grid.Row className={styles.hero_ability}>
-              <Header as='h4' inverted>
-                { ability.prettyName }
-                <Header.Subheader>
-                  { ability.description }
-                </Header.Subheader>
-              </Header>
-            </Grid.Row>
-          );
-        })
-      }
+      <Grid.Column>
+        {
+          _.map( abilities, ability => {
+            return (
+              <Grid.Row className={styles.hero_ability}>
+                <Header as='h4' inverted>
+                  { ability.prettyName }
+                  <Header.Subheader>
+                    { ability.description }
+                  </Header.Subheader>
+                </Header>
+              </Grid.Row>
+            );
+          })
+        }
+      </Grid.Column>
     </React.Fragment>
   );
 };

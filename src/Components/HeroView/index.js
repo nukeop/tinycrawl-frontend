@@ -11,6 +11,7 @@ import {
 
 import HeroAbilities from './HeroAbilities';
 import HeroEquipmentSlots from './HeroEquipmentSlots';
+import HeroMoves from './HeroMoves';
 import HeroStats from './HeroStats';
 
 import styles from './styles.scss';
@@ -20,7 +21,6 @@ const HeroView = props => {
     loading,
     hero
   } = props;
-  console.log(hero);
   
   return (
     <Grid
@@ -35,6 +35,9 @@ const HeroView = props => {
               <Grid.Row>
                 <Header inverted as='h1'>
                   { hero.name }
+                  <Header.Subheader>
+                    { _.get(hero, 'heroClass.prettyName') }
+                  </Header.Subheader>
                 </Header>
               </Grid.Row>
               <Divider inverted />
@@ -46,6 +49,8 @@ const HeroView = props => {
                 </Grid.Column>
                 <Grid.Column>
                   <HeroAbilities abilities={ _.get(hero, 'abilities') }/>
+                  <Divider />
+                  <HeroMoves moves={ _.get(hero, 'moves') }/>
                 </Grid.Column>
               </Grid.Row>
             </Segment>

@@ -1,5 +1,9 @@
 .hero_ability {
   margin-top: 1em;
+
+  &:last-child {
+    margin-bottom: 1em;
+  }
   
   .segment {
     width: 100%;

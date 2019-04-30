@@ -6,6 +6,9 @@ import {
   List
 } from 'semantic-ui-react';
 
+import HPBar from '../HPBar';
+import ExperienceBar from '../ExperienceBar';
+
 import styles from './styles.scss';
 
 const HeroStats = props => {
@@ -18,23 +21,19 @@ const HeroStats = props => {
           Stats
         </Header>
       </Grid.Row>
+      <ExperienceBar
+        value={ _.get(hero, 'experience')}
+        total={_.get(hero, 'level') * 1000}
+      />
+      <HPBar
+        value={ hero.currentHp }
+        total={ hero.baseHp }
+      />
       <List inverted divided relaxed>
-        <List.Item>
-          <Grid.Row>
-            <label>Class:</label>
-            <span>{ _.get(hero, 'heroClass.prettyName') }</span>
-          </Grid.Row>
-        </List.Item>
         <List.Item>
           <Grid.Row>
             <label>Level:</label>
             <span>{ hero.level }</span>
-          </Grid.Row>
-        </List.Item>
-        <List.Item>
-          <Grid.Row>
-            <label>HP:</label>
-            <span>{ `${hero.currentHp}/${hero.baseHp}` }</span>
           </Grid.Row>
         </List.Item>
         <List.Item>
