@@ -2,7 +2,8 @@ import constants from '../constants';
 import {
   loginAuthenticate,
   getUserRequest,
-  getUserHeroesRequest
+  getUserHeroesRequest,
+  getUserInventoryRequest
 } from '../rest/tinycrawl';
 import { notify } from './notifications';
 
@@ -26,6 +27,10 @@ export const GET_USER_ERROR = 'GET_USER_ERROR';
 export const GET_USER_HEROES_START = 'GET_USER_HEROES_START';
 export const GET_USER_HEROES_SUCCESS = 'GET_USER_HEROES_SUCCESS';
 export const GET_USER_HEROES_ERROR = 'GET_USER_HEROES_ERROR';
+
+export const GET_USER_INVENTORY_START = 'GET_USER_INVENTORY_START';
+export const GET_USER_INVENTORY_SUCCESS = 'GET_USER_INVENTORY_SUCCESS';
+export const GET_USER_INVENTORY_ERROR = 'GET_USER_INVENTORY_ERROR';
 
 function userAuthStart() {
   return {
@@ -251,6 +256,47 @@ export function getUserHeroes(username, uuid) {
       })
       .catch(error => {
         dispatch(getUserHeroesError(username, error));
+      });
+  };
+}
+
+function getUserInventoryStart(username) {
+  return {
+    type: GET_USER_INVENTORY_START,
+    payload: { username }
+  };
+}
+
+function getUserInventorySuccess(username, data) {
+  return {
+    type: GET_USER_INVENTORY_SUCCESS,
+    payload: { username, data }
+  };
+}
+
+function getUserInventoryError(username, error) {
+  return {
+    type: GET_USER_INVENTORY_ERROR,
+    payload: { username, error }
+  };
+}
+
+export function getUserInventory(username) {
+  return dispatch => {
+    dispatch(getUserInventoryStart());
+    fetch(getUserInventoryRequest(username))
+      .then(data => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          throw new Error(`Could not get user inventory: ${data.status}: ${data.statusText}`);
+        }
+      })
+      .then(data => {
+        dispatch(getUserInventorySuccess(username, data));
+      })
+      .catch(error => {
+        dispatch(getUserInventoryError(username, error));
       });
   };
 }

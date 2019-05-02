@@ -9,6 +9,7 @@ import { Header, Icon, Menu } from 'semantic-ui-react';
 import mockNotifications from '../../mocks/notifications';
 import NotificationsPopup from '../../Components/NotificationsPopup';
 import TopBarProfileButton from '../../Components/TopBarProfileButton';
+import TopBarCurrenciesContainer from '../TopBarCurrenciesContainer';
 
 import styles from './styles.scss';
 
@@ -48,6 +49,10 @@ const TopBar = props => {
       </Menu.Item>
         
       <Menu.Menu position='right'>
+        {
+          isLoggedIn(user) &&
+            <TopBarCurrenciesContainer />
+        }
         {
           !isLoggedIn(user) &&
           !isLoggedInViaGithub(user) &&

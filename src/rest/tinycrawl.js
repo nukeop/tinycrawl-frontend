@@ -38,6 +38,12 @@ export function getUserHeroesRequest(uuid) {
   );
 }
 
+export function getUserInventoryRequest(username) {
+  return new Request(
+    `${backendUrl}/users/username/${username}/inventory`
+  );
+}
+
 export function getNotesPartsRequest() {
   return new Request(
     `${backendUrl}/notesParts`
@@ -52,7 +58,7 @@ export function getDefinitionsRequest() {
 
 export function getHeroRequest(uuid) {
   return new Request(
-`${backendUrl}/heroes/${uuid}`
+    `${backendUrl}/heroes/${uuid}`
   );
 }
 

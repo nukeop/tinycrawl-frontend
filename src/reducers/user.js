@@ -20,7 +20,11 @@ import {
 
   GET_USER_HEROES_START,
   GET_USER_HEROES_SUCCESS,
-  GET_USER_HEROES_ERROR
+  GET_USER_HEROES_ERROR,
+
+  GET_USER_INVENTORY_START,
+  GET_USER_INVENTORY_SUCCESS,
+  GET_USER_INVENTORY_ERROR
 } from '../actions/user';
 
 const initialState = {
@@ -128,6 +132,30 @@ export default function UserReducer(state=initialState, action) {
       users: Object.assign({}, state.users, {
         [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
           heroes: { error: true }
+        })
+      })
+    });
+  case GET_USER_INVENTORY_START:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
+          inventory: { loading: true }
+        })
+      })
+    });
+  case GET_USER_INVENTORY_SUCCESS:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
+          inventory: action.payload.data.inventory
+        })
+      })
+    });
+  case GET_USER_INVENTORY_ERROR:
+    return Object.assign({}, state, {
+      users: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
+          inventory: { error: true }
         })
       })
     });
