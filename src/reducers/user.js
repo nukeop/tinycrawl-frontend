@@ -137,25 +137,25 @@ export default function UserReducer(state=initialState, action) {
     });
   case GET_USER_INVENTORY_START:
     return Object.assign({}, state, {
-      users: Object.assign({}, state.users, {
-        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
-          inventory: { loading: true }
+      inventories: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: Object.assign({},  {
+          loading: true 
         })
       })
     });
   case GET_USER_INVENTORY_SUCCESS:
     return Object.assign({}, state, {
-      users: Object.assign({}, state.users, {
-        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
-          inventory: action.payload.data.inventory
+      inventories: Object.assign({}, state.users, {
+        [`${action.payload.username}`]: Object.assign({}, {
+          ...action.payload.data.inventory
         })
       })
     });
   case GET_USER_INVENTORY_ERROR:
     return Object.assign({}, state, {
-      users: Object.assign({}, state.users, {
-        [`${action.payload.username}`]: Object.assign({}, _.get(state, `users.${action.payload.username}`), {
-          inventory: { error: true }
+      inventories: Object.assign({}, state.inventories, {
+        [`${action.payload.username}`]: Object.assign({},  {
+          error: true 
         })
       })
     });

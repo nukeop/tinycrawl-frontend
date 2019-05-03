@@ -1,0 +1,24 @@
+@import '../../../colors.scss';
+@import '../../../mixin.scss';
+
+.top_bar_currency {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+
+  margin-right: 1em;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  .currency_icon {
+    @include borderRadius;
+    overflow: hidden;
+    margin-right: 0.5em;
+  }
+
+  .currency_amount {
+    color: $white;
+  }
+}

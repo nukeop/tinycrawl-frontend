@@ -51,7 +51,9 @@ const TopBar = props => {
       <Menu.Menu position='right'>
         {
           isLoggedIn(user) &&
-            <TopBarCurrenciesContainer />
+            <Menu.Item>
+              <TopBarCurrenciesContainer />
+            </Menu.Item>
         }
         {
           !isLoggedIn(user) &&

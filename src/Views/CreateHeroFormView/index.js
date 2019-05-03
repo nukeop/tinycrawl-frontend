@@ -20,12 +20,14 @@ class CreateHeroFormView extends React.Component {
   }
 
   componentDidMount() {
-    this.props.definitionsActions.getDefinitions()
-      .then(() => {
-        this.setState({
-          selectedClass: _.head(this.props.definitions.heroclasses)
+    if(_.isEmpty(this.props.definitions)) {
+      this.props.definitionsActions.getDefinitions()
+        .then(() => {
+          this.setState({
+            selectedClass: _.head(this.props.definitions.heroclasses)
+          });
         });
-      });
+    }
   }
 
   setName(name) {
