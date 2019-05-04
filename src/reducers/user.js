@@ -155,7 +155,8 @@ export default function UserReducer(state=initialState, action) {
     return Object.assign({}, state, {
       inventories: Object.assign({}, state.inventories, {
         [`${action.payload.username}`]: Object.assign({},  {
-          error: true 
+          error: true,
+          message: action.payload.error
         })
       })
     });

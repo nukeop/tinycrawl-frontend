@@ -9,10 +9,11 @@ import TopBarCurrency from './TopBarCurrency';
 const TopBarCurrencies = props => {
   const {
     currenciesDefinitions,
-    currencies
+    currencies,
+    loading
   } = props;
 
-  if(_.isNil(currenciesDefinitions) || _.isNil(currencies)) {
+  if(loading) {
     return <Loader active inverted />;
   }
   
@@ -27,9 +28,9 @@ const TopBarCurrencies = props => {
           
           return (
             <TopBarCurrency
-              name={ definition.name }
-              code={ definition.code }
-              color={ definition.color }
+              name={ _.get(definition, 'name') }
+              code={ _.get(definition, 'code') }
+              color={ _.get(definition, 'color') }
               amount={ _.last(currency) }
             />
           );
@@ -41,12 +42,14 @@ const TopBarCurrencies = props => {
 
 TopBarCurrencies.propTypes = {
   currenciesDefinitions: PropTypes.array,
-  currencies: PropTypes.object
+  currencies: PropTypes.object,
+  loading: PropTypes.bool
 };
 
 TopBarCurrencies.defaultProps = {
   currenciesDefinitions: [],
-  currencies: {}
+  currencies: {},
+  loading: true
 };
 
 export default TopBarCurrencies;

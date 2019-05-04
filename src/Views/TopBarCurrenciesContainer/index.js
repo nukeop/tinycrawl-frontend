@@ -23,7 +23,7 @@ class TopBarCurrenciesContainer extends React.Component {
     
     const username = _.get(user, 'credentials.username');
     const inventory = _.get(user, `inventories[${username}]`);
-    if (_.isNil(inventory) || _.isString(inventory)) {
+    if (_.isNil(inventory) || _.isString(inventory) || inventory.error) {
       userActions.getUserInventory(username);
     }
 
@@ -43,8 +43,13 @@ class TopBarCurrenciesContainer extends React.Component {
     
     return (
       <TopBarCurrencies
-        currenciesDefinitions={ definitions.currencies }
+        currenciesDefinitions={ _.get(definitions, 'currencies') }
         currencies={ currencies }
+        loading={
+          definitions.loading ||
+            _.isNil(currencies) ||
+            _.isNil(_.get(definitions, 'currencies'))
+        }
       />
     );
   }
