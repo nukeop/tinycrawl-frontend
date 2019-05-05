@@ -6,6 +6,7 @@ import {
 
 import HeroesOverview from './Views/HeroesOverview';
 import HeroViewContainer from './Views/HeroViewContainer';
+import InventoryView from './Views/InventoryView';
 import LoginScreen from './Views/LoginScreen';
 import NotesView from './Views/NotesView';
 import UserProfile from './Views/UserProfile';
@@ -20,6 +21,8 @@ const routes = () => (
     <Route exact path='/heroes' component={ HeroesOverview } />
     <Route exact path='/create-hero' component={ CreateHeroFormView }/>
     <Route exact path='/me' component={ UserProfile } />
+    <Route exact path='/inventory' component={ InventoryView } />
+    <Route exact path='/inventory/item/:itemId' component={ InventoryView } />
     <Route exact path='/sign-out' component={ SignOut } />
   </Switch>
 );

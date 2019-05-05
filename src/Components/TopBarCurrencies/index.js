@@ -28,6 +28,7 @@ const TopBarCurrencies = props => {
           
           return (
             <TopBarCurrency
+              key={ _.get(definition, 'name') }
               name={ _.get(definition, 'name') }
               code={ _.get(definition, 'code') }
               color={ _.get(definition, 'color') }

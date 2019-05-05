@@ -62,6 +62,12 @@ export function getHeroRequest(uuid) {
   );
 }
 
+export function getItemRequest(uuid) {
+  return new Request(
+    `${backendUrl}/items/${uuid}`
+  );
+}
+
 export function createHeroRequest(heroData, authToken) {
   var headers, request;
   headers = new Headers();

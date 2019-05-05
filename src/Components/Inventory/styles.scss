@@ -1,0 +1,13 @@
+.inventory {
+  width: 100%;
+  justify-content: center;
+
+  .header_row {
+    padding-bottom: 0 !important;
+  }
+  
+  .container,
+  .segment {
+    height: 100%;
+  }
+}

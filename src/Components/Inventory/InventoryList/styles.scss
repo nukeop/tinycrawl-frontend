@@ -1,0 +1,17 @@
+@import '../../../colors.scss';
+@import '../../../mixin.scss';
+
+.inventory_list {
+  .item {
+    @include borderRadius;
+    padding: 1em !important;
+    color: $white;
+    border: 1px solid $bg3 !important;
+    background: rgba($bg3, 0.4) !important;
+    cursor: pointer;
+    
+    * {
+      color: inherit !important;
+    }
+  }
+}
