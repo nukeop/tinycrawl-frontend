@@ -29,16 +29,19 @@ class InventoryView extends React.Component {
   render() {
     const {
       user,
-      items
+      items,
+      match
     } = this.props;
     const username = _.get(user, 'credentials.username');
     const inventory = _.get(user, `inventories[${username}]`);
     const itemsInInventory = _.get(inventory, 'items');
     const itemsData = _.map(itemsInInventory, item => _.get(items, item));
+    const activeItem = _.find(itemsData, { id: _.get(match, 'params.itemId') });
     
     return (
       <Inventory
         items={ itemsData }
+        activeItem={ activeItem }
       />
     );
   }

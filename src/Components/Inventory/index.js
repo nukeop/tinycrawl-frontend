@@ -9,11 +9,15 @@ import {
 } from 'semantic-ui-react';
 
 import InventoryList from './InventoryList';
+import InventoryItemDetails from './InventoryItemDetails';
 
 import styles from './styles.scss';
 
 const Inventory = props => {
-  const { items } = props;
+  const {
+    items,
+    activeItem
+  } = props;
   
   return (
     <Grid centered padded className={styles.inventory}>
@@ -21,7 +25,7 @@ const Inventory = props => {
         <Grid.Column>
           <Container>
             <Segment inverted>
-              <Grid>
+              <Grid className={styles.inventory_grid}>
                 <Grid.Row className={styles.header_row}>
                   <Grid.Column>
                     <Header inverted as='h1'>
@@ -34,10 +38,13 @@ const Inventory = props => {
                   <Grid.Column>
                     <InventoryList
                       items={ items }
+                      activeItem={ activeItem }
                     />
                   </Grid.Column>
                   <Grid.Column>
-
+                    <InventoryItemDetails
+                      item={ activeItem }
+                    />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -50,11 +57,15 @@ const Inventory = props => {
 };
 
 Inventory.propTypes = {
-  items: PropTypes.array
+  items: PropTypes.array,
+  activeItem: PropTypes.shape({
+    id: PropTypes.string
+  })
 };
 
 Inventory.defaultProps = {
-  items: []
+  items: [],
+  activeItem: null
 };
 
 export default Inventory;

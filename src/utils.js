@@ -14,3 +14,16 @@ export const mapSlotToIcon = slot => {
     return 'unknown';
   }
 };
+
+export const mapItemNameToIcon = iconName => {
+
+};
+
+export const categoryEnumToName = category => {
+  switch(category) {
+  case 'CONSUMABLE':
+    return 'Consumable';
+  default:
+    return 'unknown';
+  }
+};

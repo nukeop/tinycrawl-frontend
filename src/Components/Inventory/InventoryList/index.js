@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import cx from 'classnames';
 import {
   Item
 } from 'semantic-ui-react';
@@ -7,14 +9,22 @@ import {
 import styles from './styles.scss';
 
 const InventoryList = props => {
-  const { items } = props;
+  const {
+    items,
+    activeItem
+  } = props;
+  
   return (
     <Item.Group className={styles.inventory_list}>
       {
         _.map(items, item => {
           const shortLore = _.get(item, 'shortLore');
           return (
-            <Item>
+            <Item
+              as={ Link }
+              to={`/inventory/item/${_.get(item, 'id')}`}
+              className={cx({ active: _.get(item, 'id') === _.get(activeItem, 'id') })}
+            >
               <Item.Content>
                 <Item.Header>
                   { _.get(item, 'name') }
@@ -35,11 +45,15 @@ const InventoryList = props => {
 };
 
 InventoryList.propTypes = {
-  items: PropTypes.array
+  items: PropTypes.array,
+  activeItem: PropTypes.shape({
+    id: PropTypes.string
+  })
 };
 
 InventoryList.defaultProps = {
-  items: []
+  items: [],
+  activeItem: null
 };
 
 export default InventoryList;

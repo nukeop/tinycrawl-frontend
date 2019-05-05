@@ -2,6 +2,11 @@
 @import '../../../mixin.scss';
 
 .inventory_list {
+  @include borderRadius;
+  height: 100%;
+  padding: 1em;
+  background: rgba($black, 0.2);
+  
   .item {
     @include borderRadius;
     padding: 1em !important;
@@ -9,6 +14,10 @@
     border: 1px solid $bg3 !important;
     background: rgba($bg3, 0.4) !important;
     cursor: pointer;
+
+    &.active {
+      background: rgba($bg3, 0.8) !important;
+    }
     
     * {
       color: inherit !important;

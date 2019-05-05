@@ -2,6 +2,23 @@
   width: 100%;
   justify-content: center;
 
+  .inventory_grid {
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    flex-flow: column;
+  }
+
+  .divider {
+    flex: 0 0 auto !important;
+  }
+
+  .two.column.row {
+    flex: 1 1 auto;
+  }
+  
   .header_row {
     padding-bottom: 0 !important;
   }
