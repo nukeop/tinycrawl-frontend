@@ -283,7 +283,7 @@ function getUserInventoryError(username, error) {
 
 export function getUserInventory(username) {
   return dispatch => {
-    dispatch(getUserInventoryStart());
+    dispatch(getUserInventoryStart(username));
     fetch(getUserInventoryRequest(username))
       .then(data => {
         if (data.ok) {

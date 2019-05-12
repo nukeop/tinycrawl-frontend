@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Button,
   Container,
   Divider,
   Grid,
@@ -16,7 +17,9 @@ import styles from './styles.scss';
 const Inventory = props => {
   const {
     items,
-    activeItem
+    activeItem,
+    refresh,
+    loading
   } = props;
   
   return (
@@ -28,9 +31,18 @@ const Inventory = props => {
               <Grid className={styles.inventory_grid}>
                 <Grid.Row className={styles.header_row}>
                   <Grid.Column>
-                    <Header inverted as='h1'>
-                    Inventory
-                    </Header>
+                    <Grid.Row>
+                      <Header inverted as='h1'>
+                        Inventory
+                      </Header>
+                      <Button
+                        inverted
+                        icon='refresh'
+                        floated='right'
+                        loading={ loading }
+                        onClick={ refresh }
+                      />
+                    </Grid.Row>
                   </Grid.Column>
                 </Grid.Row>
                 <Divider inverted />
@@ -60,12 +72,16 @@ Inventory.propTypes = {
   items: PropTypes.array,
   activeItem: PropTypes.shape({
     id: PropTypes.string
-  })
+  }),
+  refresh: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 Inventory.defaultProps = {
   items: [],
-  activeItem: null
+  activeItem: null,
+  refresh: () => {},
+  loading: false
 };
 
 export default Inventory;

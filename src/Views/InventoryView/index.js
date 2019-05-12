@@ -10,11 +10,20 @@ import Inventory from '../../Components/Inventory';
 
 class InventoryView extends React.Component {
   componentDidMount() {
+    this.refreshItems();
+  }
+  
+  componentDidUpdate() {
+    this.refreshItems();
+  }
+
+  refreshItems() {
     const {
       user,
       items,
       itemActions
     } = this.props;
+    
     const username = _.get(user, 'credentials.username');
     const inventory = _.get(user, `inventories[${username}]`);
     const itemsInInventory = _.get(inventory, 'items');
@@ -30,8 +39,10 @@ class InventoryView extends React.Component {
     const {
       user,
       items,
+      userActions,
       match
     } = this.props;
+    
     const username = _.get(user, 'credentials.username');
     const inventory = _.get(user, `inventories[${username}]`);
     const itemsInInventory = _.get(inventory, 'items');
@@ -42,6 +53,8 @@ class InventoryView extends React.Component {
       <Inventory
         items={ itemsData }
         activeItem={ activeItem }
+        refresh={ () => userActions.getUserInventory(username) }
+        loading={ _.get(inventory, 'loading') }
       />
     );
   }
@@ -56,7 +69,7 @@ InventoryView.propTypes = {
   }),
   items: PropTypes.object,
   userActions: PropTypes.shape({
-
+    getUserInventory: PropTypes.func
   }),
   itemActions: PropTypes.shape({
     getItem: PropTypes.func
@@ -71,6 +84,8 @@ InventoryView.propTypes = {
 InventoryView.defaultProps = {
   user: {},
   items: {},
+  userActions: {},
+  itemActions: {},
   match: {}
 };
 

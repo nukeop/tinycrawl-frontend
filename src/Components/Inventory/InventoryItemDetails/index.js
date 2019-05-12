@@ -14,7 +14,7 @@ import styles from './styles.scss';
 
 const InventoryItemDetails = props => {
   const { item } = props;
-  console.log(item);
+  
   return (
     <Segment inverted className={styles.inventory_item_details}>
       {
@@ -56,11 +56,14 @@ const InventoryItemDetails = props => {
             {
               (_.get(item, 'category') === 'CONSUMABLE' ||
                _.get(item, 'category') === 'USABLE') &&
-              <Grid.Row className={styles.buttons_row}>
-                <Button primary>
+                  <Grid.Row className={styles.buttons_row}>
+                    <Button inverted color='red'>
+                          Discard
+                    </Button>
+                    <Button primary>
                   Use
-                </Button>
-              </Grid.Row>
+                    </Button>
+                  </Grid.Row>
             }
           </React.Fragment>
       }

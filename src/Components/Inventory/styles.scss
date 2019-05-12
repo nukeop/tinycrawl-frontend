@@ -9,6 +9,10 @@
     left: 1rem;
     right: 1rem;
     flex-flow: column;
+
+    h1 {
+      margin: 0;
+    }
   }
 
   .divider {
