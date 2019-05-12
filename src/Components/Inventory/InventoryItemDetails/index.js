@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Button,
   Divider,
   Grid,
   Header,
@@ -13,6 +14,7 @@ import styles from './styles.scss';
 
 const InventoryItemDetails = props => {
   const { item } = props;
+  console.log(item);
   return (
     <Segment inverted className={styles.inventory_item_details}>
       {
@@ -29,15 +31,7 @@ const InventoryItemDetails = props => {
             <Grid.Column>
               <Divider inverted />
             </Grid.Column>
-            {
-              _.get(item, 'longLore') &&
-            <Grid.Row>
-              <Segment inverted>
-                { _.get(item, 'longLore') }
-              </Segment>
-            </Grid.Row>
-            }
-            <Grid.Row>
+            <Grid.Row className={styles.labels_row}>
               <Label color='orange'>
                 Charges
                 <Label.Detail>
@@ -51,6 +45,23 @@ const InventoryItemDetails = props => {
                 </Label.Detail>
               </Label>
             </Grid.Row>
+            {
+              _.get(item, 'longLore') &&
+                <Grid.Row className={styles.lore_row}>
+                  <Segment inverted>
+                    { _.get(item, 'longLore') }
+                  </Segment>
+                </Grid.Row>
+            }
+            {
+              (_.get(item, 'category') === 'CONSUMABLE' ||
+               _.get(item, 'category') === 'USABLE') &&
+              <Grid.Row className={styles.buttons_row}>
+                <Button primary>
+                  Use
+                </Button>
+              </Grid.Row>
+            }
           </React.Fragment>
       }
     </Segment>

@@ -2,4 +2,13 @@
 
 .inventory_item_details {
   background: rgba($black, 0.2) !important;
+
+  .labels_row,
+  .lore_row {
+    margin-bottom: 1rem;
+  }
+
+  .buttons_row {
+    justify-content: flex-end;
+  }
 }

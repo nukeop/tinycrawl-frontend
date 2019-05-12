@@ -22,7 +22,7 @@ function isLoggedInViaGithub(user) {
 const options = [
   { key: 'me', text: 'Profile', icon: 'user', as: Link, to: '/me' },
   { key: 'inventory', text: 'Inventory', icon: 'archive', as: Link, to: '/inventory' },
-  { key: 'signout', text: 'Sign out', icon: 'sign out', as: Link, to: 'sign-out' }
+  { key: 'signout', text: 'Sign out', icon: 'sign out', as: Link, to: '/sign-out' }
 ];
 
 const TopBarProfileButton = props => {
