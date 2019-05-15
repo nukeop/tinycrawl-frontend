@@ -15,6 +15,15 @@
     }
   }
 
+  .inventory_list_container {
+    overflow-y: auto;
+  }
+
+  .inventory_list_column,
+  .item_details_column {
+    height: 100%;
+  }
+  
   .divider {
     flex: 0 0 auto !important;
   }

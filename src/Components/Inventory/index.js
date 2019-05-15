@@ -46,14 +46,14 @@ const Inventory = props => {
                   </Grid.Column>
                 </Grid.Row>
                 <Divider inverted />
-                <Grid.Row columns={ 2 }>
-                  <Grid.Column>
+                <Grid.Row columns={ 2 } className={styles.inventory_list_container} >
+                  <Grid.Column className={styles.inventory_list_column}>
                     <InventoryList
                       items={ items }
                       activeItem={ activeItem }
                     />
                   </Grid.Column>
-                  <Grid.Column>
+                  <Grid.Column className={styles.item_details_column}>
                     <InventoryItemDetails
                       item={ activeItem }
                     />

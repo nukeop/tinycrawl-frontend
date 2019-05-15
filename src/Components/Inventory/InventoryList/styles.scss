@@ -6,6 +6,7 @@
   height: 100%;
   padding: 1em;
   background: rgba($black, 0.2);
+  overflow-y: auto;
   
   .item {
     @include borderRadius;
