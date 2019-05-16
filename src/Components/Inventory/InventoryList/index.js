@@ -8,6 +8,10 @@ import {
 
 import styles from './styles.scss';
 
+const isValid = item => {
+  return !_.isNil(item) && !item.loading;
+};
+
 const InventoryList = props => {
   const {
     items,
@@ -17,10 +21,11 @@ const InventoryList = props => {
   return (
     <Item.Group className={styles.inventory_list}>
       {
-        _.map(items, item => {
+        _.map(_.filter(items, isValid), item => {
           const shortLore = _.get(item, 'shortLore');
           return (
             <Item
+              key={ _.get(item, 'id') }
               as={ Link }
               to={`/inventory/item/${_.get(item, 'id')}`}
               className={cx({ active: _.get(item, 'id') === _.get(activeItem, 'id') })}

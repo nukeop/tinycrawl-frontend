@@ -80,9 +80,7 @@ export function useItem(itemId, token) {
     dispatch(useItemStart(itemId));
     fetch(useItemRequest(itemId, token))
       .then(data => {
-        if (data.ok) {
-          return data.json();
-        } else {
+        if (!data.ok) {
           throw new Error(`${data.status}: ${data.statusText}`);
         }
       })
@@ -91,7 +89,7 @@ export function useItem(itemId, token) {
         resolve();
       })
       .catch(error => {
-        dispatch(useItemError(itemId, error));
+        dispatch(useItemError(itemId, error.toString()));
         reject();
       });
   });

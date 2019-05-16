@@ -12,16 +12,32 @@ import {
 import { categoryEnumToName } from '../../../utils';
 import styles from './styles.scss';
 
-const InventoryItemDetails = props => {
-  const {
-    item,
-    useItem
-  } = props;
+class InventoryItemDetails extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      useItemLoading: false
+    };
+  }
+
+  useItem() {
+    const { item, useItem, refresh } = this.props;
+    this.setState({ useItemLoading: true });
+    useItem(item.id)
+      .then(() => {
+        this.setState({ useItemLoading: false });
+        refresh();
+      });
+  }
+
+  render() {
+    const { item } = this.props;
   
-  return (
-    <Segment inverted className={styles.inventory_item_details}>
-      {
-        item &&
+    return (
+      <Segment inverted className={styles.inventory_item_details}>
+        {
+          item &&
           <React.Fragment>
             <Grid.Row>
               <Header inverted as='h1'>
@@ -61,29 +77,38 @@ const InventoryItemDetails = props => {
                _.get(item, 'category') === 'USABLE') &&
                   <Grid.Row className={styles.buttons_row}>
                     <Button inverted color='red'>
-                          Discard
+                      Discard
                     </Button>
-                    <Button primary onClick={ () => useItem(item.id) }>
+                    <Button
+                      primary
+                      loading={ this.state.useItemLoading }
+                      onClick={
+                        () => this.useItem.bind(this)(item.id)
+                      }
+                    >
                       Use
                     </Button>
                   </Grid.Row>
             }
           </React.Fragment>
-      }
-    </Segment>
-  );
-};
+        }
+      </Segment>
+    );
+  }
+}
 
 InventoryItemDetails.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string
   }),
-  useItem: PropTypes.func
+  useItem: PropTypes.func,
+  refresh: PropTypes.func
 };
 
 InventoryItemDetails.defaultProps = {
   item: null,
-  useItem: () => {}
+  useItem: () => {},
+  refresh: () => {}
 };
 
 export default InventoryItemDetails;

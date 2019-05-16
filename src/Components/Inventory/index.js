@@ -86,6 +86,7 @@ const Inventory = props => {
                         <InventoryItemDetails
                           item={ activeItem }
                           useItem={ useItem }
+                          refresh={ refresh }
                         />
                       </Grid.Column>
                     </Grid.Row>
