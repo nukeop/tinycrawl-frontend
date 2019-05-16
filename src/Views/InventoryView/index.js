@@ -40,6 +40,7 @@ class InventoryView extends React.Component {
       user,
       items,
       userActions,
+      itemActions,
       match
     } = this.props;
     
@@ -47,13 +48,20 @@ class InventoryView extends React.Component {
     const inventory = _.get(user, `inventories[${username}]`);
     const itemsInInventory = _.get(inventory, 'items');
     const itemsData = _.map(itemsInInventory, item => _.get(items, item));
-    const activeItem = _.find(itemsData, { id: _.get(match, 'params.itemId') });
+    const activeItem = _.find(
+      itemsData,
+      {
+        id: _.get(match, 'params.itemId')
+      }
+    );
+    const token = _.get(this.props.user, 'credentials.token');
     
     return (
       <Inventory
         items={ itemsData }
         activeItem={ activeItem }
         refresh={ () => userActions.getUserInventory(username) }
+        useItem={ itemId => itemActions.useItem(itemId, token) }
         loading={ _.get(inventory, 'loading') }
       />
     );
@@ -72,7 +80,8 @@ InventoryView.propTypes = {
     getUserInventory: PropTypes.func
   }),
   itemActions: PropTypes.shape({
-    getItem: PropTypes.func
+    getItem: PropTypes.func,
+    useItem: PropTypes.func
   }),
   match: PropTypes.shape({
     params: PropTypes.shape({

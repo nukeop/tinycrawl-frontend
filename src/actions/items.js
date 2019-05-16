@@ -1,8 +1,15 @@
-import { getItemRequest } from '../rest/tinycrawl';
+import {
+  getItemRequest,
+  useItemRequest
+} from '../rest/tinycrawl';
 
 export const GET_ITEM_START = 'GET_ITEM_START';
 export const GET_ITEM_SUCCESS = 'GET_ITEM_SUCCESS';
 export const GET_ITEM_ERROR = 'GET_ITEM_ERROR';
+
+export const USE_ITEM_START = 'USE_ITEM_START';
+export const USE_ITEM_SUCCESS = 'USE_ITEM_SUCCESS';
+export const USE_ITEM_ERROR = 'USE_ITEM_ERROR';
 
 function getItemStart(itemId) {
   return {
@@ -46,3 +53,46 @@ export function getItem(itemId) {
       });
   };
 }
+
+function useItemStart(itemId) {
+  return {
+    type: USE_ITEM_START,
+    payload: { itemId }
+  };
+}
+
+function useItemSuccess(itemId) {
+  return {
+    type: USE_ITEM_SUCCESS,
+    payload: { itemId }
+  };
+}
+
+function useItemError(itemId, error) {
+  return {
+    type: USE_ITEM_ERROR,
+    payload: { itemId, error }
+  };
+}
+
+export function useItem(itemId, token) {
+  return dispatch => new Promise((resolve, reject) => {
+    dispatch(useItemStart(itemId));
+    fetch(useItemRequest(itemId, token))
+      .then(data => {
+        if (data.ok) {
+          return data.json();
+        } else {
+          throw new Error(`${data.status}: ${data.statusText}`);
+        }
+      })
+      .then(() => {
+        dispatch(useItemSuccess(itemId));
+        resolve();
+      })
+      .catch(error => {
+        dispatch(useItemError(itemId, error));
+        reject();
+      });
+  });
+} 

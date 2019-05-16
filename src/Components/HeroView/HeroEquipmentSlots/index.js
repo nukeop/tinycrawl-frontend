@@ -37,7 +37,7 @@ const HeroEquipmentSlots = props => {
                 )} >
                   { '< Empty >' }
                 </span>
-                <label>{ slot.name }</label>
+                <label>{ slot.prettyName }</label>
               </List.Item>
             );
           })

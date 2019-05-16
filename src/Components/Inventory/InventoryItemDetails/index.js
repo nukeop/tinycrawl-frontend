@@ -13,7 +13,10 @@ import { categoryEnumToName } from '../../../utils';
 import styles from './styles.scss';
 
 const InventoryItemDetails = props => {
-  const { item } = props;
+  const {
+    item,
+    useItem
+  } = props;
   
   return (
     <Segment inverted className={styles.inventory_item_details}>
@@ -60,8 +63,8 @@ const InventoryItemDetails = props => {
                     <Button inverted color='red'>
                           Discard
                     </Button>
-                    <Button primary>
-                  Use
+                    <Button primary onClick={ () => useItem(item.id) }>
+                      Use
                     </Button>
                   </Grid.Row>
             }
@@ -74,11 +77,13 @@ const InventoryItemDetails = props => {
 InventoryItemDetails.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string
-  })
+  }),
+  useItem: PropTypes.func
 };
 
 InventoryItemDetails.defaultProps = {
-  item: null
+  item: null,
+  useItem: () => {}
 };
 
 export default InventoryItemDetails;

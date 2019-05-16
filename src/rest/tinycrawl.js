@@ -15,6 +15,14 @@ function createAuthHeader(login, password) {
   return headers;
 }
 
+function createAuthorizedRequestHeaders(authToken) {
+  var headers;
+  headers = new Headers();
+  headers.append('Authorization', 'Bearer ' + authToken);
+  headers.append('Content-Type', 'application/json');
+  return headers;
+}
+
 export function loginAuthenticate(login, password) {
   var headers, request;
   headers = createAuthHeader(login, password);
@@ -68,13 +76,21 @@ export function getItemRequest(uuid) {
   );
 }
 
+export function useItemRequest(uuid, authToken) {
+  const headers = createAuthorizedRequestHeaders(authToken);
+  return new Request(
+    `${backendUrl}/items/${uuid}/use`,
+    {
+      method: 'POST',
+      headers
+    }
+  );
+}
+
 export function createHeroRequest(heroData, authToken) {
-  var headers, request;
-  headers = new Headers();
-  headers.append('Authorization', 'Bearer ' + authToken);
-  headers.append('Content-Type', 'application/json');
+  const headers = createAuthorizedRequestHeaders(authToken);
   
-  request = new Request(
+  return new Request(
     `${backendUrl}/heroes`,
     {
       method: 'POST',
@@ -82,6 +98,4 @@ export function createHeroRequest(heroData, authToken) {
       headers
     }
   );
-
-  return request;
 }

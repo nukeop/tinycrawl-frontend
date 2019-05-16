@@ -1,7 +1,13 @@
+@import '../../mixin.scss';
+
 .inventory {
   width: 100%;
   justify-content: center;
 
+  .empty_state {
+    @include emptyState;
+  }
+  
   .inventory_grid {
     position: absolute;
     top: 1rem;
@@ -13,6 +19,11 @@
     h1 {
       margin: 0;
     }
+  }
+
+  .header_elements_row {
+    justify-content: space-between;
+    align-items: center;
   }
 
   .inventory_list_container {
