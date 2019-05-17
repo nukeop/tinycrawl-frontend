@@ -7,12 +7,20 @@
   .row {
     justify-content: center;
   }
-  
-  .segment {
-    width: 100%;
-    max-width: 450px;
+
+  .ui.divider {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
+  .header_row {
+    justify-content: space-between;
+
+    .ui.header {
+      margin: 0;
+    }
+  } 
+  
   .user_profile_row {
     justify-content: space-between;
     margin-bottom: 0.5em;

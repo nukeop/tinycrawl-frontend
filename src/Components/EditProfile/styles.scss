@@ -1,0 +1,32 @@
+.edit_profile {
+  width: 100%;
+  justify-content: center;
+
+  .header_row {
+    justify-content: space-between;
+
+    .ui.header {
+      margin: 0;
+    }
+  }
+  
+  .edit_profile_row {
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5em;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  .buttons_row {
+    justify-content: flex-end;
+    margin-top: 1em;
+
+    button:last-child {
+      margin-right: 0;
+      margin-left: 0.5em;
+    }
+  }
+}

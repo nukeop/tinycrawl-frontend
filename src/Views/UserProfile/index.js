@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
+  Button,
+  Container,
   Divider,
   Grid,
   Header,
@@ -49,16 +52,29 @@ class UserProfile extends React.Component {
         padded
         className={styles.user_profile}
       >
-        <Grid.Column>
-          <Grid.Row centered>
-            <Segment inverted loading={ _.get(data, 'loading') }>
-              <Header>
-                Your profile
-              </Header>
-              <Divider />
-              <Grid>
-                {
-                  _.get(data, 'username') &&
+        <Grid.Row centered>
+          <Grid.Column>
+            <Container text>
+              <Segment inverted loading={ _.get(data, 'loading') }>
+                <Grid.Row className={styles.header_row}>
+                  <Header inverted>
+                    Your profile
+                  </Header>
+              
+                  <Button
+                    compact
+                    inverted
+                    basic
+                    icon='pencil'
+                    size='tiny'
+                    as={ Link }
+                    to='/edit-profile'
+                  />
+                </Grid.Row>
+                <Divider />
+                <Grid>
+                  {
+                    _.get(data, 'username') &&
                 <Grid.Column>
                   <Grid.Row className={styles.user_profile_row}>
                     <label>Username:</label>
@@ -73,11 +89,12 @@ class UserProfile extends React.Component {
                     { data.email }
                   </Grid.Row>
                 </Grid.Column>
-                }
-              </Grid>
-            </Segment>
-          </Grid.Row>
-        </Grid.Column>
+                  }
+                </Grid>
+              </Segment>
+            </Container>
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     );
   }

@@ -4,6 +4,7 @@ import {
   Switch
 } from 'react-router-dom';
 
+import EditProfileView from './Views/EditProfileView';
 import HeroesOverview from './Views/HeroesOverview';
 import HeroViewContainer from './Views/HeroViewContainer';
 import InventoryView from './Views/InventoryView';
@@ -21,6 +22,7 @@ const routes = () => (
     <Route exact path='/heroes' component={ HeroesOverview } />
     <Route exact path='/create-hero' component={ CreateHeroFormView }/>
     <Route exact path='/me' component={ UserProfile } />
+    <Route exact path='/edit-profile' component={ EditProfileView } />
     <Route exact path='/inventory' component={ InventoryView } />
     <Route exact path='/inventory/item/:itemId' component={ InventoryView } />
     <Route exact path='/sign-out' component={ SignOut } />
