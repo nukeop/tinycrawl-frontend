@@ -3,7 +3,8 @@ import {
   loginAuthenticate,
   getUserRequest,
   getUserHeroesRequest,
-  getUserInventoryRequest
+  getUserInventoryRequest,
+  putUserRequest
 } from '../rest/tinycrawl';
 import { notify } from './notifications';
 
@@ -31,6 +32,10 @@ export const GET_USER_HEROES_ERROR = 'GET_USER_HEROES_ERROR';
 export const GET_USER_INVENTORY_START = 'GET_USER_INVENTORY_START';
 export const GET_USER_INVENTORY_SUCCESS = 'GET_USER_INVENTORY_SUCCESS';
 export const GET_USER_INVENTORY_ERROR = 'GET_USER_INVENTORY_ERROR';
+
+export const PUT_USER_START = 'PUT_USER_START';
+export const PUT_USER_SUCCESS = 'PUT_USER_SUCCESS';
+export const PUT_USER_ERROR = 'PUT_USER_ERROR';
 
 function userAuthStart() {
   return {
@@ -299,4 +304,43 @@ export function getUserInventory(username) {
         dispatch(getUserInventoryError(username, error));
       });
   };
+}
+
+function putUserStart() {
+  return {
+    type: PUT_USER_START
+  };
+}
+
+function putUserSuccess() {
+  return {
+    type: PUT_USER_SUCCESS
+  };
+}
+
+function putUserError(error) {
+  return {
+    type: PUT_USER_ERROR,
+    payload: { error }
+  };
+}
+
+export function putUser(uuid, token, body) {
+  return dispatch => new Promise((resolve, reject) => {
+    dispatch(putUserStart());
+    fetch(putUserRequest(uuid, token, body))
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
+      })
+      .then(() => {
+        dispatch(putUserSuccess());
+        resolve();
+      })
+      .catch(error => {
+        dispatch(putUserError(error));
+        reject();
+      });
+  });
 }

@@ -8,25 +8,35 @@ import EditProfile from '../../Components/EditProfile';
 
 const EditProfileView = props => {
   const {
-    user
+    user,
+    actions
   } = props;
 
   const username = _.get(user, 'credentials.username');
+  const token = _.get(user, 'credentials.token');
   const userData = _.get(user, `users[${username}]`);
+  const userId = _.get(userData, 'id');
   
   return (
     <EditProfile
       user={ userData }
+      putUser={ body => actions.putUser(userId, token, body) }
+      getUser={ () => actions.getUser(username, token) }
     />
   );
 };
 
 EditProfileView.propTypes = {
-
+  user: PropTypes.object,
+  actions: PropTypes.shape({
+    getUser: PropTypes.func,
+    putUser: PropTypes.func
+  })
 };
 
 EditProfileView.defaultProps = {
-
+  user: {},
+  actions: {}
 };
 
 function mapStateToProps(state) {
@@ -37,7 +47,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Object.assign({}, UserActions), dispatch)
+    actions: bindActionCreators(UserActions, dispatch)
   };
 }
 

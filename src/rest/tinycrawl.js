@@ -24,19 +24,28 @@ function createAuthorizedRequestHeaders(authToken) {
 }
 
 export function loginAuthenticate(login, password) {
-  var headers, request;
-  headers = createAuthHeader(login, password);
-  request = new Request(
+  const headers = createAuthHeader(login, password);
+  return new Request(
     `${backendUrl}/users/authenticate`,
     { headers }
   );
-
-  return request;
 }
 
 export function getUserRequest(username) {
   return new Request(
     `${backendUrl}/users/username/${encodeURIComponent(username)}`
+  );
+}
+
+export function putUserRequest(uuid, authToken, body) {
+  const headers = createAuthorizedRequestHeaders(authToken);
+  return new Request(
+    `${backendUrl}/users/${uuid}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers
+    }
   );
 }
 
