@@ -15,7 +15,6 @@ class HeroViewContainer extends React.Component {
 
   componentDidMount() {
     const {
-      user,
       heroes,
       definitions,
       match,
@@ -34,27 +33,38 @@ class HeroViewContainer extends React.Component {
   
   render(){
     const {
+      user,
       heroes,
+      heroActions,
       match
     } = this.props;
+
+    const token = _.get(user, 'credentials.token');
     
     return (
       <HeroView
         loading={ _.get(heroes, 'loading') }
         hero={ _.get(heroes, match.params.heroId) }
+        deleteHero={ () => heroActions.deleteHero(match.params.heroId, token) }
       />
     );
   }
 }
 
 HeroViewContainer.propTypes = {
+  user: PropTypes.shape({
+    credentials: PropTypes.shape({
+      token: PropTypes.string
+    })
+  }),
   heroes: PropTypes.shape({
     loading: PropTypes.boolean,
     heroes: PropTypes.array
   }),
   definitions: PropTypes.object,
   heroActions: PropTypes.shape({
-    getHero: PropTypes.func
+    getHero: PropTypes.func,
+    deleteHero: PropTypes.func
   }),
   definitionsActions: PropTypes.shape({
     getDefinitions: PropTypes.func
@@ -63,6 +73,7 @@ HeroViewContainer.propTypes = {
 };
 
 HeroViewContainer.defaultProps = {
+  user: {},
   heroes: {},
   definitions: {},
   heroActions: {},
@@ -72,6 +83,7 @@ HeroViewContainer.defaultProps = {
 
 function mapStateToProps(state) {
   return {
+    user: state.user,
     heroes: state.heroes,
     definitions: state.definitions
   };

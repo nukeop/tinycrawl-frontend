@@ -2,8 +2,13 @@
   width: 100%;
   justify-content: center;
 
+  button {
+    height: 100%;
+  }
+  
   h1 {
     font-variant: small-caps;
+    width: 100% !important;
   }
   
   .segment {

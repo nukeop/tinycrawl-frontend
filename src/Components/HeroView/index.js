@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Button,
   Container,
   Divider,
   Grid,
   Header,
-  Rail,
   Segment
 } from 'semantic-ui-react';
 
@@ -19,7 +19,8 @@ import styles from './styles.scss';
 const HeroView = props => {
   const {
     loading,
-    hero
+    hero,
+    deleteHero
   } = props;
   
   return (
@@ -39,6 +40,13 @@ const HeroView = props => {
                     { _.get(hero, 'heroClass.prettyName') }
                   </Header.Subheader>
                 </Header>
+                <Button
+                  floated='right'
+                  icon='close'
+                  color='red'
+                  inverted
+                  onClick={ deleteHero }
+                />
               </Grid.Row>
               <Divider inverted />
               <Grid.Row columns={ 2 }>
@@ -65,11 +73,13 @@ HeroView.propTypes = {
   hero: PropTypes.shape({
     name: PropTypes.string
   }),
+  deleteHero: PropTypes.func,
   loading: PropTypes.bool
 };
 
 HeroView.defaultProps = {
   hero: {},
+  deleteHero: () => {},
   loading: false
 };
 

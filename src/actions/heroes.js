@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import {
   createHeroRequest,
+  deleteHeroRequest,
   getUserHeroesRequest,
   getHeroRequest
 } from '../rest/tinycrawl';
@@ -9,6 +10,10 @@ import {
 export const CREATE_HERO_START = 'CREATE_HERO_START';
 export const CREATE_HERO_SUCCESS = 'CREATE_HERO_SUCCESS';
 export const CREATE_HERO_ERROR = 'CREATE_HERO_ERROR';
+
+export const DELETE_HERO_START = 'DELETE_HERO_START';
+export const DELETE_HERO_SUCCESS = 'DELETE_HERO_SUCCESS';
+export const DELETE_HERO_ERROR = 'DELETE_HERO_ERROR';
 
 export const GET_HERO_START = 'GET_HERO_START';
 export const GET_HERO_SUCCESS = 'GET_HERO_SUCCESS';
@@ -152,5 +157,47 @@ export function createHero(heroData, authToken) {
       .catch(error => {
         dispatch(createHeroError(error));
       });
+  };
+}
+
+function deleteHeroStart() {
+  return {
+    type: DELETE_HERO_START
+  };
+}
+
+function deleteHeroSuccess() {
+  return {
+    type: DELETE_HERO_SUCCESS
+  };
+}
+
+function deleteHeroError(error) {
+  return {
+    type: DELETE_HERO_ERROR,
+    payload: { error }
+  };
+}
+
+export function deleteHero(uuid, authToken) {
+  return dispatch => {
+    dispatch(deleteHeroStart());
+    fetch(deleteHeroRequest(uuid, authToken))
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(
+            `Could not delete hero: ${_.get(response, 'message')}`
+          );
+        }
+      })
+      .then(() => {
+        dispatch(deleteHeroSuccess());
+      })
+      .catch(error => {
+        dispatch(deleteHeroError(error));
+      });
+    
   };
 }

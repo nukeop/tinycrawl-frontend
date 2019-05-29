@@ -108,3 +108,15 @@ export function createHeroRequest(heroData, authToken) {
     }
   );
 }
+
+export function deleteHeroRequest(uuid, authToken) {
+  const headers = createAuthorizedRequestHeaders(authToken);
+  
+  return new Request(
+    `${backendUrl}/heroes/${uuid}`,
+    {
+      method: 'DELETE',
+      headers
+    }
+  );
+}
