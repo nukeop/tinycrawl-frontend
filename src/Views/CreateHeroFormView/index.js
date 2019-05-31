@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import * as DefinitionsActions from '../../actions/definitions';
 import * as HeroActions from '../../actions/heroes';
 import * as UserActions from '../../actions/user';
+import { notify } from '../../actions/notifications';
 import CreateHeroForm from '../../Components/CreateHeroForm';
 
 class CreateHeroFormView extends React.Component {
@@ -40,15 +41,16 @@ class CreateHeroFormView extends React.Component {
 
   createHero() {
     const token = _.get(this.props.user, 'credentials.token');
-    this.props.heroActions.createHero({
+    return this.props.heroActions.createHero(token)({
       heroClass: this.state.selectedClass.name,
       name: this.state.name
-    }, token);
+    });
   }
 
   render() {
     const {
-      definitions
+      definitions,
+      notify
     } = this.props;
   
     return (
@@ -58,6 +60,7 @@ class CreateHeroFormView extends React.Component {
         setSelectedClass={ this.setSelectedClass.bind(this) }
         setName={ this.setName.bind(this) }
         createHero={ this.createHero.bind(this) }
+        notify={ notify }
       />
     );
   }
@@ -71,6 +74,7 @@ CreateHeroFormView.propTypes = {
   heroActions: PropTypes.shape({
     createHero: PropTypes.func
   }),
+  notify: PropTypes.func,
   user: PropTypes.object,
   definitions: PropTypes.object
 };
@@ -78,6 +82,7 @@ CreateHeroFormView.propTypes = {
 CreateHeroFormView.defaultProps = {
   userActions: {},
   definitionsActions: {},
+  notify: () => {},
   user: {},
   definitions: {}
 };
@@ -93,7 +98,8 @@ function mapDispatchToProps(dispatch) {
   return {
     userActions: bindActionCreators(UserActions, dispatch),
     definitionsActions: bindActionCreators(DefinitionsActions, dispatch),
-    heroActions: bindActionCreators(HeroActions, dispatch)
+    heroActions: bindActionCreators(HeroActions, dispatch),
+    notify: bindActionCreators(notify, dispatch)
   };
 }
 

@@ -26,146 +26,173 @@ const classToOption = heroClass => {
   };
 };
 
-const CreateHeroForm = props => {
-  const {
-    definitions,
-    selectedClass,
-    setSelectedClass,
-    setName,
-    createHero
-  } = props;
-  
-  return (
-    <Grid
-      centered
-      padded
-      className={ styles.create_hero_form }
-    >
-      <Grid.Row centered>
-     
-        <Grid.Column>
-          <Container text>
-            <Segment inverted loading={ _.get(definitions, 'loading') }>
-              <Header inverted>
-              Create a hero
-              </Header>
-              <Divider />
-              <Form inverted as={ Grid.Row } divided columns={ 2 }>
-                <Grid.Column>
-                  <Form.Field>
-                    <label>Class</label>
-                    <Dropdown
-                      selection
-                      fluid
-                      options={
-                        _.map(definitions.heroclasses, classToOption)
-                      }
-                      value={ _.get(selectedClass, 'name') }
-                      onChange={ (e, item) => setSelectedClass(
-                        _.find( definitions.heroclasses, { name: item.value })
-                      ) }
-                    />
-                  </Form.Field>
-                </Grid.Column>
-                <Grid.Column>
-                  <Form.Field required>
-                    <label>Name</label>
-                    <Input
-                      inverted
-                      fluid
-                      placeholder='Name...'
-                      onChange={ (event, data) => setName(data.value) }
-                    />
-                  </Form.Field>
-                </Grid.Column>
-              </Form>
+class CreateHeroForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+  }
 
-              <Divider />
-              
-              <Grid.Column>
-                <StartingAttributes
-                  selectedClass={ selectedClass }
-                  />
-                <Header inverted as='h3'>
-                    Slots
+  handleCreateHero() {
+    const { createHero, history, notify } = this.props;
+    this.setState({ loading: true });
+    createHero()
+      .then(data => {
+        notify('Hero created', '', 'info');
+        this.setState({ loading: false });
+      })
+      .catch(error => {
+        notify(
+          'Hero not created',
+          'Error communicating with server, try again later',
+          'error'
+        );
+        this.setState({ loading: false });
+      });
+  }
+  
+  render() {
+    const {
+      definitions,
+      selectedClass,
+      setSelectedClass,
+      setName
+    } = this.props;
+  
+    return (
+      <Grid
+        centered
+        padded
+        className={ styles.create_hero_form }
+      >
+        <Grid.Row centered>
+     
+          <Grid.Column>
+            <Container text>
+              <Segment inverted loading={ _.get(definitions, 'loading') }>
+                <Header inverted>
+              Create a hero
                 </Header>
-                <Label.Group color='blue'>
+                <Divider />
+                <Form inverted as={ Grid.Row } divided columns={ 2 }>
+                  <Grid.Column>
+                    <Form.Field>
+                      <label>Class</label>
+                      <Dropdown
+                        selection
+                        fluid
+                        options={
+                          _.map(definitions.heroclasses, classToOption)
+                        }
+                        value={ _.get(selectedClass, 'name') }
+                        onChange={ (e, item) => setSelectedClass(
+                          _.find( definitions.heroclasses, { name: item.value })
+                        ) }
+                      />
+                    </Form.Field>
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Form.Field required>
+                      <label>Name</label>
+                      <Input
+                        inverted
+                        fluid
+                        placeholder='Name...'
+                        onChange={ (event, data) => setName(data.value) }
+                      />
+                    </Form.Field>
+                  </Grid.Column>
+                </Form>
+
+                <Divider />
+              
+                <Grid.Column>
+                  <StartingAttributes
+                    selectedClass={ selectedClass }
+                  />
+                  <Header inverted as='h3'>
+                    Slots
+                  </Header>
+                  <Label.Group color='blue'>
+                    {
+                      _.map(
+                        _.get(selectedClass, 'slots'), slot => {
+                          const slotObj = _.get(
+                            _.find(
+                              _.get(definitions, 'equipmentslots'),
+                              { id: slot }
+                            ), 'name');
+                        
+                          return (
+                            <EquipmentSlot
+                              slot={ slotObj }
+                            />
+                          );
+                        })
+                    }
+                  </Label.Group>
+                  <Divider />
+                  <Header inverted as='h3'>
+                    Abilities
+                  </Header>
                   {
                     _.map(
-                      _.get(selectedClass, 'slots'), slot => {
-                        const slotObj = _.get(
-                          _.find(
-                            _.get(definitions, 'equipmentslots'),
-                            { id: slot }
-                          ), 'name');
-                        
+                      _.get(selectedClass, 'abilities'), ability => {
+                        const abilityDef = _.find(
+                          _.get(definitions, 'abilities'),
+                          { id: ability }
+                        );
                         return (
-                          <EquipmentSlot
-                            slot={ slotObj }
-                          />
+                          <Header inverted as='h4'>
+                            { _.get(abilityDef, 'prettyName') }
+                            <Header.Subheader>
+                              { _.get(abilityDef, 'description') }
+                            </Header.Subheader>
+                          </Header>
+                        );
+                      }
+                    )
+                  }
+                  <Divider />
+    
+                  <Header inverted as='h3'>
+                    Moves
+                  </Header>
+                  {
+                    _.map(
+                      _.get(selectedClass, 'moves'), move => {
+                        const moveDef = _.find(
+                          _.get(definitions, 'moves'),
+                          { id: move }
+                        );
+                        return (
+                          <Header inverted as='h4' className={ styles.hero_class_move }>
+                            { _.get(moveDef, 'prettyName') }
+                            <Header.Subheader>
+                              { _.get(moveDef, 'description') }
+                            </Header.Subheader>
+                          </Header>
+                              
                         );
                       })
                   }
-                </Label.Group>
+                </Grid.Column>
                 <Divider />
-                <Header inverted as='h3'>
-                    Abilities
-                </Header>
-                {
-                  _.map(
-                    _.get(selectedClass, 'abilities'), ability => {
-                      const abilityDef = _.find(
-                        _.get(definitions, 'abilities'),
-                        { id: ability }
-                      );
-                      return (
-                        <Header inverted as='h4'>
-                          { _.get(abilityDef, 'prettyName') }
-                          <Header.Subheader>
-                            { _.get(abilityDef, 'description') }
-                          </Header.Subheader>
-                        </Header>
-                      );
-                    }
-                  )
-                }
-                <Divider />
-    
-                <Header inverted as='h3'>
-                    Moves
-                </Header>
-                {
-                  _.map(
-                    _.get(selectedClass, 'moves'), move => {
-                      const moveDef = _.find(
-                        _.get(definitions, 'moves'),
-                        { id: move }
-                      );
-                      return (
-                        <Header inverted as='h4' className={ styles.hero_class_move }>
-                          { _.get(moveDef, 'prettyName') }
-                          <Header.Subheader>
-                            { _.get(moveDef, 'description') }
-                          </Header.Subheader>
-                        </Header>
-                              
-                      );
-                    })
-                }
-              </Grid.Column>
-              <Divider />
-              <Button primary
-                onClick={ createHero }
-              >
+                <Button primary
+                  onClick={ this.handleCreateHero.bind(this) }
+                  loading={ this.state.loading }
+                >
                 Create
-              </Button>
-            </Segment>
-          </Container>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  );
-};
+                </Button>
+              </Segment>
+            </Container>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    );
+  }
+}
 
 CreateHeroForm.propTypes = {
   definitions: PropTypes.object,
@@ -177,7 +204,8 @@ CreateHeroForm.propTypes = {
   setSelectedClass: PropTypes.func,
   name: PropTypes.string,
   setName: PropTypes.func,
-  createHero: PropTypes.func
+  createHero: PropTypes.func,
+  notify: PropTypes.func
 };
 
 CreateHeroForm.defaultProps = {
@@ -186,7 +214,8 @@ CreateHeroForm.defaultProps = {
   setSelectedClass: () => {},
   name: '',
   setName: () => {},
-  createHero: () => {}
+  createHero: () => {},
+  notify: () => {}
 };
 
 export default CreateHeroForm;

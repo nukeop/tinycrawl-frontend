@@ -18,7 +18,7 @@ export default function HeroesReducer(state=initialState, action) {
   case GET_HERO_START:
     return Object.assign({}, state, { loading: true });
   case GET_HEROES_BY_USER_ID_SUCCESS:
-    return Object.assign({}, state, {
+    return Object.assign({}, {
       ...action.payload.heroes,
       loading: false
     });

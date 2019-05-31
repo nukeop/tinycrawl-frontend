@@ -138,8 +138,8 @@ function createHeroError(error) {
   };
 }
 
-export function createHero(heroData, authToken) {
-  return dispatch => {
+export function createHero(authToken) {
+  return dispatch => heroData => new Promise((resolve, reject) => {
     dispatch(createHeroStart());
     fetch(createHeroRequest(heroData, authToken))
       .then(response => {
@@ -153,11 +153,13 @@ export function createHero(heroData, authToken) {
       })
       .then(data => {
         dispatch(createHeroSuccess(data));
+        resolve(data);
       })
       .catch(error => {
         dispatch(createHeroError(error));
+        reject(error);
       });
-  };
+  });
 }
 
 function deleteHeroStart() {
