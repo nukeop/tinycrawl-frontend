@@ -1,0 +1,13 @@
+@import '../../../colors.scss';
+
+.trait_points_message {
+  display: flex;
+
+  background: $green !important;
+  color: $white !important;
+  box-shadow: none !important;
+
+  .header {
+    color: $white !important;
+  }
+}

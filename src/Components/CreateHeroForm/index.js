@@ -72,7 +72,7 @@ class CreateHeroForm extends React.Component {
             <Container text>
               <Segment inverted loading={ _.get(definitions, 'loading') }>
                 <Header inverted>
-              Create a hero
+                  Create a hero
                 </Header>
                 <Divider />
                 <Form inverted as={ Grid.Row } divided columns={ 2 }>
@@ -118,11 +118,10 @@ class CreateHeroForm extends React.Component {
                     {
                       _.map(
                         _.get(selectedClass, 'slots'), slot => {
-                          const slotObj = _.get(
-                            _.find(
-                              _.get(definitions, 'equipmentslots'),
-                              { id: slot }
-                            ), 'name');
+                          const slotObj = _.find(
+                            _.get(definitions, 'equipmentslots'),
+                            { id: slot }
+                          );
                         
                           return (
                             <EquipmentSlot

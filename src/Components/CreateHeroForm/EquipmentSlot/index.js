@@ -20,19 +20,22 @@ const EquipmentSlot = props => {
           className={ styles.equipment_slot_label }
         >
           <GameIcon
-            name={ mapSlotToIcon(slot) }
+            name={ mapSlotToIcon(slot.name) }
             size='big'
           />
         </Label>
       }
-      content={ slot }
+      content={ slot.prettyName }
     />
     
   );
 };
 
 EquipmentSlot.propTypes = {
-  slot: PropTypes.string
+  slot: PropTypes.shape({
+    name: PropTypes.string,
+    prettyName: PropTypes.string
+  })
 };
 
 EquipmentSlot.defaultProps = {

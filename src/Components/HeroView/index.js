@@ -13,6 +13,7 @@ import HeroAbilities from './HeroAbilities';
 import HeroEquipmentSlots from './HeroEquipmentSlots';
 import HeroMoves from './HeroMoves';
 import HeroStats from './HeroStats';
+import TraitPointsMessage from './TraitPointsMessage';
 
 import styles from './styles.scss';
 
@@ -48,6 +49,12 @@ const HeroView = props => {
                   onClick={ deleteHero }
                 />
               </Grid.Row>
+              {
+                _.get(hero, 'traitPoints') > 0 &&
+                  <TraitPointsMessage
+                    points={ _.get(hero, 'traitPoints') }
+                  />
+              }
               <Divider inverted />
               <Grid.Row columns={ 2 }>
                 <Grid.Column>

@@ -4,13 +4,16 @@ import cx from 'classnames';
 
 import AtomCore from '../../../resources/icons/delapouite/atom-core.svg';
 import ChestArmor from '../../../resources/icons/delapouite/chest-armor.svg';
-import RobotHelmet from '../../../resources/icons/delapouite/robot-helmet.svg';
+import RobotHelmet from
+  '../../../resources/icons/delapouite/robot-helmet.svg';
+import Upgrade from '../../../resources/icons/delapouite/upgrade.svg';
 
 import AtomicSlashes from '../../../resources/icons/lorc/atomic-slashes.svg';
 import BolterGun from '../../../resources/icons/lorc/bolter-gun.svg';
 import Canister from '../../../resources/icons/lorc/cannister.svg';
 import SpaceSuit from '../../../resources/icons/lorc/space-suit.svg';
 import Uncertainty from '../../../resources/icons/lorc/uncertainty.svg';
+
 
 import styles from './styles.scss';
 
@@ -30,6 +33,8 @@ const mapNameToIcon = name => {
     return BolterGun;
   case 'space-suit':
     return SpaceSuit;
+  case 'upgrade':
+    return Upgrade;
   default:
     return Uncertainty;
   }
@@ -47,7 +52,7 @@ const name = props => {
   return (
     <span
       className={cx(
-        styles.tc, styles.game_icon,
+        styles.tc, styles.game_icon, 'ui', 'icon',
         size,
         color,
         className
