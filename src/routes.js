@@ -7,6 +7,7 @@ import {
 import EditProfileView from './Views/EditProfileView';
 import HeroesOverview from './Views/HeroesOverview';
 import HeroViewContainer from './Views/HeroViewContainer';
+import HeroTraitsViewContainer from './Views/HeroTraitsViewContainer';
 import InventoryView from './Views/InventoryView';
 import LoginScreen from './Views/LoginScreen';
 import NotesView from './Views/NotesView';
@@ -16,7 +17,9 @@ import SignOut from './Views/SignOut';
 
 const routes = () => (
   <Switch>
-    <Route exact path='/hero/:heroId' component={ HeroViewContainer } />
+    <Route exact path='/hero/:heroId' component={ HeroViewContainer }
+    />
+    <Route exact path='/hero/:heroId/traits' component={ HeroTraitsViewContainer } />
     <Route exact path='/notes' component={ NotesView } />
     <Route exact path='/login' component={ LoginScreen } />
     <Route exact path='/heroes' component={ HeroesOverview } />

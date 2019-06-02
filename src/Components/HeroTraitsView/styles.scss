@@ -1,0 +1,28 @@
+@import '../../colors.scss';
+
+.hero_traits_view {
+  width: 100%;
+  justify-content: center;
+
+  .header_row {    
+    h1 {
+      font-variant: small-caps;
+      width: 100% !important;
+    }
+  }
+  
+  .divider {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .traits_list {
+    .item {
+      cursor: pointer;
+    }
+    
+    .active.item {
+      color: $white !important;
+    }
+  }
+}
