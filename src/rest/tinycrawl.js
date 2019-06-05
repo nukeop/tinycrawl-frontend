@@ -120,3 +120,16 @@ export function deleteHeroRequest(uuid, authToken) {
     }
   );
 }
+
+export function buyTraitRequest(heroId, traitId, authToken) {
+  const headers = createAuthorizedRequestHeaders(authToken);
+
+  return new Request(
+    `${backendUrl}/heroes/${heroId}/buyTrait`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ traitId }),
+      headers
+    }
+  );
+}

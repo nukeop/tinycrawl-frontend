@@ -14,6 +14,7 @@ import HeroEquipmentSlots from './HeroEquipmentSlots';
 import HeroMoves from './HeroMoves';
 import HeroStats from './HeroStats';
 import TraitPointsMessage from './TraitPointsMessage';
+import TraitsList from './TraitsList';
 
 import styles from './styles.scss';
 
@@ -65,9 +66,11 @@ const HeroView = props => {
                 <Grid.Column>
                   <HeroAbilities abilities={ _.get(hero, 'abilities') }/>
                   <Divider />
-                  <HeroMoves moves={ _.get(hero, 'moves') }/>
+                  <HeroMoves moves={ _.get(hero, 'moves') } />
                 </Grid.Column>
               </Grid.Row>
+              <Divider inverted />
+              <TraitsList traits={ _.get(hero, 'traits') } />
             </Segment>
           </Container>
         </Grid.Column>

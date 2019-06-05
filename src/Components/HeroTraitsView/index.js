@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import {
@@ -15,10 +16,11 @@ import {
 
 import styles from './styles.scss';
 
-const traitsToListItems = (traits, selectedTrait, onSelect) => _.map(traits, t => {
+const traitsToListItems = (traits, selectedTrait, traitPoints, onSelect) => _.map(traits, t => {
   return (
     <List.Item
-      active={ t.name === selectedTrait.name }
+      className={cx({ 'unavailable': t.points > traitPoints })}
+      active={ t.name === _.get(selectedTrait, 'name') }
       onClick={ () => onSelect(t) }
     >
       { t.prettyName }
@@ -30,8 +32,40 @@ class HeroTraitsView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTrait: null
+      selectedTrait: null,
+      loading: false
     };
+  }
+
+  handleBuyTrait(traitId) {
+    const { hero, buyTrait } = this.props;
+
+    this.setState({ loading: true });
+    buyTrait(hero.id, traitId)
+      .then(() => {
+        this.setState({ loading: false });
+      })
+      .catch(error => {
+        this.setState({ loading: false });
+      });
+  }
+
+  hasTrait(trait, hero) {
+    return _.find(_.get(hero, 'traits'), { name: _.get(trait,  'name') });
+  }
+
+  hasTraitName(name, hero) {
+    return _.find(_.get(hero, 'traits'), { name });
+  }
+
+  hasPrerequisiteTraits(trait, hero) {
+    return _.every(_.map(_.get(trait, 'prerequisites'), prereq => this.hasTraitName(prereq, hero)));
+  }
+
+  canBuyTrait(trait, hero) {
+    return _.get(trait, 'points') <= _.get(hero, 'traitPoints') &&
+      !this.hasTrait(trait, hero) &&
+      this.hasPrerequisiteTraits(trait, hero);
   }
 
   componentDidUpdate(prevProps) {
@@ -87,6 +121,12 @@ class HeroTraitsView extends React.Component {
                   />
                 </Grid.Row>
                 <Divider inverted />
+                <Grid.Row>
+                  <Header inverted as='h4'>
+                    Points left: { _.get(hero, 'traitPoints') }
+                  </Header>
+                </Grid.Row>
+                <Divider inverted />
                 {
                   !loading &&
                   <Grid>
@@ -104,6 +144,7 @@ class HeroTraitsView extends React.Component {
                                   traitsToListItems(
                                     group,
                                     this.state.selectedTrait,
+                                    _.get(hero, 'traitPoints'),
                                     onSelect
                                   ) }
                               </List>
@@ -115,26 +156,43 @@ class HeroTraitsView extends React.Component {
                   </Grid>
                 }
                 <Divider inverted/>
-                <Grid.Row padded>
-                  {
-                    this.state.selectedTrait &&
-                      <Label
-                        color={ this.state.selectedTrait.points >= 0 ? 'green' : 'red'}
-                      >
-                      Costs { this.state.selectedTrait.points } points
-                      </Label>
-                  }
+                <Grid.Row padded className={styles.selected_trait_header}>
+                  <Header inverted as='h4'>
+                    { _.get(this.state.selectedTrait, 'prettyName') }
+
+                    <Label
+                      color={ _.get(this.state.selectedTrait, 'points') >= 0 ? 'green' : 'red'}
+                    >
+                      Costs { _.get(this.state.selectedTrait, 'points') } points
+                    </Label>
+                  </Header>
+                  
                 </Grid.Row>
                 <Grid.Row>
+                  { _.get(this.state.selectedTrait, 'description') }
+                </Grid.Row>
+                
+                <Grid.Row className={styles.purchase_button_row}>
                   {
-                    this.state.selectedTrait &&
-                      <span>
-                        {
-                          this.state.selectedTrait.description
-                        }
-                      </span>
+                    this.canBuyTrait(this.state.selectedTrait, hero) &&
+                      <Button
+                        primary
+                        onClick={ () =>
+                          this.handleBuyTrait.bind(this)(
+                            _.get(this.state.selectedTrait, 'id')) }
+                        loading={ this.state.loading }
+                      >
+                        Buy
+                      </Button>
+                  }
+                  {
+                    this.hasTrait(this.state.selectedTrait, hero) &&
+                    <Label color='blue'>
+                      Trait already owned
+                    </Label>
                   }
                 </Grid.Row>
+
                 
               </Segment>
             </Container>
@@ -151,6 +209,7 @@ HeroTraitsView.propTypes = {
     name: PropTypes.string
   }),
   definitions: PropTypes.object,
+  buyTrait: PropTypes.func,
   match: PropTypes.shape({
     url: PropTypes.string
   })
@@ -160,6 +219,7 @@ HeroTraitsView.defaultProps = {
   loading: false,
   hero: {},
   definitions: {},
+  buyTrait: () => {},
   match: {}
 };
 

@@ -35,15 +35,19 @@ class HeroTraitsViewContainer extends React.Component {
     const {
       user,
       heroes,
+      heroActions,
       definitions,
       match
     } = this.props;
+
+    const token = _.get(user, 'credentials.token');
   
     return (
       <HeroTraitsView
         loading={ _.get(heroes, 'loading') }
         hero={ _.get(heroes, match.params.heroId) }
         definitions={ definitions }
+        buyTrait={ heroActions.buyTrait(token) }
       />
     );
   }
@@ -60,7 +64,8 @@ HeroTraitsViewContainer.propTypes = {
     heroes: PropTypes.array
   }),
   heroActions: PropTypes.shape({
-    getHero: PropTypes.func
+    getHero: PropTypes.func,
+    buyTrait: PropTypes.func
   }),
   definitions: PropTypes.object,
   definitionsActions: PropTypes.shape({

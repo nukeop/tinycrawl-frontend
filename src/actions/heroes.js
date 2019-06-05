@@ -4,7 +4,8 @@ import {
   createHeroRequest,
   deleteHeroRequest,
   getUserHeroesRequest,
-  getHeroRequest
+  getHeroRequest,
+  buyTraitRequest
 } from '../rest/tinycrawl';
 
 export const CREATE_HERO_START = 'CREATE_HERO_START';
@@ -22,6 +23,8 @@ export const GET_HERO_ERROR = 'GET_HERO_ERROR';
 export const GET_HEROES_BY_USER_ID_START = 'GET_HEROES_BY_USER_ID_START';
 export const GET_HEROES_BY_USER_ID_SUCCESS = 'GET_HEROES_BY_USER_ID_SUCCESS';
 export const GET_HEROES_BY_USER_ID_ERROR = 'GET_HEROES_BY_USER_ID_ERROR';
+
+export const BUY_TRAIT = 'BUY_TRAIT';
 
 function getHeroStart() {
   return {
@@ -202,4 +205,22 @@ export function deleteHero(uuid, authToken) {
       });
     
   };
+}
+
+export function buyTrait(authToken) {
+  return dispatch => (heroId, traitId) => new Promise((resolve, reject) => {
+    fetch(buyTraitRequest(heroId, traitId, authToken))
+      .then(response => {
+        if(response.ok) {
+          resolve();
+        } else {
+          throw new Error(
+            `Could not buy trait: ${_.get(response, 'message')}`
+          );
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
 }
