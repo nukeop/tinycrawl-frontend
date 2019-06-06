@@ -93,7 +93,7 @@ function getHeroesByUserIdError(error) {
 }
 
 export function getHeroesByUserId(userId) {
-  return dispatch => {
+  return dispatch => new Promise((resolve, reject) => {
     dispatch(getHeroesByUserIdStart());
     fetch(getUserHeroesRequest(userId))
       .then(response => {
@@ -114,11 +114,14 @@ export function getHeroesByUserId(userId) {
           ];
         }));
         dispatch(getHeroesByUserIdSuccess(transformedData));
+        resolve(transformedData);
       })
       .catch(error => {
         dispatch(getHeroesByUserIdError(error));
+        reject(error);
       });
-  };
+  
+  });
 }
 
 function createHeroStart() {

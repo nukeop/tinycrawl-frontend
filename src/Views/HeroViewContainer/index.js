@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import * as DefinitionsActions from '../../actions/definitions';
 import * as HeroActions from '../../actions/heroes';
+import * as UserActions from '../../actions/user';
 
 import HeroView from '../../Components/HeroView';
 
@@ -15,17 +16,31 @@ class HeroViewContainer extends React.Component {
 
   componentDidMount() {
     const {
-      heroes,
       definitions,
-      match,
       heroActions,
+      userActions,
       definitionsActions
     } = this.props;
 
-    if(_.isNil(_.get(heroes), match.params.heroId)) {
-      heroActions.getHero(match.params.heroId);
+    const username = _.get(this.props.user, 'credentials.username');
+    
+    if (!_.isNil(username)) {
+      userActions.getUser(
+        username,
+        _.get(this.props.user, 'credentials.token')
+      )
+        .then(userData => {
+          return heroActions.getHeroesByUserId(userData.id);
+        })
+        .then(heroesData => {
+          return Promise.all(
+            _.map(heroesData, hero => {
+              return heroActions.getHero(hero._id);
+            })
+          );
+        });
     }
-
+    
     if(_.isEmpty(definitions)) {
       definitionsActions.getDefinitions();
     }
@@ -45,6 +60,7 @@ class HeroViewContainer extends React.Component {
       <HeroView
         loading={ _.get(heroes, 'loading') }
         hero={ _.get(heroes, match.params.heroId) }
+        heroes={ _.omit(heroes, 'loading') }
         deleteHero={ () => heroActions.deleteHero(match.params.heroId, token) }
       />
     );
@@ -65,6 +81,9 @@ HeroViewContainer.propTypes = {
   heroActions: PropTypes.shape({
     getHero: PropTypes.func,
     deleteHero: PropTypes.func
+  }),
+  userActions: PropTypes.shape({
+    getUser: PropTypes.func
   }),
   definitionsActions: PropTypes.shape({
     getDefinitions: PropTypes.func
@@ -92,7 +111,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     definitionsActions: bindActionCreators(DefinitionsActions, dispatch),
-    heroActions: bindActionCreators(HeroActions, dispatch)
+    heroActions: bindActionCreators(HeroActions, dispatch),
+    userActions: bindActionCreators(UserActions, dispatch)
   };
 }
 

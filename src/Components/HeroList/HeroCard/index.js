@@ -16,7 +16,7 @@ const HeroCard = props => {
   } = props;
   
   return (
-    <Link to={`hero/${_.get(hero, '_id')}`} className={styles.hero_card}>
+    <Link to={`/hero/${_.get(hero, '_id')}`} className={styles.hero_card}>
       <Grid>
         <Grid.Row>
           <Header inverted as='h3'>

@@ -58,14 +58,14 @@ const HeroList = props => {
             {
               _.map(heroes, (hero, i) => {
                 return (
-                  <React.Fragment>
+                  <>
                     <HeroCard
                       key={ hero.id }
                       hero={ hero }
                       definitions={ definitions }
                     />
                     { i < heroes.length - 1 && <Divider />}
-                  </React.Fragment>
+                  </>
                 );
               })
             }

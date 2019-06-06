@@ -6,12 +6,15 @@ import {
   Divider,
   Grid,
   Header,
+  Rail,
+  Responsive,
   Segment
 } from 'semantic-ui-react';
 
 import HeroAbilities from './HeroAbilities';
 import HeroEquipmentSlots from './HeroEquipmentSlots';
 import HeroMoves from './HeroMoves';
+import HeroSelection from './HeroSelection';
 import HeroStats from './HeroStats';
 import TraitPointsMessage from './TraitPointsMessage';
 import TraitsList from './TraitsList';
@@ -22,6 +25,7 @@ const HeroView = props => {
   const {
     loading,
     hero,
+    heroes,
     deleteHero
   } = props;
   
@@ -35,6 +39,20 @@ const HeroView = props => {
         <Grid.Column>
           <Container text>
             <Segment inverted loading={ loading }>
+              {
+                !loading &&
+                <Responsive
+                  minWidth={ 1366 }
+                  as={Rail}
+                  position='left'
+                >
+                  <Segment inverted>
+                    <HeroSelection
+                      heroes={ heroes }
+                    />
+                  </Segment>
+                </Responsive>
+              }
               <Grid.Row>
                 <Header inverted as='h1'>
                   { hero.name }
@@ -81,8 +99,20 @@ const HeroView = props => {
 
 HeroView.propTypes = {
   hero: PropTypes.shape({
-    name: PropTypes.string
+    name: PropTypes.string,
+    heroClass: PropTypes.string,
+    level: PropTypes.number,
+    moves: PropTypes.array,
+    traits: PropTypes.array,
+    abilities: PropTypes.array
   }),
+  heroes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      heroClass: PropTypes.string,
+      level: PropTypes.number
+    })
+  ),
   deleteHero: PropTypes.func,
   loading: PropTypes.bool
 };
