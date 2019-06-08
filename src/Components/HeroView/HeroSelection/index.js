@@ -52,7 +52,9 @@ HeroSelection.propTypes = {
   heroes: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
-      heroClass: PropTypes.string,
+      heroClass: PropTypes.shape({
+        prettyName: PropTypes.string
+      }),
       level: PropTypes.number
     })
   )

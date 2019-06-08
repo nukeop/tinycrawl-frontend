@@ -1,0 +1,10 @@
+@import '../../../colors.scss';
+
+.excluded_traits_warning {
+  margin-top: 1em;
+  color: $yellow;
+
+  div {
+    color: $white;
+  }
+}

@@ -14,6 +14,8 @@ import {
   Segment
 } from 'semantic-ui-react';
 
+import ExcludedTraitsWarning from './ExcludedTraitsWarning';
+
 import styles from './styles.scss';
 
 const traitsToListItems = (traits, selectedTrait, traitPoints, onSelect) => _.map(traits, t => {
@@ -170,6 +172,13 @@ class HeroTraitsView extends React.Component {
                 </Grid.Row>
                 <Grid.Row>
                   { _.get(this.state.selectedTrait, 'description') }
+                </Grid.Row>
+
+                <Grid.Row>
+                  <ExcludedTraitsWarning
+                    trait={ this.state.selectedTrait }
+                    traitDefinitions={ definitions.traits }
+                  />
                 </Grid.Row>
                 
                 <Grid.Row className={styles.purchase_button_row}>

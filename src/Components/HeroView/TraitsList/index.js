@@ -1,16 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Header } from 'semantic-ui-react';
+import { withRouter, Link } from 'react-router-dom';
+import { Button, Grid, Header } from 'semantic-ui-react';
 
 import styles from './styles.scss';
 
 const TraitsList = props => {
-  const { traits } = props;
+  const { match, traits } = props;
   return (
     <>
-      <Header invert as='h3'>
-        Traits
-      </Header>
+      <Grid.Row className={styles.hero_traits_header_row}>
+        <Header inverted as='h3'>
+          Traits
+        </Header>
+        <Button
+          compact
+          primary
+          size='tiny'
+          as={ Link }
+          to={`${match.url}/traits`}
+        >
+          Edit
+        </Button>
+      </Grid.Row>
       {
         _.map(traits, trait => {
           return (
@@ -39,4 +51,4 @@ TraitsList.defaultProps = {
   traits: []
 };
 
-export default TraitsList;
+export default withRouter(TraitsList);
