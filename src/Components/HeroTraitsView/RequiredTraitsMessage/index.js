@@ -4,7 +4,7 @@ import { List } from 'semantic-ui-react';
 
 import styles from './styles.scss';
 
-const ExcludedTraitsWarning = props => {
+const RequiredTraitsMessage = props => {
   const {
     trait,
     traitDefinitions
@@ -15,18 +15,18 @@ const ExcludedTraitsWarning = props => {
   }
   
   return (
-    <div className={styles.excluded_traits_warning}>
+    <div className={styles.required_traits_message}>
       {
-        !_.isEmpty(trait.excludes) &&
-        'Buying this trait will exclude the following traits:'
+        !_.isEmpty(trait.prerequisites) &&
+          'Prerequisites:'
       }
       <List>
         {
-          _.map(trait.excludes, excluded => {
+          _.map(trait.prerequisites, prereq => {
             return (
-              <List.Item key={ excluded }>
+              <List.Item key={ prereq }>
                 {
-                  _.get(_.find(traitDefinitions, { name: excluded }), 'prettyName')
+                  _.get(_.find(traitDefinitions, { name: prereq }), 'prettyName')
                 }
               </List.Item>
             );
@@ -37,16 +37,17 @@ const ExcludedTraitsWarning = props => {
   );
 };
 
-ExcludedTraitsWarning.propTypes = {
+
+RequiredTraitsMessage.propTypes = {
   trait: PropTypes.shape({
-    excludes: PropTypes.arrayOf(PropTypes.string)
+    prerequisites: PropTypes.arrayOf(PropTypes.string)
   }),
   traitDefinitions: PropTypes.array
 };
 
-ExcludedTraitsWarning.defaultProps = {
+RequiredTraitsMessage.defaultProps = {
   trait: {},
   traitDefinitions: []
 };
 
-export default ExcludedTraitsWarning;
+export default RequiredTraitsMessage;

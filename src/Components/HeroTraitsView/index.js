@@ -14,6 +14,7 @@ import {
   Segment
 } from 'semantic-ui-react';
 
+import RequiredTraitsMessage from './RequiredTraitsMessage';
 import ExcludedTraitsWarning from './ExcludedTraitsWarning';
 
 import styles from './styles.scss';
@@ -24,6 +25,7 @@ const traitsToListItems = (traits, selectedTrait, traitPoints, onSelect) => _.ma
       className={cx({ 'unavailable': t.points > traitPoints })}
       active={ t.name === _.get(selectedTrait, 'name') }
       onClick={ () => onSelect(t) }
+      key={ t.name }
     >
       { t.prettyName }
     </List.Item>
@@ -134,9 +136,9 @@ class HeroTraitsView extends React.Component {
                   <Grid>
                     <Grid.Row columns={ 2 }>
                       {
-                        _.map(groupedTraits, group => {
+                        _.map(groupedTraits, (group, i) => {
                           return (
-                            <Grid.Column width={ 4 }>
+                            <Grid.Column width={ 4 } key={ i }>
                               <List
                                 link
                                 inverted
@@ -158,7 +160,7 @@ class HeroTraitsView extends React.Component {
                   </Grid>
                 }
                 <Divider inverted/>
-                <Grid.Row padded className={styles.selected_trait_header}>
+                <Grid.Row className={styles.selected_trait_header}>
                   <Header inverted as='h4'>
                     { _.get(this.state.selectedTrait, 'prettyName') }
 
@@ -169,6 +171,12 @@ class HeroTraitsView extends React.Component {
                     </Label>
                   </Header>
                   
+                </Grid.Row>
+                <Grid.Row>
+                  <RequiredTraitsMessage
+                    trait={ this.state.selectedTrait }
+                    traitDefinitions={ definitions.traits }
+                  />
                 </Grid.Row>
                 <Grid.Row>
                   { _.get(this.state.selectedTrait, 'description') }
