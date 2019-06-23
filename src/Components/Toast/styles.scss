@@ -40,22 +40,25 @@
     animation: toast-anim-up 0.5s ease-in-out;
   }
 
+  .toast_grid {
+    width: 100%;
+  }
+
   .toast_icon {
-    @include flexCentered;
-    flex: 0 0 auto;
-    font-size: 3rem;
-    margin-right: 1.5rem;
+    display: inline-flex !important;
+    width: auto !important;
     
     i {
       @include flexCentered;
+      margin: 0 !important;
     }
   }
 
-  .toast_text {
-    display: flex;
-    flex-flow: column;
+  .content_column {
+    display: flex !important;
     flex: 1 1 auto;
     justify-content: center;
+    padding-left: 0 !important;
   }
 
   .toast_close {
@@ -63,6 +66,7 @@
     top: 1em;
     right: 1em;
     font-size: 12px;
+    padding: 0 !important;
   }
 }
 

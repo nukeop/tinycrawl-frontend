@@ -2,11 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
+  Grid,
   Icon,
-  Message
+  Segment
 } from 'semantic-ui-react';
 
 import styles from './styles.scss';
+
+const levelToColor = level => {
+  switch(level) {
+  case 'error':
+    return 'red';
+  case 'success':
+    return 'green';
+  case 'info':
+  default:
+    return 'blue';
+  }
+};
 
 const levelToIcon = level => {
   switch(level) {
@@ -15,7 +28,7 @@ const levelToIcon = level => {
   case 'warning':
     return 'warning sign';
   case 'error':
-    return 'times';
+    return 'exclamation';
   case 'success':
     return 'checkmark';
   case 'neutral':
@@ -35,7 +48,8 @@ const Toast = props => {
   } = props;
 
   return (
-    <Message
+    <Segment
+      inverted
       className={
         classnames(
           styles.tc,
@@ -45,6 +59,7 @@ const Toast = props => {
           {[`${styles.bottom_left}`]: placement === 'bottom-left'},
           {[`${styles.bottom_right}`]: placement === 'bottom-right'}
         )}
+      color={ levelToColor(level) }
       info={level === 'info'}
       warning={level === 'warning'}
       error={level === 'error'}
@@ -52,19 +67,30 @@ const Toast = props => {
       style={ style }
       onClick={ onClick }
     >
-      <div className={styles.toast_icon}>
-        <Icon name={ levelToIcon(level) } />
-      </div>
-      <div className={styles.toast_text}>
-        <Message.Header>
-          { title }
-        </Message.Header>
-        { children }
-      </div>
-      <div className={styles.toast_close}>
-        <Icon name='times'/>
-      </div>
-    </Message>
+      <Grid className={styles.toast_grid}>
+        <Grid.Column
+          className={styles.toast_icon}
+        >
+          <Icon
+            size='big'
+            name={levelToIcon(level)}
+          />
+        </Grid.Column>
+        <Grid.Column
+          className={styles.content_column}
+        >
+          <Grid.Row className={styles.toast_header}>
+            { title }
+          </Grid.Row>
+          <Grid.Row className={styles.toast_content}>
+            { children }
+          </Grid.Row>
+        </Grid.Column>
+        <div className={styles.toast_close}>
+          <Icon name='times'/>
+        </div>
+      </Grid>      
+    </Segment>
   );
 };
 
