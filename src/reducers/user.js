@@ -24,7 +24,11 @@ import {
 
   GET_USER_INVENTORY_START,
   GET_USER_INVENTORY_SUCCESS,
-  GET_USER_INVENTORY_ERROR
+  GET_USER_INVENTORY_ERROR,
+
+  GET_USER_AREAS_START,
+  GET_USER_AREAS_SUCCESS,
+  GET_USER_AREAS_ERROR
 } from '../actions/user';
 
 const initialState = {
@@ -160,6 +164,39 @@ export default function UserReducer(state=initialState, action) {
         })
       })
     });
+  case GET_USER_AREAS_START:
+    return {
+      ...state,
+      users: {
+        ...state.users,
+        [`${action.payload.username}`]: {
+          ..._.get(state.users, action.payload.username),
+          areas: { loading: true }
+        }
+      }
+    };
+  case GET_USER_AREAS_SUCCESS:
+    return {
+      ...state,
+      users: {
+        ...state.users,
+        [`${action.payload.username}`]: {
+          ..._.get(state.users, action.payload.username),
+          ...action.payload.data
+        }
+      }
+    };
+  case GET_USER_AREAS_ERROR:
+    return {
+      ...state,
+      users: {
+        ...state.users,
+        [`${action.payload.username}`]: {
+          ..._.get(state.users, action.payload.username),
+          areas: { error: true }
+        }
+      }
+    };  
   case USER_SIGN_OUT:
     return {};
   default:

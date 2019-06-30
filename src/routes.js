@@ -4,6 +4,7 @@ import {
   Switch
 } from 'react-router-dom';
 
+import AreasOverviewContainer from './Views/AreasOverviewContainer';
 import EditProfileView from './Views/EditProfileView';
 import HeroesOverview from './Views/HeroesOverview';
 import HeroViewContainer from './Views/HeroViewContainer';
@@ -17,6 +18,7 @@ import SignOut from './Views/SignOut';
 
 const routes = () => (
   <Switch>
+    <Route exact path='/areas' component={ AreasOverviewContainer } />
     <Route exact path='/hero/:heroId' component={ HeroViewContainer }
     />
     <Route exact path='/hero/:heroId/traits' component={ HeroTraitsViewContainer } />

@@ -20,11 +20,12 @@ class HeroesOverview extends React.Component {
     const {
       definitions,
       definitionsActions,
+      user,
       userActions,
       heroActions,
     } = this.props;
     
-    const username = _.get(this.props.user, 'credentials.username');
+    const username = _.get(user, 'credentials.username');
 
     if(_.isEmpty(definitions)) {
       definitionsActions.getDefinitions();
@@ -33,7 +34,7 @@ class HeroesOverview extends React.Component {
     if (!_.isNil(username)) {
       userActions.getUser(
         username,
-        _.get(this.props.user, 'credentials.token')
+        _.get(user, 'credentials.token')
       )
         .then(userData => {
           heroActions.getHeroesByUserId(userData.id);

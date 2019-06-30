@@ -61,6 +61,12 @@ export function getUserInventoryRequest(username) {
   );
 }
 
+export function getUserAreasRequest(username) {
+  return new Request(
+    `${backendUrl}/users/username/${username}/areas`
+  );
+}
+
 export function getNotesPartsRequest() {
   return new Request(
     `${backendUrl}/notesParts`
@@ -95,6 +101,16 @@ export function useItemRequest(uuid, authToken) {
     }
   );
 }
+
+export function discoverAreaRequest(authToken) {
+  const headers = createAuthorizedRequestHeaders(authToken);
+
+  return new Request(
+    `${backendUrl}/areas/discover`,
+    { method: 'POST', headers }
+  );
+}
+
 
 export function createHeroRequest(heroData, authToken) {
   const headers = createAuthorizedRequestHeaders(authToken);

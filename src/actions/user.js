@@ -4,6 +4,7 @@ import {
   getUserRequest,
   getUserHeroesRequest,
   getUserInventoryRequest,
+  getUserAreasRequest,
   putUserRequest
 } from '../rest/tinycrawl';
 import { notify } from './notifications';
@@ -32,6 +33,10 @@ export const GET_USER_HEROES_ERROR = 'GET_USER_HEROES_ERROR';
 export const GET_USER_INVENTORY_START = 'GET_USER_INVENTORY_START';
 export const GET_USER_INVENTORY_SUCCESS = 'GET_USER_INVENTORY_SUCCESS';
 export const GET_USER_INVENTORY_ERROR = 'GET_USER_INVENTORY_ERROR';
+
+export const GET_USER_AREAS_START = 'GET_USER_AREAS_START';
+export const GET_USER_AREAS_SUCCESS = 'GET_USER_AREAS_SUCCESS';
+export const GET_USER_AREAS_ERROR = 'GET_USER_AREAS_ERROR';
 
 export const PUT_USER_START = 'PUT_USER_START';
 export const PUT_USER_SUCCESS = 'PUT_USER_SUCCESS';
@@ -302,6 +307,47 @@ export function getUserInventory(username) {
       })
       .catch(error => {
         dispatch(getUserInventoryError(username, error));
+      });
+  };
+}
+
+function getUserAreasStart(username) {
+  return {
+    type: GET_USER_AREAS_START,
+    payload: { username }
+  };
+}
+
+function getUserAreasSuccess(username, data) {
+  return {
+    type: GET_USER_AREAS_SUCCESS,
+    payload: { username, data }
+  };
+}
+
+function getUserAreasError(username, error) {
+  return {
+    type: GET_USER_AREAS_ERROR,
+    payload: { username, error }
+  };
+}
+
+export function getUserAreas(username) {
+  return dispatch => {
+    dispatch(getUserAreasStart(username));
+    fetch(getUserAreasRequest(username))
+      .then(response => {
+        if(response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`Could not get user areas: ${response.status}: ${response.statusText}`);
+        }
+      })
+      .then(data => {
+        dispatch(getUserAreasSuccess(username, data));
+      })
+      .catch(error => {
+        dispatch(getUserAreasError(username, error));
       });
   };
 }

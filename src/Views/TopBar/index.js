@@ -47,6 +47,9 @@ const TopBar = props => {
       <Menu.Item as={NavLink} to='/heroes' activeClassName='active'>
         <Icon name='space shuttle' /> Heroes
       </Menu.Item>
+      <Menu.Item as={NavLink} to='/areas' activeClassName='active'>
+        <Icon name='map' /> Areas
+      </Menu.Item>
         
       <Menu.Menu position='right'>
         {

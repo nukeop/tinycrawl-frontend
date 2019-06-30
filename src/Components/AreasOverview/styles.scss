@@ -1,0 +1,24 @@
+@import '../../colors.scss';
+
+.areas_overview {
+  width: 100%;
+
+  .ui.list,
+  .ui.items {
+    margin: 0 !important;
+    color: $white !important;
+  }
+
+  .item {
+    .content {
+      .header,
+      .description {
+        color: $white !important;
+      }
+
+      .meta {
+        color: rgba($white, 0.7) !important;
+      }
+    }
+  }
+}
