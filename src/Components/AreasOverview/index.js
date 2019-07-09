@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Button,
   Container,
   Dimmer,
   Grid,
@@ -12,20 +13,48 @@ import {
   Segment
 } from 'semantic-ui-react';
 
+import constants from '../../constants';
+import GameIcon from '../GameIcon';
 import AreaListItem from './AreaListItem';
 
 import styles from './styles.scss';
 
-const AreasOverview = ({ areas, environments, environmentalFeatures }) => {
+const AreasOverview = ({
+  areas,
+  environments,
+  environmentalFeatures,
+  discover
+}) => {
   return (
     <Grid
       centered
       padded
       className={styles.areas_overview}
     >
-      <Grid.Row centered>
-        <Grid.Column>
-          <Container text>
+      <Grid.Column>
+        
+        <Container text>
+          <Grid.Column className={styles.discover_column}>
+            <Segment inverted>
+              <Button
+                className={styles.discover_button}
+                primary
+                inverted
+                fluid
+                size='huge'
+                onClick={ discover }
+              >
+              Discover a new area (1
+                <GameIcon
+                  name='atomic-slashes'
+                  className={styles.currency_icon}
+                />
+              )
+              </Button>
+            </Segment>
+          </Grid.Column>
+          
+          <Grid.Column>
             <Segment inverted>
               <Dimmer active={ areas.loading }>
                 <Loader />
@@ -55,19 +84,25 @@ const AreasOverview = ({ areas, environments, environmentalFeatures }) => {
               }
                 
             </Segment>
-          </Container>
-        </Grid.Column>     
-      </Grid.Row>
+          </Grid.Column>
+        </Container>
+      </Grid.Column>
     </Grid>
   );
 };
 
 AreasOverview.propTypes = {
-  areas: PropTypes.array
+  areas: PropTypes.array,
+  environments: PropTypes.array,
+  environmentalFeatures: PropTypes.array,
+  discover: PropTypes.func
 };
 
 AreasOverview.defaultProps = {
-  areas: {}
+  areas: [],
+  environments: [],
+  environmentalFeatures: [],
+  discover: () => {}
 };
 
 export default AreasOverview;

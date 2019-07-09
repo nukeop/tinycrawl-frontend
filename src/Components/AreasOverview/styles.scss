@@ -1,8 +1,26 @@
 @import '../../colors.scss';
+@import '../../mixin.scss';
 
 .areas_overview {
   width: 100%;
 
+  .discover_column {
+    margin-bottom: 1em;
+  }
+
+  .discover_button {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .currency_icon {
+    @include borderRadius;
+    overflow: hidden;
+    fill: $strangeMatter;
+    margin-left: 0.25em !important;
+  }
+  
   .ui.list,
   .ui.items {
     margin: 0 !important;

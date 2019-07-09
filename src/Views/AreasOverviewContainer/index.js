@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import * as AreasActions from '../../actions/areas';
 import * as DefinitionsActions from '../../actions/definitions';
 import * as UserActions from '../../actions/user';
 
@@ -30,15 +31,22 @@ class AreasOverviewContainer extends React.Component {
   }
 
   render() {
-    const { definitions, user } = this.props;
+    const {
+      definitions,
+      user,
+      areasActions
+    } = this.props;
+    
     const username = _.get(user, 'credentials.username');
     const currentUser = _.get(user, `users[${username}]`);
+    const token = _.get(user, 'credentials.token');
     
     return (
       <AreasOverview
         areas={ _.get(currentUser, 'areas') }
         environments={ _.get(definitions, 'environments') }
         environmentalFeatures={ _.get(definitions, 'environmentalfeatures') }
+        discover={ () => areasActions.discoverArea(token) }
       />
     );
   }
@@ -60,25 +68,35 @@ AreasOverviewContainer.propTypes = {
   }),
   definitionsActions: PropTypes.shape({
     getDefinitions: PropTypes.func
+  }),
+  areas: PropTypes.shape({}),
+  areasActions: PropTypes.shape({
+    discoverArea: PropTypes.func
   })
 };
 
 AreasOverviewContainer.defaultProps = {
   user: {},
-  userActions: {}
+  userActions: {},
+  definitions: {},
+  definitionsActions: {},
+  areas: {},
+  areasActions: {}
 };
 
 function mapStateToProps(state) {
   return {
     user: state.user,
-    definitions: state.definitions
+    definitions: state.definitions,
+    areas: state.areas
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     userActions: bindActionCreators(UserActions, dispatch),
-    definitionsActions: bindActionCreators(DefinitionsActions, dispatch)
+    definitionsActions: bindActionCreators(DefinitionsActions, dispatch),
+    areasActions: bindActionCreators(AreasActions, dispatch)
   };
 }
 

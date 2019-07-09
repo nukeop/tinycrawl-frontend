@@ -2,19 +2,19 @@
 
 .tc.game_icon {
   display: inline-block;
-  height: 1em;
+  height: 1em !important;
   text-align: center;
 
   &.large {
-    height: 1.5em;
+    height: 1.5em !important;
   }
   
   &.big {
-    height: 3em;
+    height: 3em !important;
   }
 
   &.huge {
-    height: 5em;
+    height: 5em !important;
   }
 
   &.blue {
